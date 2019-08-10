@@ -8,11 +8,11 @@ function macro(t, a, b, r) {
 
 macro.title = (providedTitle = "merge", a, b) => `${providedTitle} ${a} ${b}`.trim();
 
-macro( 1, 2, 2);
-macro( 1, undefined, 1);
-macro( undefined, 2, 2);
+test(macro, 1, 2, 2);
+test(macro, 1, undefined, 1);
+//test(macro, undefined, 2, 2);
 
-macro( "a", "b", "b");
-macro( "a", undefined, "a");
+test(macro, "a", "b", "b");
+//test(macro, "a", undefined, "a");
 
-macro( undefined, undefined, undefined);
+//test(macro, undefined, undefined, undefined);

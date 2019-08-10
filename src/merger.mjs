@@ -144,14 +144,32 @@ const slots = {
 
 
 /**
- * merge to values
+ * merge to val
  * @param {any} a
  * @param {any} b
- * @param {string[]} path
- * @param {string[]} messages
  * @return {any} merged value
  */
-export function merge(a, b, path = [], messages = []) {
+export function merge(a,b)
+{
+  if (isScalar(a)) {
+
+    if(b !== undefined) {
+      return b;
+    }
+    return a;
+    /*
+    const x = toBeDeleted(a, b);
+    if (x.delete) {
+      return undefined;
+    }
+    return x.keepOriginal ? a : b;
+    */
+  }
+
+  return a;
+}
+
+export function _merge(a, b, path = [], messages = []) {
   const location = path.join(".");
 
   //console.log(location, typeof a, typeof b);
@@ -179,13 +197,6 @@ export function merge(a, b, path = [], messages = []) {
     return a;
   }
 
-  if (isScalar(a)) {
-    const x = toBeDeleted(a, b);
-    if (x.delete) {
-      return undefined;
-    }
-    return x.keepOriginal ? a : b;
-  }
 
   //console.log(location,a,typeof a, b, typeof b);
 
