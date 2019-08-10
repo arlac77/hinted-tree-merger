@@ -1,5 +1,5 @@
 import test from "ava";
-import { isEqual } from "../src/merger.mjs";
+import { isEqual } from "../src/util.mjs";
 
 test("isEqual", t => {
   t.true(isEqual(1, 1));
