@@ -1,13 +1,13 @@
 {
   "name": "hinted-tree-merger",
   "version": "0.0.0-semantic-release",
-  "description": "merges two trees guided with hints",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "main": "src/merge.mjs",
   "module": "src/merge.mjs",
+  "description": "merges two trees guided with hints",
   "keywords": [],
   "contributors": [
     {
