@@ -147,12 +147,12 @@ const slots = {
  * merge to val
  * @param {any} a
  * @param {any} b
+ * @param {} hints
  * @return {any} merged value
  */
-export function merge(a,b)
+export function merge(a,b,hints,cb=()=>{})
 {
   if (isScalar(a)) {
-
     if(b !== undefined) {
       return b;
     }
