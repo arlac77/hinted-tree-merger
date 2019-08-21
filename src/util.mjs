@@ -1,3 +1,7 @@
+export function difference(a, b) {
+  return new Set([...a].filter(x => !b.has(x)));
+}
+
 export function isEqual(a, b) {
   if (a !== undefined && b === undefined) {
     return false;

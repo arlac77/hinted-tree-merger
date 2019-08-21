@@ -23,11 +23,6 @@ export function toBeDeleted(value, fromTemplate) {
   return { delete: false, keepOriginal: false };
 }
 
-function difference(a, b) {
-  return new Set([...a].filter(x => !b.has(x)));
-}
-
-
 
 function pathMessage(path, direction = "to") {
   return path.length > 0 ? ` ${direction} ` + path.join(".") : "";
@@ -76,56 +71,9 @@ export function mergeArrays(a, b, path = [], messages = []) {
   return a;
 }
 
-export function mergeVersions(a, b, path = [], messages = []) {
-  const aVersions = new Set(a ? [...a.map(s => String(s))] : []);
-  const bVersions = new Set(b ? [...b.map(s => String(s))] : []);
-
-  const versions = new Set([...aVersions, ...bVersions]);
-  const newVersions = new Set(versions);
-
-  versions.forEach(v => {
-    if (v.startsWith("-")) {
-      const d = v.replace(/^\-\s*/, "");
-
-      versions.forEach(v => {
-        const x = v.replace(/^\-\s*/, "");
-        if (compareVersion(d, x) === 0 || x != v) {
-          if (bVersions.has(x)) {
-            return;
-          }
-
-          newVersions.delete(x);
-          newVersions.delete(v);
-        }
-      });
-    }
-  });
-
-  const r = difference(aVersions, bVersions);
-  if (r.size > 0) {
-    messages.push(
-      `chore(travis): remove node versions ${Array.from(new Set(r)).sort()}`
-    );
-  }
-
-  const as = difference(bVersions, aVersions);
-  if (as.size > 0) {
-    messages.push(
-      `chore(travis): add node versions ${Array.from(new Set(as)).sort()}`
-    );
-  }
-
-  if (newVersions.size > 0) {
-    return Array.from(new Set(newVersions))
-      .sort()
-      .map(s => (String(parseFloat(s)) == s ? parseFloat(s) : s));
-  }
-
-  return [];
-}
 
 const slots = {
-  node_js: mergeVersions,
+  //node_js: mergeVersions,
   before_install: mergeScripts,
   install: mergeScripts,
   before_script: mergeScripts,
