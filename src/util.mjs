@@ -37,9 +37,9 @@ export function isEqual(a, b) {
 
 
 
-const scalarTypes = new Set(["string", "number", "bigint", "boolean"]);
+const scalarTypes = new Set(["symbol","undefined","string", "number", "bigint", "boolean"]);
 
 export function isScalar(a) {
-  return 
-    scalarTypes.has(typeof a) || a instanceof String || a instanceof Number;
+  
+  return scalarTypes.has(typeof a) || a instanceof String || a instanceof Number || a === null;
 }
