@@ -8,14 +8,11 @@ test("isScalar", t => {
   t.true(isScalar(true));
   t.true(isScalar(false));
   t.true(isScalar(undefined));
+  t.true(isScalar(null));
   t.true(isScalar(Symbol()));
   t.false(isScalar({}));
   t.false(isScalar([]));
   t.false(isScalar(new Date()));
   t.false(isScalar(new Set()));
   t.false(isScalar(new Map()));
-});
-
-test("isScalar null", t => {
-  t.true(isScalar(null));
 });
