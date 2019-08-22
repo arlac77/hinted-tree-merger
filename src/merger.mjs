@@ -4,7 +4,7 @@ import { isEqual, isScalar } from './util.mjs';
  * should value be removed
  * @param {string} value
  * @param {string} fromTemplate
- * @return {number} treu if fromTemplate tells is to delete value
+ * @return {number} true if fromTemplate tells is to delete value
  */
 export function toBeDeleted(value, fromTemplate) {
   if(fromTemplate === undefined) {
