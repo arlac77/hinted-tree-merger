@@ -5,8 +5,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "src/merge.mjs",
-  "module": "src/merge.mjs",
+  "main": "src/merger.mjs",
+  "module": "src/merger.mjs",
   "description": "merges two trees guided with hints",
   "keywords": [],
   "contributors": [
