@@ -18,8 +18,8 @@
   "license": "BSD-2-Clause",
   "scripts": {
     "cover": "c8 -x 'tests/**/*.mjs' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
-    "docs": "documentation readme src/merge.mjs --section=API",
-    "lint": "documentation lint src/merge.mjs",
+    "docs": "documentation readme src/merger.mjs --section=API",
+    "lint": "documentation lint src/merger.mjs",
     "test": "ava"
   },
   "dependencies": {},
@@ -28,7 +28,7 @@
     "c8": "^5.0.2",
     "documentation": "^12.1.1",
     "esm": "^3.2.25",
-    "semantic-release": "^15.13.21"
+    "semantic-release": "^15.13.23"
   },
   "engines": {
     "node": ">=10.16.3"
