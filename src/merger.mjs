@@ -1,4 +1,6 @@
-import { isEqual, isScalar } from './util.mjs';
+import { isEqual, isScalar } from "./util.mjs";
+
+export { isEqual, isScalar };
 
 /**
  * should value be removed
@@ -7,12 +9,11 @@ import { isEqual, isScalar } from './util.mjs';
  * @return {number} true if fromTemplate tells is to delete value
  */
 export function toBeDeleted(value, fromTemplate) {
-  if(fromTemplate === undefined) {
+  if (fromTemplate === undefined) {
     return { delete: false, keepOriginal: true };
   }
 
-  if ( typeof fromTemplate === 'string') {
-
+  if (typeof fromTemplate === "string") {
     const m = fromTemplate.match(/--delete--\s*(.*)/);
     if (m) {
       const flag = m[1] === value;
@@ -22,7 +23,6 @@ export function toBeDeleted(value, fromTemplate) {
 
   return { delete: false, keepOriginal: false };
 }
-
 
 function pathMessage(path, direction = "to") {
   return path.length > 0 ? ` ${direction} ` + path.join(".") : "";
@@ -71,9 +71,7 @@ export function mergeArrays(a, b, path = [], messages = []) {
   return a;
 }
 
-
 const slots = {
-  //node_js: mergeVersions,
   before_install: mergeScripts,
   install: mergeScripts,
   before_script: mergeScripts,
@@ -90,7 +88,6 @@ const slots = {
   "jobs.include.stage": mergeArrays
 };
 
-
 /**
  * merge to val
  * @param {any} a
@@ -98,10 +95,9 @@ const slots = {
  * @param {} hints
  * @return {any} merged value
  */
-export function merge(a,b,hints,cb=()=>{})
-{
+export function merge(a, b, hints, cb = () => {}) {
   if (isScalar(a)) {
-    if(b !== undefined) {
+    if (b !== undefined) {
       return b;
     }
     return a;
@@ -144,7 +140,6 @@ export function _merge(a, b, path = [], messages = []) {
   if (b === undefined || b === null) {
     return a;
   }
-
 
   //console.log(location,a,typeof a, b, typeof b);
 
