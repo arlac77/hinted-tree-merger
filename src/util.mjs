@@ -24,6 +24,19 @@ export function isToBeRemoved(value, fromTemplate) {
   return { removeOriginal: false, keepOriginal: true };
 }
 
+export function removeHintedValues(object) {
+
+  if(typeof object === "string" && object.match(/--delete--\s*(.*)/)) {
+    return undefined;
+  }
+
+  if (Array.isArray(object)) {
+    return object.filter(o => typeof o === "string" && o.match(/--delete--\s*(.*)/) ? false : true)
+  }
+
+  return object;
+}
+
 export function isEqual(a, b, hints) {
   if (a !== undefined && b === undefined) {
     return false;
@@ -40,6 +53,7 @@ export function isEqual(a, b, hints) {
   }
 
   if (Array.isArray(a)) {
+    b = removeHintedValues(b);
     if (a.length === b.length) {
       for (let i = 0; i < a.length; i++) {
         if (!isEqual(a[i], b[i], hints)) {

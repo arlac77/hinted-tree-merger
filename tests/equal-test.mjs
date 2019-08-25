@@ -43,6 +43,6 @@ test(neq, { a: 1 }, undefined);
 test("object", neq, { a: 1 }, { a: 1, b: 0 });
 test("object 2", neq, { a: 1, b: 0 }, { a: 1 });
 
-test.skip("isEqual with hints", t => {
+test("isEqual with hints", t => {
   t.true(isEqual(["a"], ["a", "--delete-- b"]));
 });
