@@ -70,7 +70,7 @@ const slots = {
  * merge to val
  * @param {any} a
  * @param {any} b
- * @param {} hints
+ * @param {any} hints
  * @return {any} merged value
  */
 export function merge(a, b, hints, cb = () => {}) {
