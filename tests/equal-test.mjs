@@ -1,20 +1,46 @@
 import test from "ava";
 import { isEqual } from "../src/util.mjs";
 
-test("isEqual", t => {
-  t.true(isEqual(1, 1));
-  t.true(isEqual(123n, 123n));
-  t.true(isEqual(true, true));
-  t.true(isEqual("a", "a"));
-  t.true(isEqual([], []));
-  t.false(isEqual([1], [2]));
-  t.true(isEqual({ a: 1 }, { a: 1 }));
-  t.false(isEqual({ a: 1 }, { a: 2 }));
-  t.false(isEqual({ a: 1 }, { a: 1, b: 0 }));
-  t.false(isEqual({ a: 1, b: 0 }, { a: 1 }));
-  t.true(isEqual({ a: [1] }, { a: [1] }));
-});
+function eq(t, a, b) {
+  t.true(isEqual(a, b));
+}
 
-test("isEqual with hints", t => {
-  t.false(isEqual("a", "--delete-- a"));
+eq.title = (providedTitle = "", a, b) =>
+  `equal ${providedTitle} ${a} ${b}`.trim();
+
+function neq(t, a, b) {
+  t.false(isEqual(a, b));
+}
+
+neq.title = (providedTitle = "", a, b) =>
+  `not equal ${providedTitle} ${a} ${b}`.trim();
+
+test(eq, null, null);
+test(eq, undefined, undefined);
+test(eq, 1, 1);
+test(eq, "a", "a");
+test(eq, 123n, 123n);
+test(eq, true, true);
+test(eq, [], []);
+test(eq, [1, 2], [1, 2]);
+test("object", eq, { a: 1 }, { a: 1 });
+test(eq, { a: [1] }, { a: [1] });
+
+//test(eq, undefined, "--delete-- a");
+
+test(neq, 1, 2);
+test(neq, 1, "b");
+test(neq, 1, undefined);
+test(neq, 123n, 124n);
+test(neq, 123n, undefined);
+test("array", neq, [1], [2]);
+test("array", neq, [1], [1, 2]);
+test("array", neq, [1], undefined);
+test(neq, { a: 1 }, { a: 2 });
+test(neq, { a: 1 }, undefined);
+test("object", neq, { a: 1 }, { a: 1, b: 0 });
+test("object 2", neq, { a: 1, b: 0 }, { a: 1 });
+
+test.skip("isEqual with hints", t => {
+  t.true(isEqual(["a"], ["a", "--delete-- b"]));
 });

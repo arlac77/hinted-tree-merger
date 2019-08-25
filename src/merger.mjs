@@ -1,28 +1,6 @@
-import { isEqual, isScalar } from "./util.mjs";
+import { isEqual, isScalar, isToBeRemoved } from "./util.mjs";
 
-export { isEqual, isScalar };
-
-/**
- * should value be removed
- * @param {string} value
- * @param {string} fromTemplate
- * @return {number} true if fromTemplate tells is to delete value
- */
-export function toBeDeleted(value, fromTemplate) {
-  if (fromTemplate === undefined) {
-    return { delete: false, keepOriginal: true };
-  }
-
-  if (typeof fromTemplate === "string") {
-    const m = fromTemplate.match(/--delete--\s*(.*)/);
-    if (m) {
-      const flag = m[1] === value;
-      return { delete: flag, keepOriginal: !flag };
-    }
-  }
-
-  return { delete: false, keepOriginal: false };
-}
+export { isEqual, isScalar, isToBeRemoved };
 
 function pathMessage(path, direction = "to") {
   return path.length > 0 ? ` ${direction} ` + path.join(".") : "";
