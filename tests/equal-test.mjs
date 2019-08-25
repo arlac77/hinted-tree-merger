@@ -25,6 +25,8 @@ test(eq, [], []);
 test(eq, [1, 2], [1, 2]);
 test("object", eq, { a: 1 }, { a: 1 });
 test(eq, { a: [1] }, { a: [1] });
+test(eq, new Set(), new Set());
+test(eq, new Map(), new Map());
 
 //test(eq, undefined, "--delete-- a");
 
