@@ -1,3 +1,5 @@
+import { walk } from './walker.mjs'
+
 export function difference(a, b) {
   return new Set([...a].filter(x => !b.has(x)));
 }
@@ -25,6 +27,8 @@ export function isToBeRemoved(value, fromTemplate) {
 }
 
 export function removeHintedValues(object) {
+
+
 
   if(typeof object === "string" && object.match(/--delete--\s*(.*)/)) {
     return undefined;

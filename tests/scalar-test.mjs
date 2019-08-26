@@ -11,6 +11,7 @@ sc.title = (providedTitle = "", a) =>
 function nsc(t, a) {
   t.false(isScalar(a));
 }
+
 nsc.title = (providedTitle = "", a) => `isScalar ${providedTitle} ${a}`.trim();
 
 test(sc, 1);
