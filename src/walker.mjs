@@ -2,7 +2,8 @@ import { isScalar } from "./util.mjs";
 
 /**
  * Iterates over all members
- * @param {any} object
+ * @param {any} value
+ * @param {any[]} path
  */
 export function* walk(value, path = []) {
   if (isScalar(value)) {
