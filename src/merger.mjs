@@ -1,3 +1,4 @@
+export { compareVersion } from "./versions.mjs";
 import { isEqual, isScalar, isToBeRemoved } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };

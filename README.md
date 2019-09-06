@@ -26,10 +26,13 @@ merges two trees guided with hints
 
 -   [merge](#merge)
     -   [Parameters](#parameters)
--   [isToBeRemoved](#istoberemoved)
+-   [compareVersion](#compareversion)
     -   [Parameters](#parameters-1)
--   [walk](#walk)
+-   [match](#match)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-2)
+-   [walk](#walk)
+    -   [Parameters](#parameters-3)
 
 ## merge
 
@@ -43,6 +46,21 @@ merge to val
 -   `cb`   (optional, default `()=>{}`)
 
 Returns **any** merged value
+
+## compareVersion
+
+compare two versions
+
+### Parameters
+
+-   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+-   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** \-1 if a &lt; b, 0 if a == b and 1 if a > b
+
+## match
+
+url means highest version
 
 ## isToBeRemoved
 
