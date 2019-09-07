@@ -6,9 +6,10 @@ import { isScalar } from "./util.mjs";
  * @param {any[]} path
  */
 export function* walk(value, path = []) {
-  if (isScalar(value)) {
-    yield { value, path };
-  }
+  yield {
+    value,
+    path
+  };
 
   if (Array.isArray(value)) {
     let i = 0;
