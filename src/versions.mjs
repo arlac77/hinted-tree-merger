@@ -1,4 +1,6 @@
-import { difference } from './util.mjs';
+import { difference } from "./util.mjs";
+
+const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
 /**
  * compare two versions
@@ -11,19 +13,25 @@ export function compareVersion(a, b) {
     value = String(value);
 
     /** url means highest version */
-    if(value.match(/^[\w\-\+]+:/)) {
+    if (value.match(/^[\w\-\+]+:/)) {
       return [99999];
     }
 
-    value = value.replace(/^[\^\~]/,'');
+    value = value.replace(/^[\^\~]/, "");
 
-    const slots = value.split(/\./).map(x => parseInt(x, 10));
+    const slots = value.split(/\./).map(p => {  
+      const w = parseInt(p, 10);
+      if(isNaN(w)) {
+        return 99999;
+      }
+      return w;
+    });
+
     const m = value.match(/\-(\w+)\.?(.*)/);
 
     if (m) {
       let e = m ? slots.pop() : 0;
       const last = slots.pop();
-      const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
       return [...slots, last - suffixes[m[1]], e];
     }
 
@@ -32,8 +40,6 @@ export function compareVersion(a, b) {
 
   const aa = toArray(a);
   const bb = toArray(b);
-
-  //console.log(`${aa} <> ${bb}`);
 
   for (const i in aa) {
     if (i >= bb.length) {
@@ -50,7 +56,6 @@ export function compareVersion(a, b) {
 
   return 0;
 }
-
 
 export function mergeVersions(a, b, path = [], messages = []) {
   const aVersions = new Set(a ? [...a.map(s => String(s))] : []);
