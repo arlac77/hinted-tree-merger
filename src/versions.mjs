@@ -19,9 +19,9 @@ export function compareVersion(a, b) {
 
     value = value.replace(/^[\^\~]/, "");
 
-    const slots = value.split(/\./).map(p => {  
+    const slots = value.split(/\./).map(p => {
       const w = parseInt(p, 10);
-      if(isNaN(w)) {
+      if (isNaN(w)) {
         return 99999;
       }
       return w;
@@ -57,7 +57,12 @@ export function compareVersion(a, b) {
   return 0;
 }
 
-export function mergeVersions(a, b, path = [], messages = []) {
+/**
+ * @param {string|number} a
+ * @param {string|number} b
+ * @param {Action} actions
+ */
+export function mergeVersions(a, b, actions = []) {
   const aVersions = new Set(a ? [...a.map(s => String(s))] : []);
   const bVersions = new Set(b ? [...b.map(s => String(s))] : []);
 
@@ -82,25 +87,23 @@ export function mergeVersions(a, b, path = [], messages = []) {
     }
   });
 
-  const r = difference(aVersions, bVersions);
+  const r = difference(aVersions, newVersions);
   if (r.size > 0) {
-    messages.push(
-      `chore(travis): remove node versions ${Array.from(new Set(r)).sort()}`
+    actions.push(
+      ...[...r].sort(compareVersion).map(v => {
+        return { remove: v };
+      })
     );
   }
 
-  const as = difference(bVersions, aVersions);
+  const as = difference(newVersions, aVersions);
   if (as.size > 0) {
-    messages.push(
-      `chore(travis): add node versions ${Array.from(new Set(as)).sort()}`
+    actions.push(
+      ...[...as].sort(compareVersion).map(v => {
+        return { add: v };
+      })
     );
   }
 
-  if (newVersions.size > 0) {
-    return Array.from(new Set(newVersions))
-      .sort()
-      .map(s => (String(parseFloat(s)) == s ? parseFloat(s) : s));
-  }
-
-  return [];
+  return Array.from(new Set(newVersions)).sort(compareVersion);
 }
