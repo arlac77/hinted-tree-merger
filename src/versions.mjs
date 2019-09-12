@@ -4,20 +4,32 @@ const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
 /**
  * compare two versions
+ * 
  * @param {string|number} a
  * @param {string|number} b
  * @return {number} -1 if a < b, 0 if a == b and 1 if a > b
  */
 export function compareVersion(a, b) {
-  const toArray = value => {
+  const toArray = (value,upper) => {
     value = String(value);
+
+    let upperIncrementIndex = -1;
 
     /** url means highest version */
     if (value.match(/^[\w\-\+]+:/)) {
       return [99999];
     }
 
-    value = value.replace(/^[\^\~]/, "");
+    switch (value[0]) {
+      case "~":
+        value = value.substring(1);
+        upperIncrementIndex = 0;
+        break;
+      case "^":
+        value = value.substring(1);
+        upperIncrementIndex = 1;
+        break;
+    }
 
     const slots = value.split(/\./).map(p => {
       const w = parseInt(p, 10);
@@ -35,6 +47,10 @@ export function compareVersion(a, b) {
       return [...slots, last - suffixes[m[1]], e];
     }
 
+    if(upper && upperIncrementIndex >= 0) {
+      slots[upperIncrementIndex] = slots[upperIncrementIndex] + 1;
+    }
+
     return slots;
   };
 
@@ -50,6 +66,22 @@ export function compareVersion(a, b) {
       return -1;
     }
     if (aa[i] > bb[i]) {
+      return 1;
+    }
+  }
+
+  const uaa = toArray(a, true);
+  const ubb = toArray(b, true);
+
+  for (const i in uaa) {
+    if (i >= ubb.length) {
+      break;
+    }
+
+    if (uaa[i] < ubb[i]) {
+      return -1;
+    }
+    if (uaa[i] > ubb[i]) {
       return 1;
     }
   }
