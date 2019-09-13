@@ -1,4 +1,4 @@
-export { compareVersion, mergeVersions } from "./versions.mjs";
+export { compareVersion, mergeVersions, mergeObjectValueVersions } from "./versions.mjs";
 import { isEqual, isScalar, isToBeRemoved } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };

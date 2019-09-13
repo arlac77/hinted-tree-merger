@@ -123,3 +123,7 @@ export function mergeVersions(a, b, actions = []) {
 
   return Array.from(new Set(newVersions)).sort(compareVersion);
 }
+
+export function mergeObjectValueVersions(a, b, actions = []) {
+  return Object.assign(a,b);
+}
