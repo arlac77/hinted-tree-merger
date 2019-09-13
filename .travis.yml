@@ -5,6 +5,8 @@ branches:
   only:
     - master
     - /^greenkeeper/.*$/
+    - /^mkpr/.*$/
+    - /^npm-template-sync/.*$/
 script:
   - npm run cover
   - npx codecov
