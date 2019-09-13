@@ -25,6 +25,7 @@ test(cv, "^1.0.1", "~1.0.1", -1);
 
 test(cv, "^1.0.0", "2.0.0", -1);
 test(cv, "~1.0.0", "2.0.0", -1);
+test(cv, "2.0.0", "~1.0.0", 1);
 
 test(cv, "1", "git+https://github.com/arlac77/light-server.git", -1);
 test(cv, "1", "arlac77/lightserver", -1);

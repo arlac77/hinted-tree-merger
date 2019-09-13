@@ -10,10 +10,10 @@ const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
  * @return {number} -1 if a < b, 0 if a == b and 1 if a > b
  */
 export function compareVersion(a, b) {
-  const toArray = (value,upper) => {
+  const toArray = (value) => {
     value = String(value);
 
-    let upperIncrementIndex = -1;
+    let incrementIndex = -1;
 
     /** url means highest version */
     if (value.match(/^[\w\-\+]+:/)) {
@@ -23,11 +23,11 @@ export function compareVersion(a, b) {
     switch (value[0]) {
       case "~":
         value = value.substring(1);
-        upperIncrementIndex = 0;
+        incrementIndex = 1;
         break;
       case "^":
         value = value.substring(1);
-        upperIncrementIndex = 1;
+        incrementIndex = 2;
         break;
     }
 
@@ -47,31 +47,15 @@ export function compareVersion(a, b) {
       return [...slots, last - suffixes[m[1]], e];
     }
 
-    if(upper && upperIncrementIndex >= 0) {
-      slots[upperIncrementIndex] = slots[upperIncrementIndex] + 1;
+    if(incrementIndex >= 0) {
+      slots[incrementIndex] = slots[incrementIndex] + 1;
     }
 
     return slots;
   };
 
-  const aa = toArray(a);
-  const bb = toArray(b);
-
-  for (const i in aa) {
-    if (i >= bb.length) {
-      break;
-    }
-
-    if (aa[i] < bb[i]) {
-      return -1;
-    }
-    if (aa[i] > bb[i]) {
-      return 1;
-    }
-  }
-
-  const uaa = toArray(a, true);
-  const ubb = toArray(b, true);
+  const uaa = toArray(a);
+  const ubb = toArray(b);
 
   for (const i in uaa) {
     if (i >= ubb.length) {
