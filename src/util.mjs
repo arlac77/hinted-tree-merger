@@ -26,6 +26,17 @@ export function isToBeRemoved(value, fromTemplate) {
   return { removeOriginal: false, keepOriginal: true };
 }
 
+export function hintFreeValue(value) {
+  if (typeof value === "string") {
+    const m = value.match(/^--delete--\s*(.*)/);
+    if(m) { return m[1]; }
+    const m2 = value.match(/^-([\.\w]+)/);
+    if(m2) { return m2[1]; }
+  }
+
+  return value;
+}
+
 export function removeHintedValues(object) {
   if (typeof object === "string" && object.match(/--delete--\s*(.*)/)) {
     return undefined;

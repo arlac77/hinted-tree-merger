@@ -1,4 +1,4 @@
-import { difference } from "./util.mjs";
+import { difference, hintFreeValue } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
@@ -73,6 +73,17 @@ export function compareVersion(a, b) {
   return 0;
 }
 
+export function toBeRemoved(value) {
+
+  if (typeof value === "string") {
+    const m = value.match(/^-(-delete--)?\s*(.*)/);
+    if(m) { return true; }
+  }
+
+  return false;
+}
+
+
 /**
  * @param {string|number} a
  * @param {string|number} b
@@ -86,11 +97,10 @@ export function mergeVersions(a, b, actions = []) {
   const newVersions = new Set(versions);
 
   versions.forEach(v => {
-    if (v.startsWith("-")) {
-      const d = v.replace(/^\-\s*/, "");
-
+    if (toBeRemoved(v)) {
+      const d = hintFreeValue(v);
       versions.forEach(v => {
-        const x = v.replace(/^\-\s*/, "");
+        const x = hintFreeValue(v);
         if (compareVersion(d, x) === 0 || x != v) {
           if (bVersions.has(x)) {
             return;
