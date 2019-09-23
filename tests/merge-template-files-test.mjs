@@ -33,8 +33,8 @@ test.skip("mergeTemplateFiles 2", t => {
         }
       ],
       {
-        '': { key: 'merger' },
-        'options.badges': { key: 'name' }
+        "": { key: "merger" },
+        "options.badges": { key: "name" }
       }
     ),
     [

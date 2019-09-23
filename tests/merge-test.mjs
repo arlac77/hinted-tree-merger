@@ -1,18 +1,22 @@
 import test from "ava";
 import { merge } from "../src/merger.mjs";
 
-
-function mt(t, a, b, r) {
-  t.deepEqual(merge(a,b),r);
+function mt(t, a, b, r, actions) {
+  let myActions = [];
+  t.deepEqual(merge(a, b, [], myActions), r);
+  if(actions !== undefined) {
+    t.deepEqual(actions, myActions);
+  }
 }
 
-mt.title = (providedTitle = "merge", a, b) => `${providedTitle} ${a} ${b}`.trim();
+mt.title = (providedTitle = "merge", a, b) =>
+  `${providedTitle} ${a} ${b}`.trim();
 
-test(mt, 1, 2, 2);
+test(mt, 1, 2, 2, []);
 test(mt, 1, undefined, 1);
 test(mt, undefined, 2, 2);
 
-test(mt, 11n, 22n, 22n);
+test(mt, 11n, 22n, 22n, []);
 test(mt, 11n, undefined, 11n);
 test(mt, undefined, 22n, 22n);
 
@@ -31,3 +35,7 @@ test(mt, undefined, undefined, undefined);
 test(mt, null, null, null);
 test(mt, undefined, null, null);
 test(mt, null, undefined, null);
+
+test(mt, [], undefined, []);
+test(mt, undefined, [], []);
+test(mt, [], [], []);

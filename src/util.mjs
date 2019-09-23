@@ -1,5 +1,10 @@
 import { walk } from "./walker.mjs";
 
+export function asArray(a)
+{
+  return Array.isArray(a) ? a : [a];
+}
+
 export function difference(a, b) {
   return new Set([...a].filter(x => !b.has(x)));
 }

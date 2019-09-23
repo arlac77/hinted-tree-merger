@@ -1,17 +1,13 @@
-export { compareVersion, mergeVersions, mergeObjectValueVersions } from "./versions.mjs";
-import { isEqual, isScalar, isToBeRemoved } from "./util.mjs";
+export {
+  compareVersion,
+  mergeVersions,
+  mergeObjectValueVersions
+} from "./versions.mjs";
+import { isEqual, isScalar, isToBeRemoved, asArray } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };
 
-function pathMessage(path, direction = "to") {
-  return path.length > 0 ? ` ${direction} ` + path.join(".") : "";
-}
-
-export function mergeScripts(a, b, path, messages) {
-  return mergeArrays(a, b, path, messages);
-}
-
-export function mergeArrays(a, b, path = [], messages = []) {
+export function mergeArrays(a, b, path, actions = [], hints = {}) {
   if (a === undefined) {
   } else {
     a = asArray(a);
@@ -30,9 +26,7 @@ export function mergeArrays(a, b, path = [], messages = []) {
         const i = a.indexOf(t);
         if (i >= 0) {
           a.splice(i, 1);
-          messages.push(
-            `chore(travis): remove ${t}${pathMessage(path, "from")}`
-          );
+          actions.push({ remove: t, path: [...path, i] });
         }
       }
     } else {
@@ -42,30 +36,13 @@ export function mergeArrays(a, b, path = [], messages = []) {
 
       if (!a.find(x => isEqual(x, s))) {
         a.push(s);
-        messages.push(`chore(travis): add ${s}${pathMessage(path)}`);
+        actions.push({ add: s, path: [...path, a.length - 1] });
       }
     }
   }
 
   return a;
 }
-
-const slots = {
-  before_install: mergeScripts,
-  install: mergeScripts,
-  before_script: mergeScripts,
-  script: mergeScripts,
-  before_cache: mergeScripts,
-  after_success: mergeScripts,
-  after_failure: mergeScripts,
-  before_deploy: mergeScripts,
-  deploy: mergeScripts,
-  after_deploy: mergeScripts,
-  after_script: mergeScripts,
-  "branches.only": mergeArrays,
-  "notifications.email": mergeArrays,
-  "jobs.include.stage": mergeArrays
-};
 
 /**
  * merge to val
@@ -74,7 +51,7 @@ const slots = {
  * @param {any} hints
  * @return {any} merged value
  */
-export function merge(a, b, hints, cb = () => {}) {
+export function merge(a, b, path = [], actions, hints) {
   if (isScalar(a)) {
     if (b !== undefined) {
       return b;
@@ -89,8 +66,18 @@ export function merge(a, b, hints, cb = () => {}) {
     */
   }
 
+  if (Array.isArray(a)) {
+    return mergeArrays(a, b, path, actions, hints);
+  }
+
   return a;
 }
+
+const slots = {
+  "branches.only": mergeArrays,
+  "notifications.email": mergeArrays,
+  "jobs.include.stage": mergeArrays
+};
 
 export function _merge(a, b, path = [], messages = []) {
   const location = path.join(".");
