@@ -26,7 +26,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
         const i = a.indexOf(t);
         if (i >= 0) {
           a.splice(i, 1);
-          actions.push({ remove: t, path: [...path, i] });
+          actions.push({ remove: t, path: [...path, i].join('.') });
         }
       }
     } else {
@@ -36,7 +36,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
 
       if (!a.find(x => isEqual(x, s))) {
         a.push(s);
-        actions.push({ add: s, path: [...path, a.length - 1] });
+        actions.push({ add: s, path: [...path, a.length - 1].join('.') });
       }
     }
   }
@@ -53,17 +53,11 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
  */
 export function merge(a, b, path = [], actions, hints) {
   if (isScalar(a)) {
-    if (b !== undefined) {
+    if (b !== undefined && !isEqual(a,b)) {
+      actions.push({ add: b, path: path.join('.') });
       return b;
     }
     return a;
-    /*
-    const x = toBeDeleted(a, b);
-    if (x.delete) {
-      return undefined;
-    }
-    return x.keepOriginal ? a : b;
-    */
   }
 
   if (Array.isArray(a)) {
