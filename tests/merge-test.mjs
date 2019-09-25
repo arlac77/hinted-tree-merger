@@ -42,3 +42,11 @@ test(mt, [], [], [], []);
 
 test(mt, [1], [1], [1], []);
 test(mt, [1], [3], [1, 3], [{ add: 3, path: "1" }]);
+test(mt, [1], [[4]], [1, [4]], [{ add: [4], path: "1" }]);
+
+test(mt, {}, {}, {}, []);
+test(mt, {}, undefined, {}, []);
+test(mt, undefined, {}, {}, [{ add: {}, path: "" }]);
+test("object both sides", mt, { a: 1 }, { b: 2 }, { a: 1, b: 2 }, [
+  { add: 2, path: "b" }
+]);

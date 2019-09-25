@@ -26,7 +26,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
         const i = a.indexOf(t);
         if (i >= 0) {
           a.splice(i, 1);
-          actions.push({ remove: t, path: [...path, i].join('.') });
+          actions.push({ remove: t, path: [...path, i].join(".") });
         }
       }
     } else {
@@ -36,7 +36,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
 
       if (!a.find(x => isEqual(x, s))) {
         a.push(s);
-        actions.push({ add: s, path: [...path, a.length - 1].join('.') });
+        actions.push({ add: s, path: [...path, a.length - 1].join(".") });
       }
     }
   }
@@ -53,90 +53,26 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
  */
 export function merge(a, b, path = [], actions, hints) {
   if (isScalar(a)) {
-    if (b !== undefined && !isEqual(a,b)) {
-      actions.push({ add: b, path: path.join('.') });
+    if (b !== undefined && !isEqual(a, b)) {
+      actions.push({ add: b, path: path.join(".") });
       return b;
     }
+    return a;
+  }
+
+  if(b === undefined) {
     return a;
   }
 
   if (Array.isArray(a)) {
     return mergeArrays(a, b, path, actions, hints);
   }
-
-  return a;
-}
-
-const slots = {
-  "branches.only": mergeArrays,
-  "notifications.email": mergeArrays,
-  "jobs.include.stage": mergeArrays
-};
-
-export function _merge(a, b, path = [], messages = []) {
-  const location = path.join(".");
-
-  //console.log(location, typeof a, typeof b);
-
-  if (path.length > 5) {
-    console.log(location, a, b);
-    return b;
-  }
-
-  if (slots[location] !== undefined) {
-    return slots[location](a, b, path, messages);
-  }
-
-  if (a === undefined) {
-    if (Array.isArray(b)) {
-      return mergeArrays(a, b, path, messages);
-    }
-    if (isScalar(b)) {
-      messages.push(`chore(travis): ${location}=${b}`);
-      return b;
-    }
-  }
-
-  if (b === undefined || b === null) {
-    return a;
-  }
-
-  //console.log(location,a,typeof a, b, typeof b);
-
-  if (Array.isArray(a)) {
-    if (Array.isArray(b) && location !== "jobs.include") {
-      return mergeArrays(a, b, path, messages);
-    }
-
-    return a;
-  }
-
+  
   const r = {};
 
-  if (a === undefined) {
-    a = {};
-  }
-  if (b === undefined) {
-    b = {};
-  }
-
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
-    if (b[key] !== "--delete--") {
-      const v = (slots[key] ? slots[key] : merge)(
-        a[key],
-        b[key],
-        [...path, key],
-        messages
-      );
-
-      if (v !== undefined) {
-        if (Array.isArray(v) && v.length === 0) {
-        } else {
-          r[key] = v;
-        }
-      }
-    }
+    r[key] = merge(a[key], b[key], [...path, key], actions, hints);
   }
 
-  return Object.keys(r).length === 0 ? undefined : r;
+  return r;
 }
