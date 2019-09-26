@@ -38,14 +38,15 @@ merges two trees guided with hints
 
 ## merge
 
-merge to val
+merge to values
 
 ### Parameters
 
 -   `a` **any** 
 -   `b` **any** 
+-   `path`   (optional, default `[]`)
+-   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
 -   `hints` **any** 
--   `cb`   (optional, default `()=>{}`)
 
 Returns **any** merged value
 
