@@ -126,6 +126,6 @@ export function mergeVersions(a, b, path, actions = nullAction) {
   return Array.from(new Set(newVersions)).sort(compareVersion);
 }
 
-export function mergeObjectValueVersions(a, b, actions = nullAction) {
+export function mergeObjectValueVersions(a, b, path, actions = nullAction) {
   return Object.assign(a, b);
 }
