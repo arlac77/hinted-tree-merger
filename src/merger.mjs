@@ -3,7 +3,7 @@ export {
   mergeVersions,
   mergeObjectValueVersions
 } from "./versions.mjs";
-import { isEqual, isScalar, isToBeRemoved, asArray } from "./util.mjs";
+import { isEqual, isScalar, isToBeRemoved, asArray, hintFor } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };
 
@@ -72,7 +72,11 @@ export function merge(a, b, path = [], actions, hints) {
   const r = {};
 
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
-    r[key] = merge(a[key], b[key], [...path, key], actions, hints);
+    const p = [...path, key];
+    const h = hintFor(hints,p);
+    const merger = h !== undefined ? h : merge;
+
+    r[key] = merger(a[key], b[key], p, actions, hints);
   }
 
   return r;

@@ -1,7 +1,6 @@
 import { walk } from "./walker.mjs";
 
-export function asArray(a)
-{
+export function asArray(a) {
   return Array.isArray(a) ? a : [a];
 }
 
@@ -34,9 +33,13 @@ export function isToBeRemoved(value, fromTemplate) {
 export function hintFreeValue(value) {
   if (typeof value === "string") {
     const m = value.match(/^--delete--\s*(.*)/);
-    if(m) { return m[1]; }
+    if (m) {
+      return m[1];
+    }
     const m2 = value.match(/^-([\.\w]+)/);
-    if(m2) { return m2[1]; }
+    if (m2) {
+      return m2[1];
+    }
   }
 
   return value;
@@ -120,4 +123,12 @@ export function isScalar(a) {
     a instanceof Number ||
     a === null
   );
+}
+
+export function hintFor(hints, path = []) {
+  if (hints === undefined) {
+    return undefined;
+  }
+  const p = path.join(".");
+  return hints[p];
 }
