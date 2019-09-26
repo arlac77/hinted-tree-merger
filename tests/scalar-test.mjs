@@ -22,6 +22,8 @@ test(sc, false);
 test(sc, undefined);
 test(sc, null);
 test(sc, Symbol("a symbol"));
+test(sc, a => {});
+test(sc, console.log);
 
 test(nsc, {});
 test(nsc, []);

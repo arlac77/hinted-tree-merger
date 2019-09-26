@@ -27,12 +27,15 @@ test("object", eq, { a: 1 }, { a: 1 });
 test(eq, { a: [1] }, { a: [1] });
 test(eq, new Set(), new Set());
 test(eq, new Map(), new Map());
+test(eq, new Date(), new Date());
+test(eq, console.log, console.log);
 
 //test(eq, undefined, "--delete-- a");
 
 test(neq, 1, 2);
 test(neq, 1, "b");
 test(neq, 1, undefined);
+test(neq, "a", "b");
 test(neq, 123n, 124n);
 test(neq, 123n, undefined);
 test("array", neq, [1], [2]);

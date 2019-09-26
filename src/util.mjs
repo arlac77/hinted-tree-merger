@@ -125,6 +125,7 @@ export function isScalar(a) {
     scalarTypes.has(typeof a) ||
     a instanceof String ||
     a instanceof Number ||
+    a instanceof Function ||
     a === null
   );
 }
