@@ -3,11 +3,20 @@ export {
   mergeVersions,
   mergeObjectValueVersions
 } from "./versions.mjs";
-import { isEqual, isScalar, isToBeRemoved, asArray, hintFor } from "./util.mjs";
+import { isEqual, isScalar, isToBeRemoved, asArray, hintFor, nullAction } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };
 
-export function mergeArrays(a, b, path, actions = [], hints = {}) {
+
+/**
+ * 
+ * @param {Array} a 
+ * @param {Array} b 
+ * @param path 
+ * @param actions 
+ * @param hints 
+ */
+export function mergeArrays(a, b, path, actions = nullAction, hints = {}) {
   if (a === undefined) {
   } else {
     a = asArray(a);
@@ -26,7 +35,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
         const i = a.indexOf(t);
         if (i >= 0) {
           a.splice(i, 1);
-          actions.push({ remove: t, path: [...path, i].join(".") });
+          actions({ remove: t, path: [...path, i].join(".") });
         }
       }
     } else {
@@ -36,7 +45,7 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
 
       if (!a.find(x => isEqual(x, s))) {
         a.push(s);
-        actions.push({ add: s, path: [...path, a.length - 1].join(".") });
+        actions({ add: s, path: [...path, a.length - 1].join(".") });
       }
     }
   }
@@ -52,10 +61,10 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
  * @param {any} hints
  * @return {any} merged value
  */
-export function merge(a, b, path = [], actions, hints) {
+export function merge(a, b, path = [], actions = nullAction, hints) {
   if (isScalar(a)) {
     if (b !== undefined && !isEqual(a, b)) {
-      actions.push({ add: b, path: path.join(".") });
+      actions({ add: b, path: path.join(".") });
       return b;
     }
     return a;

@@ -1,5 +1,9 @@
 import { walk } from "./walker.mjs";
 
+
+export function nullAction() {
+}
+
 export function asArray(a) {
   return Array.isArray(a) ? a : [a];
 }

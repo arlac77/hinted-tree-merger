@@ -4,9 +4,9 @@ import { mergeVersions } from "../src/versions.mjs";
 
 function mt(t, a, b, r, hints, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, [], myActions, hints), r);
+  t.deepEqual(merge(a, b, [], x => myActions.push(x), hints), r);
   if (actions !== undefined) {
-      t.log(myActions);
+    t.log(myActions);
     t.deepEqual(actions, myActions);
   }
 }
@@ -19,6 +19,6 @@ test(
   { version: ["1.0.0", "2.0"] },
   { version: ["1.0.1"] },
   { version: ["1.0.0", "1.0.1", "2.0"] },
-  { version: mergeVersions },
+  { version: mergeVersions }
   // [{ add: "1.0.1", path: "version" }]
 );

@@ -1,16 +1,16 @@
-import { difference, hintFreeValue } from "./util.mjs";
+import { difference, hintFreeValue, nullAction } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
 /**
  * compare two versions
- * 
+ *
  * @param {string|number} a
  * @param {string|number} b
  * @return {number} -1 if a < b, 0 if a == b and 1 if a > b
  */
 export function compareVersion(a, b) {
-  const toArray = (value) => {
+  const toArray = value => {
     value = String(value);
 
     let incrementIndex = -1;
@@ -47,7 +47,7 @@ export function compareVersion(a, b) {
       return [...slots, last - suffixes[m[1]], e];
     }
 
-    if(incrementIndex >= 0) {
+    if (incrementIndex >= 0) {
       slots[incrementIndex] = slots[incrementIndex] + 1;
     }
 
@@ -74,22 +74,22 @@ export function compareVersion(a, b) {
 }
 
 export function toBeRemoved(value) {
-
   if (typeof value === "string") {
     const m = value.match(/^-(-delete--)?\s*(.*)/);
-    if(m) { return true; }
+    if (m) {
+      return true;
+    }
   }
 
   return false;
 }
-
 
 /**
  * @param {string|number} a
  * @param {string|number} b
  * @param {Action} actions
  */
-export function mergeVersions(a, b, actions = []) {
+export function mergeVersions(a, b, path, actions = nullAction) {
   const aVersions = new Set(a ? [...a.map(s => String(s))] : []);
   const bVersions = new Set(b ? [...b.map(s => String(s))] : []);
 
@@ -115,25 +115,17 @@ export function mergeVersions(a, b, actions = []) {
 
   const r = difference(aVersions, newVersions);
   if (r.size > 0) {
-    actions.push(
-      ...[...r].sort(compareVersion).map(v => {
-        return { remove: v };
-      })
-    );
+    [...r].sort(compareVersion).forEach(v => actions({ remove: v }));
   }
 
   const as = difference(newVersions, aVersions);
   if (as.size > 0) {
-    actions.push(
-      ...[...as].sort(compareVersion).map(v => {
-        return { add: v };
-      })
-    );
+    [...as].sort(compareVersion).forEach(v => actions({ add: v }));
   }
 
   return Array.from(new Set(newVersions)).sort(compareVersion);
 }
 
-export function mergeObjectValueVersions(a, b, actions = []) {
-  return Object.assign(a,b);
+export function mergeObjectValueVersions(a, b, actions = nullAction) {
+  return Object.assign(a, b);
 }

@@ -3,7 +3,7 @@ import { merge } from "../src/merger.mjs";
 
 function mt(t, a, b, r, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, [], myActions), r);
+  t.deepEqual(merge(a, b, [], x => myActions.push(x)), r);
   if (actions !== undefined) {
     t.deepEqual(actions, myActions);
   }

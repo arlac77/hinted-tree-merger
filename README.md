@@ -24,17 +24,29 @@ merges two trees guided with hints
 
 ### Table of Contents
 
--   [merge](#merge)
+-   [mergeArrays](#mergearrays)
     -   [Parameters](#parameters)
--   [compareVersion](#compareversion)
+-   [merge](#merge)
     -   [Parameters](#parameters-1)
+-   [compareVersion](#compareversion)
+    -   [Parameters](#parameters-2)
 -   [match](#match)
 -   [mergeVersions](#mergeversions)
-    -   [Parameters](#parameters-2)
--   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-3)
--   [walk](#walk)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-4)
+-   [walk](#walk)
+    -   [Parameters](#parameters-5)
+
+## mergeArrays
+
+### Parameters
+
+-   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `path`  
+-   `actions`   (optional, default `nullAction`)
+-   `hints`   (optional, default `{}`)
 
 ## merge
 
@@ -45,7 +57,7 @@ merge to values
 -   `a` **any** 
 -   `b` **any** 
 -   `path`   (optional, default `[]`)
--   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>** 
+-   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
 -   `hints` **any** 
 
 Returns **any** merged value
@@ -71,7 +83,8 @@ url means highest version
 
 -   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
--   `actions` **Action**  (optional, default `[]`)
+-   `path`  
+-   `actions` **Action**  (optional, default `nullAction`)
 
 ## isToBeRemoved
 

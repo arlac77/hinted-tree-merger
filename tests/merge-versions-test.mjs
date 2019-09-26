@@ -4,8 +4,7 @@ import { mergeVersions } from "../src/versions.mjs";
 
 function mv(t, a, b, c, ea) {
   const actions = [];
-  t.deepEqual(mergeVersions(a, b, actions), c);
-
+  t.deepEqual(mergeVersions(a, b, undefined, x => actions.push(x)), c);
   if (ea !== undefined) {
     t.deepEqual(actions, ea, "actions");
   }
