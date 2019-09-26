@@ -130,10 +130,9 @@ export function isScalar(a) {
   );
 }
 
-export function hintFor(hints, path = []) {
+export function hintFor(hints, path = '') {
   if (hints === undefined) {
     return undefined;
   }
-  const p = path.join(".");
-  return hints[p];
+  return hints[path];
 }

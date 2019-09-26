@@ -56,7 +56,7 @@ merge to values
 
 -   `a` **any** 
 -   `b` **any** 
--   `path`   (optional, default `[]`)
+-   `path`  
 -   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
 -   `hints` **any** 
 
@@ -83,7 +83,7 @@ url means highest version
 
 -   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
--   `path`  
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `actions` **Action**  (optional, default `nullAction`)
 
 ## isToBeRemoved

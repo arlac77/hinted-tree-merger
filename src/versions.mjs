@@ -87,6 +87,7 @@ export function toBeRemoved(value) {
 /**
  * @param {string|number} a
  * @param {string|number} b
+ * @param {string} path
  * @param {Action} actions
  */
 export function mergeVersions(a, b, path, actions = nullAction) {
@@ -115,12 +116,12 @@ export function mergeVersions(a, b, path, actions = nullAction) {
 
   const r = difference(aVersions, newVersions);
   if (r.size > 0) {
-    [...r].sort(compareVersion).forEach(v => actions({ remove: v }));
+    [...r].sort(compareVersion).forEach(v => actions({ remove: v, path }));
   }
 
   const as = difference(newVersions, aVersions);
   if (as.size > 0) {
-    [...as].sort(compareVersion).forEach(v => actions({ add: v }));
+    [...as].sort(compareVersion).forEach(v => actions({ add: v, path }));
   }
 
   return Array.from(new Set(newVersions)).sort(compareVersion);

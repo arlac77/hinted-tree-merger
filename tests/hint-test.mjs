@@ -10,11 +10,11 @@ hf.title = (providedTitle = "", a, b) =>
   `hintFor ${providedTitle} ${a} ${b}`.trim();
 
 test(hf, {}, undefined, undefined);
-test(hf, undefined, ["a"], undefined);
-test(hf, { a: mergeVersions }, ["a"], mergeVersions);
-test(hf, { a: mergeVersions }, ["b"], undefined);
+test(hf, undefined, "a", undefined);
+test(hf, { a: mergeVersions }, "a", mergeVersions);
+test(hf, { a: mergeVersions }, "b", undefined);
 
-test(hf, { "a.b": mergeVersions }, ["a", "b"], mergeVersions);
+test(hf, { "a.b": mergeVersions }, "a.b", mergeVersions);
 
 /*
 'B'
