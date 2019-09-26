@@ -50,3 +50,7 @@ test(mt, undefined, {}, {}, [{ add: {}, path: "" }]);
 test("object both sides", mt, { a: 1 }, { b: 2 }, { a: 1, b: 2 }, [
   { add: 2, path: "b" }
 ]);
+
+test("object both sides same key", mt, { a: 1 }, { a: 2 }, { a: 2 }, [
+  { add: 2, path: "a" }
+]);

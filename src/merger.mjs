@@ -45,9 +45,10 @@ export function mergeArrays(a, b, path, actions = [], hints = {}) {
 }
 
 /**
- * merge to val
+ * merge to values
  * @param {any} a
  * @param {any} b
+ * @param {Object[]} actions
  * @param {any} hints
  * @return {any} merged value
  */
