@@ -22,3 +22,7 @@ test(
   { version: mergeVersions },
   [{ add: "1.0.1", path: "version" }]
 );
+
+test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
+  { remove: 1, path: "a" }
+]);

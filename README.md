@@ -33,7 +33,7 @@ merges two trees guided with hints
 -   [match](#match)
 -   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-3)
--   [mergeVersionsPreffereNumeric](#mergeversionsprefferenumeric)
+-   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-4)
 -   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-5)
@@ -88,7 +88,7 @@ url means highest version
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `actions` **Action**  (optional, default `nullAction`)
 
-## mergeVersionsPreffereNumeric
+## mergeVersionsPreferNumeric
 
 Same as mergeVersions but merge result are numbers if possible
 
