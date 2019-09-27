@@ -27,7 +27,7 @@ function appendPath(path, suffix) {
  * @param actions
  * @param hints
  */
-export function mergeArrays(a, b, path, actions = nullAction, hints = {}) {
+export function mergeArrays(a, b, path, actions = nullAction, hints) {
   if (a === undefined) {
   } else {
     a = asArray(a);

@@ -1,9 +1,9 @@
 import test from "ava";
-import { merge } from "../src/merger.mjs";
+import { mergeArrays } from "../src/merger.mjs";
 
-test.skip("mergeTemplateFiles 2", t => {
+test.skip("mergeTemplateFiles", t => {
   t.deepEqual(
-    merge(
+    mergeArrays(
       [
         {
           merger: "Package",
