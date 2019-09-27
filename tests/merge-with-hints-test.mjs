@@ -17,10 +17,10 @@ mt.title = (providedTitle = "merge", a, b) =>
 test(
   mt,
   { version: ["1.0.0", "2.0"] },
-  { version: ["1.0.1"] },
-  { version: ["1.0.0", "1.0.1", "2.0"] },
+  { version: ["1.0.1", "-1.0.0"] },
+  { version: ["1.0.1", "2.0"] },
   { version: mergeVersions },
-  [{ add: "1.0.1", path: "version" }]
+  [{ remove: "1.0.0", path: "version" }, { add: "1.0.1", path: "version" }]
 );
 
 test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
