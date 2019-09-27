@@ -33,10 +33,12 @@ merges two trees guided with hints
 -   [match](#match)
 -   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-3)
--   [isToBeRemoved](#istoberemoved)
+-   [mergeVersionsPreffereNumeric](#mergeversionsprefferenumeric)
     -   [Parameters](#parameters-4)
--   [walk](#walk)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-5)
+-   [walk](#walk)
+    -   [Parameters](#parameters-6)
 
 ## mergeArrays
 
@@ -85,6 +87,17 @@ url means highest version
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `actions` **Action**  (optional, default `nullAction`)
+
+## mergeVersionsPreffereNumeric
+
+Same as mergeVersions but merge result are numbers if possible
+
+### Parameters
+
+-   `a`  
+-   `b`  
+-   `path`  
+-   `actions`  
 
 ## isToBeRemoved
 

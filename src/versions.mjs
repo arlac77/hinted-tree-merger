@@ -127,6 +127,18 @@ export function mergeVersions(a, b, path, actions = nullAction) {
   return Array.from(new Set(newVersions)).sort(compareVersion);
 }
 
+/**
+ * Same as mergeVersions but merge result are numbers if possible
+ * @param a
+ * @param b 
+ * @param path 
+ * @param actions 
+ */
+export function mergeVersionsPreffereNumeric(a, b, path, actions) {
+  return mergeVersions(a,b, path,actions).map(s => (String(parseFloat(s)) == s ? parseFloat(s) : s));
+}
+
+
 export function mergeObjectValueVersions(a, b, path, actions = nullAction) {
   return Object.assign(a, b);
 }

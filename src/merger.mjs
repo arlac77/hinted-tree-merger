@@ -1,6 +1,7 @@
 export {
   compareVersion,
   mergeVersions,
+  mergeVersionsPreffereNumeric,
   mergeObjectValueVersions
 } from "./versions.mjs";
 import { isEqual, isScalar, isToBeRemoved, asArray, hintFor, nullAction } from "./util.mjs";
