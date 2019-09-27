@@ -39,6 +39,29 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   b = asArray(b);
 
+  const h = hintFor(hints, path);
+
+  if (h !== undefined && h.key) {
+    const key = h.key;
+    const aa = [...a,...b].reduce((a, c) => {
+      const k = c[key];
+      const p = a.get(k);
+      if (p !== undefined) {
+        c = merge(c, p, appendPath(path, `[]`), actions, hints);
+      }
+
+      a.set(k, c);
+
+      return a;
+    }, new Map());
+
+    if(h.sort) {
+      return [...aa.values()].sort(h.sort);
+    }
+
+    return [...aa.values()];
+  }
+
   for (const s of b) {
     if (s[0] === "-") {
       if (a !== undefined) {
@@ -101,7 +124,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
         actions({ remove: v, path: p });
       }
     } else {
-      const merger = h !== undefined ? h : merge;
+      const merger = h !== undefined ? h instanceof Function ? h : (h.merger ? h.merger: merge) : merge;
 
       r[key] = merger(a[key], b[key], p, actions, hints);
     }

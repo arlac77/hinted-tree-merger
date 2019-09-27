@@ -1,7 +1,29 @@
 import test from "ava";
 import { mergeArrays } from "../src/merger.mjs";
 
-test.skip("mergeTemplateFiles", t => {
+test("mergeArray", t => {
+  t.deepEqual(
+    mergeArrays(
+      [{ key: 1, value: 1 }, { key: 2, value: 2, something: 5 }],
+      [{ key: 2, value: 2, other: 4 }, { key: 3, value: 3 }],
+      "",
+      undefined,
+      {
+        "": {
+          key: "key",
+          sort: (a, b) => (a.key > b.key ? 1 : a.key < b.key ? -1 : 0)
+        }
+      }
+    ),
+    [
+      { key: 1, value: 1 },
+      { key: 2, value: 2, something: 5, other: 4 },
+      { key: 3, value: 3 }
+    ]
+  );
+});
+
+test("mergeTemplateFiles", t => {
   t.deepEqual(
     mergeArrays(
       [
@@ -10,9 +32,9 @@ test.skip("mergeTemplateFiles", t => {
           options: {
             badges: [
               {
-                name: "npm",
-                icon: "https://img.shields.io/npm/v/{{name}}.svg",
-                url: "https://www.npmjs.com/package/{{name}}"
+                name: "npm0",
+                icon: "https://img.shields.io/npm/v/{{name}}0.svg",
+                url: "https://www.npmjs.com/package/{{name}}0"
               }
             ]
           }
@@ -25,16 +47,21 @@ test.skip("mergeTemplateFiles", t => {
             badges: [
               {
                 name: "npm1",
-                icon: "https://img.shields.io/npm/v/{{name}}.svg",
-                url: "https://www.npmjs.com/package/{{name}}"
+                icon: "https://img.shields.io/npm/v/{{name}}1.svg",
+                url: "https://www.npmjs.com/package/{{name}}1"
               }
             ]
           }
         }
       ],
+      "",
+      undefined,
       {
         "": { key: "merger" },
-        "options.badges": { key: "name" }
+        "[].options.badges": {
+          key: "name",
+          sort: (a, b) => a.name.localeCompare(b.name)
+        }
       }
     ),
     [
@@ -43,14 +70,14 @@ test.skip("mergeTemplateFiles", t => {
         options: {
           badges: [
             {
-              name: "npm",
-              icon: "https://img.shields.io/npm/v/{{name}}.svg",
-              url: "https://www.npmjs.com/package/{{name}}"
+              name: "npm0",
+              icon: "https://img.shields.io/npm/v/{{name}}0.svg",
+              url: "https://www.npmjs.com/package/{{name}}0"
             },
             {
               name: "npm1",
-              icon: "https://img.shields.io/npm/v/{{name}}.svg",
-              url: "https://www.npmjs.com/package/{{name}}"
+              icon: "https://img.shields.io/npm/v/{{name}}1.svg",
+              url: "https://www.npmjs.com/package/{{name}}1"
             }
           ]
         }

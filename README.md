@@ -48,7 +48,7 @@ merges two trees guided with hints
 -   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
 -   `path`  
 -   `actions`   (optional, default `nullAction`)
--   `hints`   (optional, default `{}`)
+-   `hints`  
 
 ## merge
 
