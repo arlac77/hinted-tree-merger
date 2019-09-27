@@ -134,7 +134,7 @@ export function mergeVersions(a, b, path, actions = nullAction) {
  * @param path 
  * @param actions 
  */
-export function mergeVersionsPreffereNumeric(a, b, path, actions) {
+export function mergeVersionsPreferNumeric(a, b, path, actions) {
   return mergeVersions(a,b, path,actions).map(s => (String(parseFloat(s)) == s ? parseFloat(s) : s));
 }
 

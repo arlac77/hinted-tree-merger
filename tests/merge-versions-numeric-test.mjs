@@ -1,11 +1,11 @@
 import test from "ava";
 
-import { mergeVersionsPreffereNumeric } from "../src/versions.mjs";
+import { mergeVersionsPreferNumeric } from "../src/versions.mjs";
 
 function mvpn(t, a, b, c, ea) {
   const actions = [];
   t.deepEqual(
-    mergeVersionsPreffereNumeric(a, b, undefined, x => actions.push(x)),
+    mergeVersionsPreferNumeric(a, b, undefined, x => actions.push(x)),
     c
   );
   if (ea !== undefined) {
