@@ -26,3 +26,21 @@ test(
 test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
+
+test("nothing to remove", mt, [1], ["-a"], [1], '', []);
+
+test.skip(
+  "nothing to remove 2",
+  mt,
+  undefined,
+  {
+    node_js: ["7.7.2"],
+    before_script: ["npm prune", "-npm install -g codecov"]
+  },
+  {
+    node_js: ["7.7.2"],
+    before_script: ["npm prune"]
+  },
+  undefined,
+  []
+);
