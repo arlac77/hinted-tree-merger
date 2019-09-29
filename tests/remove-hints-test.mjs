@@ -28,6 +28,6 @@ test(rhv, new Date(), new Date());
 test(rhv, new Set(), new Set());
 test(rhv, new Map(), new Map());
 
-
 test(rhv, "--delete-- a", undefined);
-test(rhv, [1,"--delete-- a"], [1]);
+test(rhv, [1, "--delete-- a"], [1]);
+test("deep array",rhv, { a: [1, "--delete-- a"] }, { a: [1] });

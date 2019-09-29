@@ -1,8 +1,6 @@
 import { walk } from "./walker.mjs";
 
-
-export function nullAction() {
-}
+export function nullAction() {}
 
 export function asArray(a) {
   return Array.isArray(a) ? a : [a];
@@ -54,10 +52,21 @@ export function removeHintedValues(object) {
     return undefined;
   }
 
+  if (isScalar(object)) {
+    return object;
+  }
+
   if (Array.isArray(object)) {
     return object.filter(o =>
-      typeof o === "string" && o.match(/--delete--\s*(.*)/) ? false : true
+      typeof o === "string" &&
+      (o.match(/--delete--\s*(.*)/) || o.match(/^-([\.\w]+)/))
+        ? false
+        : true
     );
+  }
+
+  for(const key of Object.keys(object)) {
+    object[key] = removeHintedValues(object[key]);
   }
 
   return object;
@@ -130,7 +139,7 @@ export function isScalar(a) {
   );
 }
 
-export function hintFor(hints, path = '') {
+export function hintFor(hints, path = "") {
   if (hints === undefined) {
     return undefined;
   }

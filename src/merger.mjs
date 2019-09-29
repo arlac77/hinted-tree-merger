@@ -10,7 +10,8 @@ import {
   isToBeRemoved,
   asArray,
   hintFor,
-  nullAction
+  nullAction,
+  removeHintedValues
 } from "./util.mjs";
 
 export { isEqual, isScalar, isToBeRemoved };
@@ -98,6 +99,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 export function merge(a, b, path, actions = nullAction, hints) {
   if (isScalar(a)) {
     if (b !== undefined && !isEqual(a, b)) {
+      b = removeHintedValues(b);
       actions({ add: b, path });
       return b;
     }
