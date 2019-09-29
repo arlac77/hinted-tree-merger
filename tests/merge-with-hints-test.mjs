@@ -27,9 +27,9 @@ test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
 
-test("nothing to remove", mt, [1], ["-a"], [1], '', []);
+test("nothing to remove", mt, [1], ["-a"], [1], "", []);
 
-test.skip(
+test(
   "nothing to remove 2",
   mt,
   undefined,
@@ -42,5 +42,10 @@ test.skip(
     before_script: ["npm prune"]
   },
   undefined,
-  []
+  [
+    {
+      add: { node_js: ["7.7.2"], before_script: ["npm prune"] },
+      path: undefined
+    }
+  ]
 );
