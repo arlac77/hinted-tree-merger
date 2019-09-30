@@ -26,7 +26,9 @@ test(eq, [1, 2], [1, 2]);
 test("object", eq, { a: 1 }, { a: 1 });
 test(eq, { a: [1] }, { a: [1] });
 test(eq, new Set(), new Set());
+test("set filled", eq, new Set(["a"]), new Set(["a"]));
 test(eq, new Map(), new Map());
+test("Map<>Map", eq, new Map([["a", 1]]), new Map([["a", 1]]));
 test(eq, new Date(), new Date());
 test(eq, console.log, console.log);
 
@@ -38,6 +40,11 @@ test(neq, 1, undefined);
 test(neq, "a", "b");
 test(neq, 123n, 124n);
 test(neq, 123n, undefined);
+test("set filled", neq, new Set(["a"]), new Set(["b"]));
+test("Set<>Map", neq, new Set(), new Map());
+test("Map<>Set", neq, new Map(), new Set());
+test("Map<>Map", neq, new Map([["a", 1]]), new Map([["a", 2]]));
+
 test("array", neq, [1], [2]);
 test("array", neq, [1], [1, 2]);
 test("array", neq, [1], undefined);

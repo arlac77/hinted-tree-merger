@@ -79,9 +79,9 @@ export function removeHintedValues(object) {
 
   const result = {};
 
-  for(const key of Object.keys(object)) {
+  for (const key of Object.keys(object)) {
     const value = removeHintedValues(object[key]);
-    if(!isEmpty(value)) {
+    if (!isEmpty(value)) {
       result[key] = value;
     }
   }
@@ -90,15 +90,15 @@ export function removeHintedValues(object) {
 }
 
 export function isEmpty(a) {
-  if(a === undefined || a === null || a === '') {
+  if (a === undefined || a === null || a === "") {
     return true;
   }
 
-  if(Array.isArray(a) && a.length === 0) {
+  if (Array.isArray(a) && a.length === 0) {
     return true;
   }
 
-  if(isScalar(a)) {
+  if (isScalar(a)) {
     return false;
   }
 
@@ -110,7 +110,7 @@ export function isEmpty(a) {
     return false;
   }
 
-  if(Object.keys(a).length === 0) {
+  if (Object.keys(a).length === 0) {
     return true;
   }
 
@@ -147,6 +147,26 @@ export function isEqual(a, b, hints) {
   }
 
   if (typeof a === "object") {
+    if (a instanceof Set) {
+      return (
+        b instanceof Set &&
+        a.size === b.size &&
+        [...a].every(value => b.has(value))
+      );
+    }
+    if (a instanceof Map) {
+      if (!(b instanceof Map) || a.size !== b.size) {
+        return false;
+      }
+      for (const [k, v] of a.entries()) {
+        if (!isEqual(v, b.get(k))) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
     for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
       /*
       if (b[key] === "--delete--" && a[key] !== undefined) {

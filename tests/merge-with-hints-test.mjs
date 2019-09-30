@@ -6,7 +6,7 @@ function mt(t, a, b, r, hints, actions) {
   let myActions = [];
   t.deepEqual(merge(a, b, undefined, x => myActions.push(x), hints), r);
   if (actions !== undefined) {
-    t.log(myActions);
+    //  t.log(myActions);
     t.deepEqual(actions, myActions);
   }
 }
@@ -26,6 +26,16 @@ test(
 test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
+
+test(
+  "object remove key -> empty",
+  mt,
+  { a: 1 },
+  { a: "--delete--" },
+  undefined,
+  { "": { removeEmpty: true } },
+  [{ remove: 1, path: "a" }]
+);
 
 test("nothing to remove", mt, [1], ["-a"], [1], "", []);
 

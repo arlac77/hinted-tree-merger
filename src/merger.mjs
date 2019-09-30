@@ -140,5 +140,8 @@ export function merge(a, b, path, actions = nullAction, hints) {
     }
   }
 
+  const h = hintFor(hints, path);
+  if(h && h.removeEmpty && Object.keys(r).length === 0) { 
+    return undefined; }
   return r;
 }
