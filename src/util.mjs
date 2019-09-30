@@ -65,11 +65,48 @@ export function removeHintedValues(object) {
     );
   }
 
-  for(const key of Object.keys(object)) {
-    object[key] = removeHintedValues(object[key]);
+  if (object instanceof Map) {
+    return object;
   }
 
-  return object;
+  if (object instanceof Set) {
+    return object;
+  }
+
+  if (object instanceof Date) {
+    return object;
+  }
+
+  const result = {};
+
+  for(const key of Object.keys(object)) {
+    const value = removeHintedValues(object[key]);
+    if(!isEmpty(value)) {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+export function isEmpty(a) {
+  if(a === undefined || a === null || a === '') {
+    return true;
+  }
+
+  if(Array.isArray(a) && a.length === 0) {
+    return true;
+  }
+
+  if(isScalar(a)) {
+    return false;
+  }
+
+  if(Object.keys(a).length === 0) {
+    return true;
+  }
+
+  return false;
 }
 
 export function isEqual(a, b, hints) {

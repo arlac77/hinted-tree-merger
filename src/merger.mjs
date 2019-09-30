@@ -7,6 +7,7 @@ export {
 import {
   isEqual,
   isScalar,
+  isEmpty,
   isToBeRemoved,
   asArray,
   hintFor,
@@ -14,7 +15,7 @@ import {
   removeHintedValues
 } from "./util.mjs";
 
-export { isEqual, isScalar, isToBeRemoved };
+export { isEqual, isScalar, isEmpty, isToBeRemoved };
 
 function appendPath(path, suffix) {
   return path === undefined ? suffix : path + suffix;
