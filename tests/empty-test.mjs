@@ -21,10 +21,14 @@ test(nem, 2n);
 test(nem, "a");
 test(nem, true);
 test(nem, false);
+test(nem, {a:1});
+test(nem, [3]);
+test(nem, new Set(["a"]));
+test(nem, new Map([["a",1]]));
 test(nem, Symbol("a symbol"));
 test(nem, a => {});
 test(nem, console.log);
-//test(nem, new Date());
+test(nem, new Date());
 
 test(em, undefined);
 test(em, null);

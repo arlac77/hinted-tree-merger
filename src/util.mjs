@@ -102,6 +102,14 @@ export function isEmpty(a) {
     return false;
   }
 
+  if (a instanceof Map || a instanceof Set) {
+    return a.size === 0;
+  }
+
+  if (a instanceof Date) {
+    return false;
+  }
+
   if(Object.keys(a).length === 0) {
     return true;
   }
