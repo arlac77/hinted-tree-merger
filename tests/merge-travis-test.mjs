@@ -1,7 +1,7 @@
 import test from "ava";
 import { merge, mergeVersionsPreferNumeric } from "../src/merger.mjs";
 
-test.skip("travis real merge", t => {
+test("travis real merge", t => {
   const merged = merge(
     {
       language: "node_js",
@@ -98,7 +98,7 @@ test.skip("travis real merge", t => {
     }
   );
 
-  t.log(JSON.stringify(merged,undefined,2));
+  //t.log(JSON.stringify(merged,undefined,2));
 
   t.deepEqual(merged, {
     language: "node_js",
@@ -113,10 +113,9 @@ test.skip("travis real merge", t => {
           node_js: "lts/*",
           skip_cleanup: "true",
           script: [
-            "npm install -g --production coveralls codecov",
+            "npm install -g --production codecov",
             "npm run cover",
             "codecov",
-            "cat ./coverage/lcov.info | coveralls",
             "npm run lint",
             "npm run docs"
           ]

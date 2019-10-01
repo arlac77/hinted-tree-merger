@@ -2,7 +2,7 @@
 export function nullAction() {}
 
 export function asArray(a) {
-  return Array.isArray(a) ? a : [a];
+  return Array.isArray(a) ? a : (a === undefined ? [] : [a]);
 }
 
 export function difference(a, b) {

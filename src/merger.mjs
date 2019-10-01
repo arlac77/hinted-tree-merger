@@ -32,27 +32,20 @@ function appendPath(path, suffix) {
  * @param hints
  */
 export function mergeArrays(a, b, path, actions = nullAction, hints) {
-  if (a === undefined) {
-  } else {
-    a = asArray(a);
-  }
-
-  if (b === undefined) {
-    return a;
-  }
-
+  a = asArray(a);
   b = asArray(b);
 
   const h = hintFor(hints, path);
 
-  //console.log(path, a, b);
+  //console.log("P", path, a, b);
+
   if (h !== undefined && h.key) {
     const key = h.key;
     const aa = [...a, ...b].reduce((a, c) => {
       const k = c[key];
       const p = a.get(k);
       if (p !== undefined) {
-        c = merge(c, p, appendPath(path, `[]`), actions, hints);
+        c = merge(p, c, appendPath(path, `[]`), actions, hints);
       }
 
       a.set(k, c);
@@ -69,6 +62,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   let i = 0;
   for (const s of b) {
+    //console.log("S", s);
     if (s[0] === "-") {
       if (a !== undefined) {
         const t = s.substring(1);
@@ -92,9 +86,10 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     i++;
   }
 
+  //console.log("R", a);
+
   return a;
 }
-
 
 /**
  * merge to values
@@ -155,7 +150,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
   }
 
   const h = hintFor(hints, path);
-  //console.log(path,h);
+
   if (h && h.removeEmpty && Object.keys(r).length === 0) {
     return undefined;
   }
