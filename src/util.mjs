@@ -1,4 +1,3 @@
-import { walk } from "./walker.mjs";
 
 export function nullAction() {}
 
