@@ -117,7 +117,6 @@ export function merge(a, b, path, actions = nullAction, hints) {
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
     const p = appendPath(path,key,".");
     const h = hintFor(hints, p);
-    const merger = h instanceof Function ? h : h.merger ? h.merger : merge;
 
     if (b[key] === "--delete--") {
       const v = a[key];
@@ -125,7 +124,8 @@ export function merge(a, b, path, actions = nullAction, hints) {
         actions({ remove: v, path: p });
       }
     } else {
-      const m = merger(a[key], b[key], p, actions, hints);
+      const mf = h instanceof Function ? h : h.merge ? h.merge : merge;
+      const m = mf(a[key], b[key], p, actions, hints);
 
       if (h && h.removeEmpty && isEmpty(m)) {
       } else {

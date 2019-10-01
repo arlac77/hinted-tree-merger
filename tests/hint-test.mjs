@@ -7,17 +7,17 @@ function hf(t, hints, path, result) {
 }
 
 hf.title = (providedTitle = "", a, b) =>
-  `hintFor ${providedTitle} ${a} ${b}`.trim();
+  `hintFor ${providedTitle} ${JSON.stringify(a)} ${b}`.trim();
 
 test(hf, {}, undefined, {});
 test(hf, undefined, "a", {});
-test(hf, { a: mergeVersions }, "a", mergeVersions);
-test(hf, { a: mergeVersions }, "b", {});
+test(hf, { a: { merge: mergeVersions } }, "a", { merge: mergeVersions });
+test(hf, { a: { merge: mergeVersions } }, "b", {});
+test(hf, { "a.b": { merge: mergeVersions } }, "a.b", {
+  merge: mergeVersions
+});
 
-test(hf, { "a.b": mergeVersions }, "a.b", mergeVersions);
-
-/*
-'B'
-'B[1].C'
-test(hf, { "b": mergeVersions }, ["a", "b"], mergeVersions);
-*/
+test(hf, { "*": { removeEmpty: true }, "a.b": { key: "a" } }, "a.b", {
+  key: "a",
+  removeEmpty: true
+});
