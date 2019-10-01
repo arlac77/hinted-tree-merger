@@ -203,10 +203,3 @@ export function isScalar(a) {
     a === null
   );
 }
-
-export function hintFor(hints, path = "") {
-  if (hints === undefined) {
-    return undefined;
-  }
-  return hints[path];
-}

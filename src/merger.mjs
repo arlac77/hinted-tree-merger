@@ -10,10 +10,13 @@ import {
   isEmpty,
   isToBeRemoved,
   asArray,
-  hintFor,
   nullAction,
   removeHintedValues
 } from "./util.mjs";
+
+import {
+  hintFor,
+} from "./hint.mjs";
 
 export { isEqual, isScalar, isEmpty, isToBeRemoved };
 

@@ -1,5 +1,5 @@
 import test from "ava";
-import { hintFor } from "../src/util.mjs";
+import { hintFor } from "../src/hint.mjs";
 import { mergeVersions } from "../src/versions.mjs";
 
 function hf(t, hints, path, result) {
