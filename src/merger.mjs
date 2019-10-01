@@ -19,8 +19,10 @@ import { hintFor } from "./hint.mjs";
 
 export { isEqual, isScalar, isEmpty, isToBeRemoved };
 
-function appendPath(path, suffix, separator="") {
-  return path === undefined || path.length === 0 ? suffix : path + separator + suffix;
+function appendPath(path, suffix, separator = "") {
+  return path === undefined || path.length === 0
+    ? suffix
+    : path + separator + suffix;
 }
 
 /**
@@ -39,23 +41,15 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   if (h.key) {
     const key = h.key;
-    const aa = [...a, ...b].reduce((a, c) => {
+    const mf = (a, c) => {
       const k = c[key];
-      const p = a.get(k);
-      if (p !== undefined) {
-        c = merge(p, c, appendPath(path, `[]`), actions, hints);
-      }
-
-      a.set(k, c);
-
+      a.set(k, merge(a.get(k), c, appendPath(path, `[]`), actions, hints));
       return a;
-    }, new Map());
+    };
 
-    if (h.sort) {
-      return [...aa.values()].sort(h.sort);
-    }
+    const aa = [...b.reduce(mf, a.reduce(mf, new Map())).values()];
 
-    return [...aa.values()];
+    return h.sort ? aa.sort(h.sort) : aa;
   }
 
   let i = 0;
@@ -108,14 +102,14 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return mergeArrays(a, b, path, actions, hints);
   }
 
-  if(b === undefined) {
+  if (b === undefined) {
     b = {};
   }
 
   const r = {};
 
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
-    const p = appendPath(path,key,".");
+    const p = appendPath(path, key, ".");
     const h = hintFor(hints, p);
 
     if (b[key] === "--delete--" || b[key] === `-${a[key]}`) {

@@ -9,29 +9,29 @@ function mat(t, a, b, r, hints) {
 mat.title = (providedTitle = "merge", a, b) =>
   `${providedTitle} ${JSON.stringify(a)} ${JSON.stringify(b)}`.trim();
 
-test(mat,
-  [{ key: 1, value: 1 }, { key: 2, value: 2, something: 5 }],
-  [{ key: 2, value: 2, other: 4 }, { key: 3, value: 3 }],
+test(
+  mat,
+  [{ k: 1, v: 1 }, { k: 2, v: 2, something: 5 }],
+  [{ k: 2, v: 2, other: 4 }, { k: 3, v: 3 }],
   [
-    { key: 1, value: 1 },
-    { key: 2, value: 2, something: 5, other: 4 },
-    { key: 3, value: 3 }
-  ],  {
+    { k: 1, v: 1 },
+    { k: 2, v: 2, something: 5, other: 4 },
+    { k: 3, v: 3 }
+  ],
+  {
     "*": {
-      key: "key",
-      sort: (a, b) => (a.key > b.key ? 1 : a.key < b.key ? -1 : 0)
+      key: "k",
+      sort: (a, b) => (a.k > b.k ? 1 : a.k < b.k ? -1 : 0)
     }
   }
 );
 
-test(mat,
-  ["a","b"],
-  ["-b"],
-  ["a"]
-);
+test(mat, [], [{ k: 2, v: ["-a", "b"] }], [{ k: 2, v: ["b"] }], {
+  "*": {
+    key: "k"
+  }
+});
 
-test(mat,
-  ["a","b"],
-  "-b",
-  ["a"]
-);
+test(mat, ["a", "b"], ["-b"], ["a"]);
+
+test(mat, ["a", "b"], "-b", ["a"]);
