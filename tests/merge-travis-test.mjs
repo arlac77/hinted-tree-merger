@@ -84,11 +84,17 @@ test.skip("travis real merge", t => {
     undefined,
     undefined,
     {
+      "": { removeEmpty: true },
+      jobs: { removeEmpty: true },
       before_script: { removeEmpty: true },
       after_script: { removeEmpty: true },
+      after_success: { removeEmpty: true },
       notifications: { removeEmpty: true },
-      "": { removeEmpty: true },
-      node_js: mergeVersionsPreferNumeric
+      node_js: mergeVersionsPreferNumeric,
+      "jobs.include": {
+        removeEmpty: true,
+        key: "stage"
+      }
     }
   );
 

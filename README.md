@@ -37,7 +37,7 @@ merges two trees guided with hints
     -   [Parameters](#parameters-4)
 -   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-5)
--   [walk](#walk)
+-   [indexFor](#indexfor)
     -   [Parameters](#parameters-6)
 
 ## mergeArrays
@@ -110,14 +110,15 @@ should value be removed
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** true if fromTemplate tells is to delete value
 
-## walk
+## indexFor
 
-Iterates over all members
+find best insertion point for b[i] in a
 
 ### Parameters
 
--   `value` **any** 
--   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>**  (optional, default `[]`)
+-   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+-   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
 
 # install
 

@@ -202,3 +202,16 @@ export function isScalar(a) {
     a === null
   );
 }
+
+
+/**
+ * find best insertion point for b[i] in a
+ * @param {any[]} b
+ * @param {number} i
+ * @param {any[]} a
+ */
+export function indexFor(b, i, a) {
+  const n = b[i + 1];
+  const f = a.findIndex(x => isEqual(x, n));
+  return f >= 0 ? f : a.length;
+}

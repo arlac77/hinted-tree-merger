@@ -59,3 +59,34 @@ test(
     }
   ]
 );
+
+test(
+  "array join",
+  mt,
+  [
+    "npm install -g --production coveralls codecov",
+    "npm run cover",
+    "codecov",
+    "cat ./coverage/lcov.info | coveralls",
+    "npm run lint",
+    "npm run docs"
+  ],
+  [
+    "-npm install -g --production coveralls codecov",
+    "-cat ./coverage/lcov.info | coveralls",
+    "npm install -g --production codecov",
+    "npm run cover",
+    "codecov",
+    "npm run lint",
+    "npm run docs"
+  ],
+  [
+    "npm install -g --production codecov",
+    "npm run cover",
+    "codecov",
+    "npm run lint",
+    "npm run docs"
+  ],
+  undefined,
+  undefined
+);

@@ -11,12 +11,11 @@ import {
   isToBeRemoved,
   asArray,
   nullAction,
-  removeHintedValues
+  removeHintedValues,
+  indexFor
 } from "./util.mjs";
 
-import {
-  hintFor,
-} from "./hint.mjs";
+import { hintFor } from "./hint.mjs";
 
 export { isEqual, isScalar, isEmpty, isToBeRemoved };
 
@@ -46,6 +45,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   const h = hintFor(hints, path);
 
+  //console.log(path, a, b);
   if (h !== undefined && h.key) {
     const key = h.key;
     const aa = [...a, ...b].reduce((a, c) => {
@@ -67,6 +67,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     return [...aa.values()];
   }
 
+  let i = 0;
   for (const s of b) {
     if (s[0] === "-") {
       if (a !== undefined) {
@@ -83,14 +84,17 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
       }
 
       if (!a.find(x => isEqual(x, s))) {
-        a.push(s);
-        actions({ add: s, path: appendPath(path, `[${a.length - 1}]`) });
+        const ii = indexFor(b, i, a);
+        a.splice(ii, 0, s);
+        actions({ add: s, path: appendPath(path, `[${ii}]`) });
       }
     }
+    i++;
   }
 
   return a;
 }
+
 
 /**
  * merge to values
@@ -139,12 +143,21 @@ export function merge(a, b, path, actions = nullAction, hints) {
             : merge
           : merge;
 
-      r[key] = merger(a[key], b[key], p, actions, hints);
+      //console.log("X",p,h);
+
+      const m = merger(a[key], b[key], p, actions, hints);
+
+      if (h && h.removeEmpty && isEmpty(m)) {
+      } else {
+        r[key] = m;
+      }
     }
   }
 
   const h = hintFor(hints, path);
-  if(h && h.removeEmpty && Object.keys(r).length === 0) { 
-    return undefined; }
+  //console.log(path,h);
+  if (h && h.removeEmpty && Object.keys(r).length === 0) {
+    return undefined;
+  }
   return r;
 }
