@@ -69,7 +69,7 @@ test("travis real merge", t => {
           }
         ]
       },
-      cache: "npm",
+      cache: "-npm",
       before_script: [
         "-npm prune",
         "-npm install -g --production coveralls codecov"
@@ -97,7 +97,6 @@ test("travis real merge", t => {
   t.deepEqual(merged, {
     language: "node_js",
     node_js: ["10.15.3", "11.12.0"],
-    cache: "npm",
     script: ["npm run cover"],
     branches: { only: ["master", "/^greenkeeper/.*$/"] },
     jobs: {

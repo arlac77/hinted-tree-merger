@@ -118,7 +118,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
     const p = appendPath(path,key,".");
     const h = hintFor(hints, p);
 
-    if (b[key] === "--delete--") {
+    if (b[key] === "--delete--" || b[key] === `-${a[key]}`) {
       const v = a[key];
       if (v !== undefined) {
         actions({ remove: v, path: p });
