@@ -1,12 +1,13 @@
-export function hintFor(hints, path = "") {
+export function hintFor(hints, path) {
   if (hints === undefined) {
-    return undefined;
+    return {};
   }
 
   const h = hints[path];
   if (h !== undefined) {
     return h;
   }
+
 /*
   for (const p of Object.keys(hints)) {
       
@@ -15,5 +16,5 @@ export function hintFor(hints, path = "") {
     }
   }
 */
-  return undefined;
+  return {};
 }

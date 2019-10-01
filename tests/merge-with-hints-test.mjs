@@ -4,7 +4,7 @@ import { mergeVersions } from "../src/versions.mjs";
 
 function mt(t, a, b, r, hints, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, undefined, x => myActions.push(x), hints), r);
+  t.deepEqual(merge(a, b, '', x => myActions.push(x), hints), r);
   if (actions !== undefined) {
     //  t.log(myActions);
     t.deepEqual(actions, myActions);
@@ -27,7 +27,7 @@ test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
 
-test(
+test.only(
   "object remove key -> empty",
   mt,
   { a: 1 },

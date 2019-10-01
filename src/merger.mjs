@@ -19,8 +19,8 @@ import { hintFor } from "./hint.mjs";
 
 export { isEqual, isScalar, isEmpty, isToBeRemoved };
 
-function appendPath(path, suffix) {
-  return path === undefined ? suffix : path + suffix;
+function appendPath(path, suffix, separator="") {
+  return path === undefined || path.length === 0 ? suffix : path + separator + suffix;
 }
 
 /**
@@ -37,9 +37,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   const h = hintFor(hints, path);
 
-  //console.log("P", path, a, b);
-
-  if (h !== undefined && h.key) {
+  if (h.key) {
     const key = h.key;
     const aa = [...a, ...b].reduce((a, c) => {
       const k = c[key];
@@ -62,7 +60,6 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   let i = 0;
   for (const s of b) {
-    //console.log("S", s);
     if (s[0] === "-") {
       if (a !== undefined) {
         const t = s.substring(1);
@@ -85,8 +82,6 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     }
     i++;
   }
-
-  //console.log("R", a);
 
   return a;
 }
@@ -120,26 +115,16 @@ export function merge(a, b, path, actions = nullAction, hints) {
   const r = {};
 
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
-    const p = path === undefined ? key : path + "." + key;
+    const p = appendPath(path,key,".");
     const h = hintFor(hints, p);
+    const merger = h instanceof Function ? h : h.merger ? h.merger : merge;
 
-    if (b[key] === "--delete--" && h === undefined) {
+    if (b[key] === "--delete--") {
       const v = a[key];
       if (v !== undefined) {
         actions({ remove: v, path: p });
       }
     } else {
-      const merger =
-        h !== undefined
-          ? h instanceof Function
-            ? h
-            : h.merger
-            ? h.merger
-            : merge
-          : merge;
-
-      //console.log("X",p,h);
-
       const m = merger(a[key], b[key], p, actions, hints);
 
       if (h && h.removeEmpty && isEmpty(m)) {
@@ -151,7 +136,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
   const h = hintFor(hints, path);
 
-  if (h && h.removeEmpty && Object.keys(r).length === 0) {
+  if (h.removeEmpty && Object.keys(r).length === 0) {
     return undefined;
   }
   return r;

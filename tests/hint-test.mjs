@@ -9,10 +9,10 @@ function hf(t, hints, path, result) {
 hf.title = (providedTitle = "", a, b) =>
   `hintFor ${providedTitle} ${a} ${b}`.trim();
 
-test(hf, {}, undefined, undefined);
-test(hf, undefined, "a", undefined);
+test(hf, {}, undefined, {});
+test(hf, undefined, "a", {});
 test(hf, { a: mergeVersions }, "a", mergeVersions);
-test(hf, { a: mergeVersions }, "b", undefined);
+test(hf, { a: mergeVersions }, "b", {});
 
 test(hf, { "a.b": mergeVersions }, "a.b", mergeVersions);
 
