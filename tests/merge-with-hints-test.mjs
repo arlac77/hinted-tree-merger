@@ -6,7 +6,6 @@ function mt(t, a, b, r, hints, actions) {
   let myActions = [];
   t.deepEqual(merge(a, b, '', x => myActions.push(x), hints), r);
   if (actions !== undefined) {
-    //  t.log(myActions);
     t.deepEqual(actions, myActions);
   }
 }
@@ -27,7 +26,7 @@ test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
 
-test.only(
+test(
   "object remove key -> empty",
   mt,
   { a: 1 },
@@ -55,7 +54,7 @@ test(
   [
     {
       add: { node_js: ["7.7.2"], before_script: ["npm prune"] },
-      path: undefined
+      path: ''
     }
   ]
 );

@@ -104,12 +104,12 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return a;
   }
 
-  if (b === undefined) {
-    return a;
-  }
-
   if (Array.isArray(a)) {
     return mergeArrays(a, b, path, actions, hints);
+  }
+
+  if(b === undefined) {
+    b = {};
   }
 
   const r = {};
