@@ -49,7 +49,14 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
     const aa = [...b.reduce(mf, a.reduce(mf, new Map())).values()];
 
-    return h.sort ? aa.sort(h.sort) : aa;
+    return aa.sort(
+      h.sort
+        ? h.sort
+        // reorder after b order
+        : (x, y) =>
+            b.findIndex(e => e[key] === x[key]) -
+            b.findIndex(e => e[key] === y[key])
+    );
   }
 
   let i = 0;

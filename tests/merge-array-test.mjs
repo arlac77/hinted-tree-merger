@@ -13,11 +13,7 @@ test(
   mat,
   [{ k: 1, v: 1 }, { k: 2, v: 2, something: 5 }],
   [{ k: 2, v: 2, other: 4 }, { k: 3, v: 3 }],
-  [
-    { k: 1, v: 1 },
-    { k: 2, v: 2, something: 5, other: 4 },
-    { k: 3, v: 3 }
-  ],
+  [{ k: 1, v: 1 }, { k: 2, v: 2, something: 5, other: 4 }, { k: 3, v: 3 }],
   {
     "*": {
       key: "k",
@@ -27,6 +23,12 @@ test(
 );
 
 test(mat, [], [{ k: 2, v: ["-a", "b"] }], [{ k: 2, v: ["b"] }], {
+  "*": {
+    key: "k"
+  }
+});
+
+test(mat, [{ k: 1 }], [{ k: 2 }, { k: 1 }], [{ k: 2 }, { k: 1 }], {
   "*": {
     key: "k"
   }
