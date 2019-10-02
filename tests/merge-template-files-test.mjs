@@ -6,6 +6,9 @@ test("mergeTemplateFiles", t => {
     mergeArrays(
       [
         {
+          merger: "Other",
+        },
+        {
           merger: "Package",
           options: {
             badges: [
@@ -36,13 +39,16 @@ test("mergeTemplateFiles", t => {
       undefined,
       {
         "": { key: "merger" },
-        "[].options.badges": {
+        "*.options.badges": {
           key: "name",
           sort: (a, b) => a.name.localeCompare(b.name)
         }
       }
     ),
     [
+      {
+        merger: "Other",
+      },
       {
         merger: "Package",
         options: {
