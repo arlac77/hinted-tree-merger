@@ -1,4 +1,4 @@
-import { difference, hintFreeValue, nullAction } from "./util.mjs";
+import { difference, hintFreeValue, nullAction, isScalar } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
@@ -84,6 +84,13 @@ export function toBeRemoved(value) {
   return false;
 }
 
+function toSet(a) {
+  if (isScalar(a)) {
+    return new Set([a]);
+  }
+  return new Set(a ? [...a.map(s => String(s))] : []);
+}
+
 /**
  * @param {string|number} a
  * @param {string|number} b
@@ -91,8 +98,8 @@ export function toBeRemoved(value) {
  * @param {Action} actions
  */
 export function mergeVersions(a, b, path, actions = nullAction) {
-  const aVersions = new Set(a ? [...a.map(s => String(s))] : []);
-  const bVersions = new Set(b ? [...b.map(s => String(s))] : []);
+  const aVersions = toSet(a);
+  const bVersions = toSet(b);
 
   const versions = new Set([...aVersions, ...bVersions]);
   const newVersions = new Set(versions);
@@ -124,20 +131,23 @@ export function mergeVersions(a, b, path, actions = nullAction) {
     [...as].sort(compareVersion).forEach(v => actions({ add: v, path }));
   }
 
-  return Array.from(new Set(newVersions)).sort(compareVersion);
+  const res = Array.from(new Set(newVersions)).sort(compareVersion);
+
+  return res.length === 1 && isScalar(a) ? res[0] : res;
 }
 
 /**
  * Same as mergeVersions but merge result are numbers if possible
  * @param a
- * @param b 
- * @param path 
- * @param actions 
+ * @param b
+ * @param path
+ * @param actions
  */
 export function mergeVersionsPreferNumeric(a, b, path, actions) {
-  return mergeVersions(a,b, path,actions).map(s => (String(parseFloat(s)) == s ? parseFloat(s) : s));
+  const r = mergeVersions(a, b, path, actions);
+  const toStr = s => (String(parseFloat(s)) == s ? parseFloat(s) : s);
+  return Array.isArray(r) ? r.map(s => toStr(s)) : toStr(r);
 }
-
 
 export function mergeObjectValueVersions(a, b, path, actions = nullAction) {
   return Object.assign(a, b);

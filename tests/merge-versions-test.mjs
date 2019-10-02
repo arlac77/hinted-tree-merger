@@ -13,6 +13,31 @@ function mv(t, a, b, c, ea) {
 mv.title = (providedTitle = "", a, b, c) =>
   `merge version ${providedTitle} ${c} := ${a} << ${b}`.trim();
 
+test(
+  "scalar + scalar",
+  mv,
+  "1",
+  "2",
+  ["1", "2"],
+  [{ add: "2", path: undefined }]
+);
+test("scalar + scalar same", mv, "1", "1", "1", []);
+test(
+  "scalar + array",
+  mv,
+  "1",
+  ["2"],
+  ["1", "2"],
+  [{ add: "2", path: undefined }]
+);
+test(
+  "array + scalar",
+  mv,
+  ["1"],
+  "2",
+  ["1", "2"],
+  [{ add: "2", path: undefined }]
+);
 test(mv, [], [], [], []);
 test(mv, [], ["1"], ["1"], [{ add: "1", path: undefined }]);
 test(mv, ["1"], [], ["1"], []);
