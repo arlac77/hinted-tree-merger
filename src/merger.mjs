@@ -52,8 +52,8 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     return aa.sort(
       h.sort
         ? h.sort
-        // reorder after b order
-        : (x, y) =>
+        : // reorder after b order
+          (x, y) =>
             b.findIndex(e => e[key] === x[key]) -
             b.findIndex(e => e[key] === y[key])
     );
@@ -118,15 +118,19 @@ export function merge(a, b, path, actions = nullAction, hints) {
   for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
     const p = appendPath(path, key, ".");
     const h = hintFor(hints, p);
+    const av = a[key];
+    const bv = b[key];
 
-    if (b[key] === "--delete--" || b[key] === `-${a[key]}`) {
-      const v = a[key];
-      if (v !== undefined) {
-        actions({ remove: v, path: p });
+    if (
+      (typeof bv === "string" && bv.startsWith("--delete--")) ||
+      bv === `-${av}`
+    ) {
+      if (av !== undefined) {
+        actions({ remove: av, path: p });
       }
     } else {
       const mf = h.merge ? h.merge : merge;
-      const m = mf(a[key], b[key], p, actions, hints);
+      const m = mf(av, bv, p, actions, hints);
 
       if (h && h.removeEmpty && isEmpty(m)) {
       } else {

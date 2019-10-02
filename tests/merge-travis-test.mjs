@@ -6,7 +6,6 @@ test("travis real merge", t => {
     {
       language: "node_js",
       node_js: ["10.15.3", "11.11.0"],
-      cache: "npm",
       script: ["npm run cover"],
       branches: { only: ["master", "/^greenkeeper/.*$/"] },
       jobs: {
@@ -69,7 +68,7 @@ test("travis real merge", t => {
           }
         ]
       },
-      cache: "-npm",
+      cache: "--delete-- npm",
       before_script: [
         "-npm prune",
         "-npm install -g --production coveralls codecov"
