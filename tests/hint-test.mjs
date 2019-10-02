@@ -16,6 +16,9 @@ test(hf, { a: { merge: mergeVersions } }, "b", {});
 test(hf, { "a.b": { merge: mergeVersions } }, "a.b", {
   merge: mergeVersions
 });
+test(hf, { "*b": { merge: mergeVersions } }, "a.b", {
+  merge: mergeVersions
+});
 
 test(hf, { "*": { removeEmpty: true }, "a.b": { key: "a" } }, "a.b", {
   key: "a",

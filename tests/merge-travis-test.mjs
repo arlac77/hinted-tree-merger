@@ -85,7 +85,7 @@ test("travis real merge", t => {
     undefined,
     {
       "*": { removeEmpty: true },
-      node_js: { merge: mergeVersionsPreferNumeric },
+      "*node_js": { merge: mergeVersionsPreferNumeric },
       "jobs.include": {
         key: "stage"
       }
