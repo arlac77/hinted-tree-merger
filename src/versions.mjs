@@ -98,7 +98,9 @@ function toSet(a) {
  * @param {Action} actions
  */
 export function mergeVersions(a, b, path, actions = nullAction) {
-  if(b === undefined) { return a; }
+  if (b === undefined) {
+    return a;
+  }
   const aVersions = toSet(a);
   const bVersions = toSet(b);
 
@@ -137,6 +139,10 @@ export function mergeVersions(a, b, path, actions = nullAction) {
   return res.length === 1 && isScalar(a) ? res[0] : res;
 }
 
+function toStr(s) {
+  return String(parseFloat(s)) == s ? parseFloat(s) : s;
+}
+
 /**
  * Same as mergeVersions but merge result are numbers if possible
  * @param a
@@ -146,7 +152,6 @@ export function mergeVersions(a, b, path, actions = nullAction) {
  */
 export function mergeVersionsPreferNumeric(a, b, path, actions) {
   const r = mergeVersions(a, b, path, actions);
-  const toStr = s => (String(parseFloat(s)) == s ? parseFloat(s) : s);
   return Array.isArray(r) ? r.map(s => toStr(s)) : toStr(r);
 }
 
