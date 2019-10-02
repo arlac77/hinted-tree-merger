@@ -2,6 +2,51 @@ import { difference, hintFreeValue, nullAction, isScalar } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
+
+function toArray(value) {
+  value = String(value);
+
+  let incrementIndex = -1;
+
+  /** url means highest version */
+  if (value.match(/^[\w\-\+]+:/)) {
+    return [99999];
+  }
+
+  switch (value[0]) {
+    case "~":
+      value = value.substring(1);
+      incrementIndex = 1;
+      break;
+    case "^":
+      value = value.substring(1);
+      incrementIndex = 2;
+      break;
+  }
+
+  const slots = value.split(/\./).map(p => {
+    const w = parseInt(p, 10);
+    if (isNaN(w)) {
+      return 99999;
+    }
+    return w;
+  });
+
+  const m = value.match(/\-(\w+)\.?(.*)/);
+
+  if (m) {
+    let e = m ? slots.pop() : 0;
+    const last = slots.pop();
+    return [...slots, last - suffixes[m[1]], e];
+  }
+
+  if (incrementIndex >= 0) {
+    slots[incrementIndex] = slots[incrementIndex] + 1;
+  }
+
+  return slots;
+}
+
 /**
  * compare two versions
  *
@@ -10,50 +55,6 @@ const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
  * @return {number} -1 if a < b, 0 if a == b and 1 if a > b
  */
 export function compareVersion(a, b) {
-  const toArray = value => {
-    value = String(value);
-
-    let incrementIndex = -1;
-
-    /** url means highest version */
-    if (value.match(/^[\w\-\+]+:/)) {
-      return [99999];
-    }
-
-    switch (value[0]) {
-      case "~":
-        value = value.substring(1);
-        incrementIndex = 1;
-        break;
-      case "^":
-        value = value.substring(1);
-        incrementIndex = 2;
-        break;
-    }
-
-    const slots = value.split(/\./).map(p => {
-      const w = parseInt(p, 10);
-      if (isNaN(w)) {
-        return 99999;
-      }
-      return w;
-    });
-
-    const m = value.match(/\-(\w+)\.?(.*)/);
-
-    if (m) {
-      let e = m ? slots.pop() : 0;
-      const last = slots.pop();
-      return [...slots, last - suffixes[m[1]], e];
-    }
-
-    if (incrementIndex >= 0) {
-      slots[incrementIndex] = slots[incrementIndex] + 1;
-    }
-
-    return slots;
-  };
-
   const uaa = toArray(a);
   const ubb = toArray(b);
 

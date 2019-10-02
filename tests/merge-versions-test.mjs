@@ -15,7 +15,7 @@ mv.title = (providedTitle = "", a, b, c) =>
 
 test(mv, undefined, undefined, undefined);
 test(mv, "1", undefined, "1");
-test(mv, undefined, "1", "1",[{ add: "1", path: undefined }]);
+test(mv, undefined, "1", "1", [{ add: "1", path: undefined }]);
 
 test(
   "scalar + scalar",
@@ -42,6 +42,7 @@ test(
   ["1", "2"],
   [{ add: "2", path: undefined }]
 );
+
 test(mv, [], [], [], []);
 test(mv, [], ["1"], ["1"], [{ add: "1", path: undefined }]);
 test(mv, ["1"], [], ["1"], []);
@@ -67,3 +68,16 @@ test(
     { add: "1.3", path: undefined }
   ]
 );
+
+
+test(mv, ">=1.2.3", undefined, ">=1.2.3");
+test(mv, undefined, ">=1.2.3", ">=1.2.3");
+test(mv, ">=1.2.3", ">=1.2.3", ">=1.2.3");
+
+test.skip(mv, ">=1.2.3", ">=1.2.4", ">=1.2.4");
+test.skip(mv, ">=1.2.3", ">=1.3.0", ">=1.3.0");
+test.skip(mv, ">=1.2.3", ">=2.0.0", ">=2.0.0");
+
+test.skip(mv, ">=1.2.3", ">=1.2.3", ">=1.2.4");
+test.skip(mv, ">=1.3.0", ">=1.2.3", ">=1.3.0");
+test.skip(mv, ">=2.0.0", ">=1.2.3", ">=2.0.0");
