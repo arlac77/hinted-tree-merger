@@ -37,3 +37,4 @@ test(mat, [{ k: 1 }], [{ k: 2 }, { k: 1 }], [{ k: 2 }, { k: 1 }], {
 test(mat, ["a", "b"], ["-b"], ["a"]);
 
 test(mat, ["a", "b"], "-b", ["a"]);
+test.skip(mat, ["a", "b"], "--delete-- b", ["a"]);

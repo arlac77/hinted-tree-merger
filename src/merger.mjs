@@ -12,7 +12,8 @@ import {
   asArray,
   nullAction,
   removeHintedValues,
-  indexFor
+  indexFor,
+  hasDeleteHint
 } from "./util.mjs";
 
 import { hintFor } from "./hint.mjs";
@@ -70,7 +71,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
           actions({ remove: t, path: appendPath(path, `[${i}]`) });
         }
       }
-    } else {
+    }  else {
       if (a === undefined) {
         a = [];
       }
@@ -121,9 +122,14 @@ export function merge(a, b, path, actions = nullAction, hints) {
     const av = a[key];
     const bv = b[key];
 
+  /*  const x = hasDeleteHint(bv, av);
+console.log("RES",x);
+*/
     if (
+      // hasDeleteHint(bv, av)
       (typeof bv === "string" && bv.startsWith("--delete--")) ||
       bv === `-${av}`
+      
     ) {
       if (av !== undefined) {
         actions({ remove: av, path: p });

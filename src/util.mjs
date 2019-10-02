@@ -9,6 +9,28 @@ export function difference(a, b) {
   return new Set([...a].filter(x => !b.has(x)));
 }
 
+
+/**
+ */
+export function hasDeleteHint(value, expected)
+{
+//console.log("HDH", value, expected);
+
+  if (typeof value === "string") {
+    const m = value.match(/^--delete--\s*(.*)/);
+    if (m) {
+      return m[1];
+    }
+
+    if(value === `-${expected}`) {
+      return expected;
+    }
+  }
+
+  return undefined;
+}
+
+
 /**
  * should value be removed
  * @param {string} value
