@@ -125,7 +125,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
         actions({ remove: v, path: p });
       }
     } else {
-      const mf = h instanceof Function ? h : h.merge ? h.merge : merge;
+      const mf = h.merge ? h.merge : merge;
       const m = mf(a[key], b[key], p, actions, hints);
 
       if (h && h.removeEmpty && isEmpty(m)) {
