@@ -13,6 +13,10 @@ function mv(t, a, b, c, ea) {
 mv.title = (providedTitle = "", a, b, c) =>
   `merge version ${providedTitle} ${c} := ${a} << ${b}`.trim();
 
+test(mv, undefined, undefined, undefined);
+test(mv, "1", undefined, "1");
+test(mv, undefined, "1", "1",[{ add: "1", path: undefined }]);
+
 test(
   "scalar + scalar",
   mv,

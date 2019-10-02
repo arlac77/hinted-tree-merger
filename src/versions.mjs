@@ -86,9 +86,9 @@ export function toBeRemoved(value) {
 
 function toSet(a) {
   if (isScalar(a)) {
-    return new Set([a]);
+    return a === undefined ? new Set() : new Set([a]);
   }
-  return new Set(a ? [...a.map(s => String(s))] : []);
+  return new Set([...a.map(s => String(s))]);
 }
 
 /**
@@ -98,6 +98,7 @@ function toSet(a) {
  * @param {Action} actions
  */
 export function mergeVersions(a, b, path, actions = nullAction) {
+  if(b === undefined) { return a; }
   const aVersions = toSet(a);
   const bVersions = toSet(b);
 
