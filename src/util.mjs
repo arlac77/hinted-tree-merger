@@ -1,35 +1,36 @@
-
 export function nullAction() {}
 
 export function asArray(a) {
-  return Array.isArray(a) ? a : (a === undefined ? [] : [a]);
+  return Array.isArray(a) ? a : a === undefined ? [] : [a];
 }
 
 export function difference(a, b) {
   return new Set([...a].filter(x => !b.has(x)));
 }
 
-
 /**
+ * @param {any} value
+ * @param {string} expected
+ * @return {string|boolean}
  */
-export function hasDeleteHint(value, expected)
-{
-//console.log("HDH", value, expected);
-
+export function hasDeleteHint(value, expected) {
   if (typeof value === "string") {
     const m = value.match(/^--delete--\s*(.*)/);
     if (m) {
-      return m[1];
+      if (expected === undefined) {
+        return true;
+      }
+      if(m[1].length === 0) { return true; }
+      return m[1] == expected;
     }
 
-    if(value === `-${expected}`) {
+    if (value === `-${expected}`) {
       return expected;
     }
   }
 
-  return undefined;
+  return false;
 }
-
 
 /**
  * should value be removed
@@ -224,7 +225,6 @@ export function isScalar(a) {
     a === null
   );
 }
-
 
 /**
  * find best insertion point for b[i] in a

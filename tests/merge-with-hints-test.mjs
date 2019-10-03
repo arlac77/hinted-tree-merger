@@ -26,15 +26,6 @@ test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [
   { remove: 1, path: "a" }
 ]);
 
-test("object remove missing key", mt, {}, { a: "--delete--" }, {}, undefined, [
-]);
-
-test("object remove missing key with value", mt, {}, { a: "--delete-- npm" }, {}, undefined, [
-]);
-
-test("object remove missing key2", mt, { a: {} }, { a: ["--delete--"] }, {a: {}}, undefined, [
-]);
-
 test(
   "object remove key -> empty",
   mt,
@@ -43,6 +34,36 @@ test(
   undefined,
   { "": { removeEmpty: true } },
   [{ remove: 1, path: "a" }]
+);
+
+test(
+  "object remove missing key",
+  mt,
+  {},
+  { a: "--delete--" },
+  {},
+  undefined,
+  []
+);
+
+test(
+  "object remove missing key with value",
+  mt,
+  {},
+  { a: "--delete-- npm" },
+  {},
+  undefined,
+  []
+);
+
+test(
+  "object remove missing key2",
+  mt,
+  { a: {} },
+  { a: ["--delete--"] },
+  { a: {} },
+  undefined,
+  []
 );
 
 test("nothing to remove", mt, [1], ["-a"], [1], "", []);

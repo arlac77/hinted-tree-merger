@@ -28,19 +28,21 @@ merges two trees guided with hints
     -   [Parameters](#parameters)
 -   [merge](#merge)
     -   [Parameters](#parameters-1)
+-   [match](#match)
 -   [compareVersion](#compareversion)
     -   [Parameters](#parameters-2)
--   [match](#match)
 -   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-3)
 -   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-4)
--   [isToBeRemoved](#istoberemoved)
+-   [hasDeleteHint](#hasdeletehint)
     -   [Parameters](#parameters-5)
--   [indexFor](#indexfor)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-6)
--   [hintFor](#hintfor)
+-   [indexFor](#indexfor)
     -   [Parameters](#parameters-7)
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters-8)
 
 ## mergeArrays
 
@@ -66,6 +68,10 @@ merge to values
 
 Returns **any** merged value
 
+## match
+
+url means highest version
+
 ## compareVersion
 
 compare two versions
@@ -76,10 +82,6 @@ compare two versions
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** \-1 if a &lt; b, 0 if a == b and 1 if a > b
-
-## match
-
-url means highest version
 
 ## mergeVersions
 
@@ -100,6 +102,15 @@ Same as mergeVersions but merge result are numbers if possible
 -   `b`  
 -   `path`  
 -   `actions`  
+
+## hasDeleteHint
+
+### Parameters
+
+-   `value` **any** 
+-   `expected` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean))** 
 
 ## isToBeRemoved
 
