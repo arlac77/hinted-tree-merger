@@ -156,6 +156,10 @@ export function mergeVersionsPreferNumeric(a, b, path, actions) {
   return Array.isArray(r) ? r.map(s => toStr(s)) : toStr(r);
 }
 
-export function mergeObjectValueVersions(a, b, path, actions = nullAction) {
+export function mergeVersionsObject(a, b, path, actions = nullAction) {
+  if(b === undefined) {
+    return a;
+  }
+  
   return Object.assign(a, b);
 }

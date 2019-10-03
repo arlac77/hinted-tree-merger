@@ -2,7 +2,7 @@ export {
   compareVersion,
   mergeVersions,
   mergeVersionsPreferNumeric,
-  mergeObjectValueVersions
+  mergeVersionsObject
 } from "./versions.mjs";
 import {
   isEqual,
