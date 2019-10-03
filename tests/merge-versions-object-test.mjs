@@ -1,13 +1,13 @@
 import test from "ava";
 import { merge } from "../src/merger.mjs";
-import { mergeVersionsIntoScalar } from "../src/versions.mjs";
+import { mergeVersionsLargest } from "../src/versions.mjs";
 
 function mv(t, a, b, c, ea) {
   const actions = [];
   t.deepEqual(
     merge(a, b, undefined, x => actions.push(x), {
       "*": {
-        merge: mergeVersionsIntoScalar
+        merge: mergeVersionsLargest
       }
     }),
     c

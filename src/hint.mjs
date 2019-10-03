@@ -14,7 +14,12 @@ export function hintFor(hints, path) {
 
   return {
     ...Object.keys(hints)
-      .filter(h => h[0] === "*" && path.endsWith(h.substring(1)))
+      .filter(h => {
+        return (
+          (h[0] === "*" && path.endsWith(h.substring(1))) ||
+          (h.endsWith("*") && path.startsWith(h.substring(0, h.length - 1)))
+        );
+      })
       .reduce(
         (a, c) => {
           return { ...a, ...hints[c] };

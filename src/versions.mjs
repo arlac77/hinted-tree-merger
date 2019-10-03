@@ -140,7 +140,7 @@ export function mergeVersions(a, b, path, actions = nullAction) {
   return res.length === 1 && isScalar(a) ? res[0] : res;
 }
 
-export function mergeVersionsIntoScalar(a, b, path, actions) {
+export function mergeVersionsLargest(a, b, path, actions) {
   const r = mergeVersions(a, b, path, actions);
   if(Array.isArray(r)) {
     if(r.length === 1) { return r[0]; }
