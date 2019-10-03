@@ -34,3 +34,12 @@ test(hdh, {}, "value", false);
 
 test(hdh, "-value", "value", "value");
 test(hdh, "value", "value", false);
+
+test(hdh, "value", v => v === 'value', false);
+test(hdh, "-value", v => v === 'value', true);
+test(hdh, "-a", v => false, false);
+test(hdh, "-a", v => true, true);
+
+test(hdh, "--delete-- value", v => v === 'value', true);
+test(hdh, "--delete-- other", v => v === 'value', false);
+test(hdh, "--delete--", v => v === 'value', true);

@@ -62,16 +62,17 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   let i = 0;
   for (const s of b) {
-    if (s[0] === "-") {
-      if (a !== undefined) {
-        const t = s.substring(1);
-        const i = a.indexOf(t);
+    if (
+      !hasDeleteHint(s, value => {
+        const i = a.indexOf(value);
         if (i >= 0) {
           a.splice(i, 1);
-          actions({ remove: t, path: appendPath(path, `[${i}]`) });
+          actions({ remove: value, path: appendPath(path, `[${i}]`) });
+          return true;
         }
-      }
-    } else {
+        return true;
+      })
+    ) {
       if (a === undefined) {
         a = [];
       }

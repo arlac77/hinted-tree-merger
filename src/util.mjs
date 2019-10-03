@@ -10,7 +10,7 @@ export function difference(a, b) {
 
 /**
  * @param {any} value
- * @param {string} expected
+ * @param {string|Function} expected
  * @return {string|boolean}
  */
 export function hasDeleteHint(value, expected) {
@@ -21,7 +21,16 @@ export function hasDeleteHint(value, expected) {
         return true;
       }
       if(m[1].length === 0) { return true; }
+
+      if(expected instanceof Function) {
+        return expected(m[1]);
+      }
+
       return m[1] == expected;
+    }
+
+    if(value[0] === '-' && expected instanceof Function) {
+      return expected(value.substring(1));
     }
 
     if (value === `-${expected}`) {
