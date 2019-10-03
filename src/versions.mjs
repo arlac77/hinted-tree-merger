@@ -140,6 +140,18 @@ export function mergeVersions(a, b, path, actions = nullAction) {
   return res.length === 1 && isScalar(a) ? res[0] : res;
 }
 
+export function mergeVersionsIntoScalar(a, b, path, actions) {
+  const r = mergeVersions(a, b, path, actions);
+  if(Array.isArray(r)) {
+    if(r.length === 1) { return r[0]; }
+
+    const sr = r.sort(compareVersion);
+    return sr[sr.length -1];
+  }
+
+  return r;
+}
+
 function toStr(s) {
   return String(parseFloat(s)) == s ? parseFloat(s) : s;
 }
@@ -154,12 +166,4 @@ function toStr(s) {
 export function mergeVersionsPreferNumeric(a, b, path, actions) {
   const r = mergeVersions(a, b, path, actions);
   return Array.isArray(r) ? r.map(s => toStr(s)) : toStr(r);
-}
-
-export function mergeVersionsObject(a, b, path, actions = nullAction) {
-  if(b === undefined) {
-    return a;
-  }
-  
-  return Object.assign(a, b);
 }
