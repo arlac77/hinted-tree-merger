@@ -31,7 +31,7 @@ merges two trees guided with hints
 -   [match](#match)
 -   [compareVersion](#compareversion)
     -   [Parameters](#parameters-2)
--   [mergeVersions](#mergeversions)
+-   [mergeVersionsWithFilter](#mergeversionswithfilter)
     -   [Parameters](#parameters-3)
 -   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-4)
@@ -83,7 +83,7 @@ compare two versions
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** \-1 if a &lt; b, 0 if a == b and 1 if a > b
 
-## mergeVersions
+## mergeVersionsWithFilter
 
 ### Parameters
 
@@ -91,6 +91,7 @@ Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `actions` **Action**  (optional, default `nullAction`)
+-   `filter` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
 
 ## mergeVersionsPreferNumeric
 

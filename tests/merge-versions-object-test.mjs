@@ -41,5 +41,5 @@ test(
     e: "1"
   },
   { b: "1", c: "1", e: "2" },
-  [{ remove: "1", path: "a" }, { add: "1", path: "e" }, { add: "1", path: "c" }]
+  [{ remove: "1", path: "a" }, { add: "1", path: "c" }]
 );

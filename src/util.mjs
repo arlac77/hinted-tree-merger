@@ -4,10 +4,6 @@ export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
 }
 
-export function difference(a, b) {
-  return new Set([...a].filter(x => !b.has(x)));
-}
-
 /**
  * @param {any} value
  * @param {string|Function} expected

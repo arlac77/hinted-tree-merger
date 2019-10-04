@@ -62,11 +62,7 @@ test(
   ["1.1", "2"],
   ["-1", "1.2", "1.3"],
   ["1.2", "1.3", "2"],
-  [
-    { remove: "1.1", path: undefined },
-    { add: "1.2", path: undefined },
-    { add: "1.3", path: undefined }
-  ]
+  [{ remove: "1.1", path: undefined }, { add: ["1.2", "1.3"], path: undefined }]
 );
 
 test(mv, ">=1.2.3", undefined, ">=1.2.3");
@@ -80,4 +76,3 @@ test.skip(mv, ">=1.2.3", ">=2.0.0", ">=2.0.0");
 test.skip(mv, ">=1.2.3", ">=1.2.3", ">=1.2.4");
 test.skip(mv, ">=1.3.0", ">=1.2.3", ">=1.3.0");
 test.skip(mv, ">=2.0.0", ">=1.2.3", ">=2.0.0");
-

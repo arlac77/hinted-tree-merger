@@ -1,7 +1,6 @@
-import { difference, hintFreeValue, nullAction, isScalar } from "./util.mjs";
+import { hintFreeValue, nullAction, isScalar } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
-
 
 function toArray(value) {
   value = String(value);
@@ -97,8 +96,9 @@ function toSet(a) {
  * @param {string|number} b
  * @param {string} path
  * @param {Action} actions
+ * @param {Function} filter
  */
-export function mergeVersions(a, b, path, actions = nullAction) {
+export function mergeVersionsWithFilter(a, b, path, actions = nullAction, filter) {
   if (b === undefined) {
     return a;
   }
@@ -125,35 +125,73 @@ export function mergeVersions(a, b, path, actions = nullAction) {
     }
   });
 
-  const r = difference(aVersions, newVersions);
-  if (r.size > 0) {
-    [...r].sort(compareVersion).forEach(v => actions({ remove: v, path }));
+  const res = filter(Array.from(new Set(newVersions)).sort(compareVersion));
+  const nv = toSet(res);
+
+  const added = new Set();
+  const removed = new Set();
+
+  nv.forEach(x => {
+    if (!aVersions.has(toNumber(x)) && !aVersions.has(toStr(x))) {
+      added.add(x);
+    }
+  });
+
+  aVersions.forEach(x => {
+    if (!nv.has(toNumber(x)) && !nv.has(toStr(x))) {
+      removed.add(x);
+    }
+  });
+
+  function pa(slot, value) {
+    value = [...value];
+
+    if (value.length > 0) {
+      if (value.length === 1) {
+        actions({ [slot]: value[0], path });
+      } else {
+        actions({ [slot]: value.sort(compareVersion), path });
+      }
+    }
   }
 
-  const as = difference(newVersions, aVersions);
-  if (as.size > 0) {
-    [...as].sort(compareVersion).forEach(v => actions({ add: v, path }));
-  }
+  pa("remove", removed);
+  pa("add", added);
 
-  const res = Array.from(new Set(newVersions)).sort(compareVersion);
+  return res;
+}
 
-  return res.length === 1 && isScalar(a) ? res[0] : res;
+function keepScalar(a, r) {
+  return r.length === 1 && isScalar(a) ? r[0] : r;
+}
+
+export function mergeVersions(a, b, path, actions) {
+  return mergeVersionsWithFilter(a, b, path, actions, result =>
+    keepScalar(a, result)
+  );
 }
 
 export function mergeVersionsLargest(a, b, path, actions) {
-  const r = mergeVersions(a, b, path, actions);
-  if(Array.isArray(r)) {
-    if(r.length === 1) { return r[0]; }
+  return mergeVersionsWithFilter(
+    a,
+    b,
+    path,
+    actions,
+    result => result[result.length - 1]
+  );
+}
 
-    const sr = r.sort(compareVersion);
-    return sr[sr.length -1];
-  }
+export function mergeVersionsSmallest(a, b, path, actions) {
+  return mergeVersionsWithFilter(a, b, path, actions, result => result[0]);
+}
 
-  return r;
+function toNumber(s) {
+  const f = parseFloat(s);
+  return String(f) == s ? f : s;
 }
 
 function toStr(s) {
-  return String(parseFloat(s)) == s ? parseFloat(s) : s;
+  return s instanceof String ? s : String(s);
 }
 
 /**
@@ -164,6 +202,7 @@ function toStr(s) {
  * @param actions
  */
 export function mergeVersionsPreferNumeric(a, b, path, actions) {
-  const r = mergeVersions(a, b, path, actions);
-  return Array.isArray(r) ? r.map(s => toStr(s)) : toStr(r);
+  return mergeVersionsWithFilter(a, b, path, actions, result =>
+    keepScalar(a, result.map(x => toNumber(x)))
+  );
 }

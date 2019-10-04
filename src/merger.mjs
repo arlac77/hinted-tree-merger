@@ -1,7 +1,9 @@
 export {
   compareVersion,
+  mergeVersionsWithFilter,
   mergeVersions,
   mergeVersionsPreferNumeric,
+  mergeVersionsSmallest,
   mergeVersionsLargest,
 } from "./versions.mjs";
 import {

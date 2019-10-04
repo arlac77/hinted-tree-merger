@@ -49,9 +49,9 @@ test(
       esm: "^3.2.25"
     }
   },
-  /*
   [
+    { remove: "^2.3.0", path: "devDependencies.ava" },
     { add: "^2.4.0", path: "devDependencies.ava" },
     { remove: "^15.13.25", path: "devDependencies.semantic-release" }
-  ]*/
+  ]
 );
