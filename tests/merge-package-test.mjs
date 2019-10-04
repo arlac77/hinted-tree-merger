@@ -34,7 +34,7 @@ test(
       "semantic-release": "^15.13.25"
     },
     engines: {
-      node: ">=12.11.1"
+      node: ">=12.11.0"
     }
   },
   {
@@ -66,6 +66,8 @@ test(
     { remove: "^2.3.0", path: "devDependencies.ava" },
     { add: "^2.4.0", path: "devDependencies.ava" },
     { remove: "^15.13.25", path: "devDependencies.semantic-release" },
+    { remove: ">=12.11.0", path: "engines.node" },
+    { add: ">=12.11.1", path: "engines.node" },
     { add: "module", path: "type" }
   ]
 );
