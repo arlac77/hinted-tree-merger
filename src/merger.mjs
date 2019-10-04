@@ -145,5 +145,12 @@ export function merge(a, b, path, actions = nullAction, hints) {
   if (h.removeEmpty && Object.keys(r).length === 0) {
     return undefined;
   }
+
+  /*
+  if(h.sort) {
+    return h.sort(r);
+  }
+*/
+
   return r;
 }

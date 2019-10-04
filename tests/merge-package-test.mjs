@@ -2,13 +2,63 @@ import test from "ava";
 import { merge } from "../src/merger.mjs";
 import { mergeVersionsLargest } from "../src/versions.mjs";
 
+const sortedKeys = [
+  "name",
+  "version",
+  "type",
+  "private",
+  "publishConfig",
+  "main",
+  "browser",
+  "module",
+  "svelte",
+  "unpkg",
+  "description",
+  "keywords",
+  "author",
+  "maintainers",
+  "contributors",
+  "license",
+  "sustainability",
+  "bin",
+  "scripts",
+  "dependencies",
+  "devDependencies",
+  "peerDependencies",
+  "optionalDependencies",
+  "bundledDependencies",
+  "engines",
+  "os",
+  "cpu",
+  "arch",
+  "repository",
+  "directories",
+  "files",
+  "man",
+  "bugs",
+  "homepage",
+  "config",
+  "systemd",
+  "pacman",
+  "release",
+  "ava",
+  "nyc",
+  "xo",
+  "template"
+];
+
 const dependecyHints = { merge: mergeVersionsLargest };
 const packageHints = {
   "devDependencies.*": dependecyHints,
   "dependencies.*": dependecyHints,
   "peerDependencies.*": dependecyHints,
   "optionalDependencies.*": dependecyHints,
-  "engines.*": dependecyHints
+  "bundeledDependencies.*": dependecyHints,
+  "engines.*": dependecyHints,
+  "scripts.*":{},
+  "": {
+    //sort: 
+  }
 };
 
 function mt(t, a, b, r, actions) {
@@ -34,7 +84,7 @@ test(
       "semantic-release": "^15.13.25"
     },
     engines: {
-      node: ">=12.11.0"
+      node: ">=8.0.0"
     }
   },
   {
@@ -66,7 +116,7 @@ test(
     { remove: "^2.3.0", path: "devDependencies.ava" },
     { add: "^2.4.0", path: "devDependencies.ava" },
     { remove: "^15.13.25", path: "devDependencies.semantic-release" },
-    { remove: ">=12.11.0", path: "engines.node" },
+    { remove: ">=8.0.0", path: "engines.node" },
     { add: ">=12.11.1", path: "engines.node" },
     { add: "module", path: "type" }
   ]

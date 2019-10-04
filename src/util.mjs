@@ -242,3 +242,15 @@ export function indexFor(b, i, a) {
   const f = a.findIndex(x => isEqual(x, n));
   return f >= 0 ? f : a.length;
 }
+
+export function sortObjectsKeys(source) {
+  const normalized = {};
+
+  Object.keys(source)
+    .sort((a, b) => a.localeCompare(b))
+    .forEach(key => {
+      normalized[key] = source[key];
+    });
+
+  return normalized;
+}
