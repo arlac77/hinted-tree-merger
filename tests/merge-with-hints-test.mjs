@@ -89,7 +89,7 @@ test(
   ]
 );
 
-test.only(
+test(
   "array join",
   mt,
   {
