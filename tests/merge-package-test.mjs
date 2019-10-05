@@ -1,5 +1,9 @@
 import test from "ava";
-import { merge, compareWithDefinedOrder, mergeVersionsLargest } from "../src/merger.mjs";
+import {
+  merge,
+  compareWithDefinedOrder,
+  mergeVersionsLargest
+} from "../src/merger.mjs";
 
 const packageKeyOrder = [
   "name",
@@ -46,21 +50,30 @@ const packageKeyOrder = [
   "template"
 ];
 
-const dependecyHints = {
+const dependecyEntryHints = {
   merge: mergeVersionsLargest,
   compare: (a, b) => a.localeCompare(b)
 };
 
+const dependecyHints = {
+  removeEmpty: true
+};
+
 const packageHints = {
-  "devDependencies.*": dependecyHints,
-  "dependencies.*": dependecyHints,
-  "peerDependencies.*": dependecyHints,
-  "optionalDependencies.*": dependecyHints,
-  "bundeledDependencies.*": dependecyHints,
-  "engines.*": dependecyHints,
+  devDependencies: dependecyHints,
+  "devDependencies.*": dependecyEntryHints,
+  dependencies: dependecyHints,
+  "dependencies.*": dependecyEntryHints,
+  peerDependencies: dependecyHints,
+  "peerDependencies.*": dependecyEntryHints,
+  optionalDependencies: dependecyHints,
+  "optionalDependencies.*": dependecyEntryHints,
+  bundeledDependencies: dependecyHints,
+  "bundeledDependencies.*": dependecyEntryHints,
+  "engines.*": dependecyEntryHints,
   "scripts.*": {},
   "*": {
-    compare: (a,b) => compareWithDefinedOrder(a,b, packageKeyOrder)
+    compare: (a, b) => compareWithDefinedOrder(a, b, packageKeyOrder)
   }
 };
 
