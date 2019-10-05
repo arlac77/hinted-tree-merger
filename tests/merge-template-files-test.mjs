@@ -41,7 +41,7 @@ test("mergeTemplateFiles", t => {
         "": { key: "merger" },
         "*.options.badges": {
           key: "name",
-          sort: (a, b) => a.name.localeCompare(b.name)
+          compare: (a, b) => a.name.localeCompare(b.name)
         }
       }
     ),

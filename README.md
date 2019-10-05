@@ -41,8 +41,10 @@ merges two trees guided with hints
     -   [Parameters](#parameters-6)
 -   [indexFor](#indexfor)
     -   [Parameters](#parameters-7)
--   [hintFor](#hintfor)
+-   [sortObjectsByKeys](#sortobjectsbykeys)
     -   [Parameters](#parameters-8)
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters-9)
 
 ## mergeArrays
 
@@ -133,6 +135,17 @@ find best insertion point for b[i] in a
 -   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
 -   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+
+## sortObjectsByKeys
+
+sort keys in source
+
+### Parameters
+
+-   `source` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `compare`  
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ## hintFor
 

@@ -4,7 +4,7 @@ export {
   mergeVersions,
   mergeVersionsPreferNumeric,
   mergeVersionsSmallest,
-  mergeVersionsLargest,
+  mergeVersionsLargest
 } from "./versions.mjs";
 import {
   isEqual,
@@ -15,12 +15,14 @@ import {
   nullAction,
   removeHintedValues,
   indexFor,
-  hasDeleteHint
+  hasDeleteHint,
+  sortObjectsByKeys,
+  compareWithDefinedOrder
 } from "./util.mjs";
 
 import { hintFor } from "./hint.mjs";
 
-export { isEqual, isScalar, isEmpty, isToBeRemoved };
+export { isEqual, isScalar, isEmpty, isToBeRemoved, compareWithDefinedOrder, sortObjectsByKeys };
 
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0
@@ -53,8 +55,8 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     const aa = [...b.reduce(mf, a.reduce(mf, new Map())).values()];
 
     return aa.sort(
-      h.sort
-        ? h.sort
+      h.compare
+        ? h.compare
         : // reorder after b order
           (x, y) =>
             b.findIndex(e => e[key] === x[key]) -
@@ -146,11 +148,9 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return undefined;
   }
 
-  /*
-  if(h.sort) {
-    return h.sort(r);
+  if (h.compare) {
+    return sortObjectsByKeys(r, h.compare);
   }
-*/
 
   return r;
 }

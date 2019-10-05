@@ -243,14 +243,38 @@ export function indexFor(b, i, a) {
   return f >= 0 ? f : a.length;
 }
 
-export function sortObjectsKeys(source) {
-  const normalized = {};
+/**
+ * sort keys in source
+ * @param {Object} source 
+ * @param compare
+ * @return {Object} 
+ */
+export function sortObjectsByKeys(source, compare) {
+  const sorted = {};
 
   Object.keys(source)
-    .sort((a, b) => a.localeCompare(b))
+    .sort(compare)
     .forEach(key => {
-      normalized[key] = source[key];
+      sorted[key] = source[key];
     });
 
-  return normalized;
+  return sorted;
+}
+
+export function compareWithDefinedOrder(a,b, definedOrder) {
+  const ai = definedOrder.indexOf(a);
+  const bi = definedOrder.indexOf(b);
+
+  if(ai < 0) {
+    if(bi < 0) {
+      return a.localeCompare(b);
+    }
+  }
+  else {
+    if(bi < 0) {
+      return -1;
+    }
+  }
+
+  return ai - bi;
 }

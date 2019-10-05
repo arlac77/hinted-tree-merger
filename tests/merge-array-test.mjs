@@ -17,7 +17,7 @@ test(
   {
     "*": {
       key: "k",
-      sort: (a, b) => (a.k > b.k ? 1 : a.k < b.k ? -1 : 0)
+      compare: (a, b) => (a.k > b.k ? 1 : a.k < b.k ? -1 : 0)
     }
   }
 );

@@ -1,8 +1,7 @@
 import test from "ava";
-import { merge } from "../src/merger.mjs";
-import { mergeVersionsLargest } from "../src/versions.mjs";
+import { merge, compareWithDefinedOrder, mergeVersionsLargest } from "../src/merger.mjs";
 
-const sortedKeys = [
+const packageKeyOrder = [
   "name",
   "version",
   "type",
@@ -47,7 +46,11 @@ const sortedKeys = [
   "template"
 ];
 
-const dependecyHints = { merge: mergeVersionsLargest };
+const dependecyHints = {
+  merge: mergeVersionsLargest,
+  compare: (a, b) => a.localeCompare(b)
+};
+
 const packageHints = {
   "devDependencies.*": dependecyHints,
   "dependencies.*": dependecyHints,
@@ -55,9 +58,9 @@ const packageHints = {
   "optionalDependencies.*": dependecyHints,
   "bundeledDependencies.*": dependecyHints,
   "engines.*": dependecyHints,
-  "scripts.*":{},
-  "": {
-    //sort: 
+  "scripts.*": {},
+  "*": {
+    compare: (a,b) => compareWithDefinedOrder(a,b, packageKeyOrder)
   }
 };
 
