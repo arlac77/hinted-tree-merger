@@ -6,14 +6,16 @@ import {
 } from "../src/string-expressions.mjs";
 
 function mset(t, a, b, r) {
-    let myActions = [];
-    t.deepEqual(mergeExpressions(a, b, "", x => myActions.push(x)), r);
-  }
-  
-  mset.title = (providedTitle = "merge", a, b) =>
-    `${providedTitle} ${a} ${b}`.trim();
+  let myActions = [];
+  t.deepEqual(mergeExpressions(a, b, "", x => myActions.push(x)), r);
+}
 
-test(mset,undefined,undefined,undefined);
+mset.title = (providedTitle = "merge", a, b) =>
+  `${providedTitle} ${a} ${b}`.trim();
+
+test(mset, undefined, undefined, undefined);
+
+//test(mset, "a", "a", "a");
 
 
 /*
@@ -112,17 +114,5 @@ test("package scripts decode/merge/encode swapped", t => {
   t.deepEqual(mergeScripts(d2, d1), {
     a: { op: "&&", args: ["xx", "yy"] }
   });
-});
-
-test("package scripts decode/merge/encode remove", t => {
-  const d1 = decodeScripts({
-    a: "xx && yy"
-  });
-
-  const d2 = decodeScripts({
-    a: "-"
-  });
-
-  t.deepEqual(mergeScripts(d1, d2), {});
 });
 */
