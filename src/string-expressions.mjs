@@ -1,11 +1,11 @@
 export function mergeExpressions(a, b) {
-  return encodeExpressions(
+  return b === undefined ? a : encodeExpressions(
     mergeDecodedExpressions(decodeExpressions(a), decodeExpressions(b))
   );
 }
 
 export function decodeExpressions(script) {
-  if (script === undefined) {
+  if (script === undefined || script.match(/^\s*$/)) {
     return undefined;
   }
 
@@ -64,7 +64,6 @@ export function mergeDecodedExpressions(dest, source) {
 
   switch (source.op) {
     case "-":
-      delete dest[key];
       return;
 
     case "&&":

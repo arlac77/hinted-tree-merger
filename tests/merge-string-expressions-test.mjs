@@ -6,8 +6,7 @@ import {
 } from "../src/string-expressions.mjs";
 
 function mset(t, a, b, r) {
-  let myActions = [];
-  t.deepEqual(mergeExpressions(a, b, "", x => myActions.push(x)), r);
+  t.deepEqual(mergeExpressions(a, b), r);
 }
 
 mset.title = (providedTitle = "merge", a, b) =>
@@ -15,9 +14,10 @@ mset.title = (providedTitle = "merge", a, b) =>
 
 test(mset, undefined, undefined, undefined);
 
-test(mset, "a", "a", "a");
-test.skip(mset, "a", undefined, "a");
-test.skip(mset, "a", '', "a");
+test(mset, "a0", "a0", "a0");
+test(mset, "a1", undefined, "a1");
+//test(mset, "a2", '', "a2");
+//test(mset, "a3", '  ', "a3");
 test(mset, "a && b", "a", "a && b");
 
 
