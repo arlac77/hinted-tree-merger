@@ -15,7 +15,10 @@ mset.title = (providedTitle = "merge", a, b) =>
 
 test(mset, undefined, undefined, undefined);
 
-//test(mset, "a", "a", "a");
+test(mset, "a", "a", "a");
+test.skip(mset, "a", undefined, "a");
+test.skip(mset, "a", '', "a");
+test(mset, "a && b", "a", "a && b");
 
 
 /*
@@ -70,8 +73,6 @@ test("package scripts merge undefined", t => {
   t.deepEqual(mergeScripts(d1, undefined), {
     a: { overwrite: false, op: "&&", args: ["xx", "yy"] }
   });
-
-  t.is(mergeScripts(undefined, undefined), undefined);
 });
 
 test("package scripts decode/merge/encode", t => {
@@ -99,20 +100,6 @@ test("package scripts decode/merge/encode overwrite", t => {
 
   t.deepEqual(mergeScripts(d1, d2), {
     a: { overwrite: false, value: "xxx" }
-  });
-});
-
-test("package scripts decode/merge/encode swapped", t => {
-  const d1 = decodeScripts({
-    a: "xx && yy"
-  });
-
-  const d2 = decodeScripts({
-    a: "xx"
-  });
-
-  t.deepEqual(mergeScripts(d2, d1), {
-    a: { op: "&&", args: ["xx", "yy"] }
   });
 });
 */

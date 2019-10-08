@@ -1,38 +1,40 @@
-export function decodeExpressions(scripts) {
-  if (scripts === undefined) {
+export function mergeExpressions(a, b) {
+  return encodeExpressions(
+    mergeDecodedExpressions(decodeExpressions(a), decodeExpressions(b))
+  );
+}
+
+export function decodeExpressions(script) {
+  if (script === undefined) {
     return undefined;
   }
 
-  const decoded = {};
+  let decoded;
 
-  Object.keys(scripts).forEach(key => {
-    let script = scripts[key];
+  let overwrite = false;
 
-    let overwrite = false;
-
-    if (script === "-") {
-      decoded[key] = { op: "-" };
-    } else {
-      if (script.match(/^#overwrite/)) {
-        script = script.replace(/^#overwrite\s+/, "");
-        overwrite = true;
-      }
-      if (script.match(/&&/)) {
-        decoded[key] = {
-          overwrite,
-          op: "&&",
-          args: script.split(/\s*&&\s*/)
-        };
-      } else {
-        decoded[key] = { value: script, overwrite };
-      }
+  if (script === "-") {
+    decoded = { op: "-" };
+  } else {
+    if (script.match(/^#overwrite/)) {
+      script = script.replace(/^#overwrite\s+/, "");
+      overwrite = true;
     }
-  });
+    if (script.match(/&&/)) {
+      decoded = {
+        overwrite,
+        op: "&&",
+        args: script.split(/\s*&&\s*/)
+      };
+    } else {
+      decoded = { value: script, overwrite };
+    }
+  }
 
   return decoded;
 }
 
-export function mergeExpressions(dest, source) {
+export function mergeDecodedExpressions(dest, source) {
   if (source === undefined) {
     if (dest === undefined) {
       return undefined;
@@ -56,46 +58,36 @@ export function mergeExpressions(dest, source) {
     };
   }
 
-  Object.keys(source).forEach(key => {
-    let d = dest[key];
+  if (dest !== undefined && dest.op === "-") {
+    return;
+  }
 
-    if (d !== undefined && d.op === "-") {
+  switch (source.op) {
+    case "-":
       delete dest[key];
       return;
-    }
 
-    const s = source[key];
-    switch (s.op) {
-      case "-":
-        delete dest[key];
-        return;
-        break;
+    case "&&":
+      dest = source.overwrite ? s : mergeOP(source, dest);
+      break;
 
-      case "&&":
-        d = s.overwrite ? s : mergeOP(s, d);
-        break;
+    default:
+      if (dest === undefined) {
+        dest = { value: s.value };
+      } else {
+        switch (dest.op) {
+          case "-":
+            return;
 
-      default:
-        if (d === undefined) {
-          d = { value: s.value };
-        } else {
-          switch (d.op) {
-            case "-":
-              delete dest[key];
-              return;
+          case "&&":
+            dest = mergeOP(source, dest);
+            break;
 
-            case "&&":
-              d = mergeOP(s, d);
-              break;
-
-            default:
-              d.value = s.value;
-          }
+          default:
+            dest.value = source.value;
         }
-    }
-
-    dest[key] = d;
-  });
+      }
+  }
 
   return dest;
 }
@@ -105,19 +97,16 @@ export function encodeExpressions(encoded) {
     return undefined;
   }
 
-  const scripts = {};
+  let script;
 
-  Object.keys(encoded).forEach(key => {
-    const e = encoded[key];
-    switch (e.op) {
-      case "&&":
-        scripts[key] = e.args.join(" && ");
-        break;
+  switch (encoded.op) {
+    case "&&":
+      script = encoded.args.join(" && ");
+      break;
 
-      default:
-        scripts[key] = e.value;
-    }
-  });
+    default:
+      script = encoded.value;
+  }
 
-  return scripts;
+  return script;
 }
