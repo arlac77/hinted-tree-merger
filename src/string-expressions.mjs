@@ -1,65 +1,59 @@
-export function mergeExpressions(a, b) {
-  return b === undefined ? a : encodeExpressions(
-    mergeDecodedExpressions(decodeExpressions(a), decodeExpressions(b))
-  );
-}
 
-export function decodeExpressions(script) {
-  if (script === undefined || script.match(/^\s*$/)) {
+
+export function mergeExpressions(a, b) {
+  if(a === undefined  && b === undefined) {
     return undefined;
   }
 
-  let decoded;
+  const aa = decodeExpressions(a);
+  const bb = decodeExpressions(b);
+
+  //console.log(a, aa);
+  //console.log(b, bb);
+  return encodeExpressions(mergeDecodedExpressions(aa, bb));
+}
+
+
+export function decodeExpressions(script) {
+  if (script === undefined || script.match(/^\s*$/)) {
+    return { op: '', args: [] };
+  }
 
   let overwrite = false;
 
   if (script === "-") {
-    decoded = { op: "-" };
+    return { op: "-", args: [] };
   } else {
     if (script.match(/^#overwrite/)) {
       script = script.replace(/^#overwrite\s+/, "");
       overwrite = true;
     }
     if (script.match(/&&/)) {
-      decoded = {
+      return {
         overwrite,
         op: "&&",
         args: script.split(/\s*&&\s*/)
       };
     } else {
-      decoded = { value: script, overwrite };
+      return { op: '', args: [script], overwrite };
     }
   }
+}
 
-  return decoded;
+function mergeOP(a, b) {
+  const args = x => x === undefined ? [] : x.args;
+
+  const t = args(a).concat(args(b));
+
+  return {
+    op: "&&",
+    args: t.filter((item, pos) => t.indexOf(item) == pos)
+  };
 }
 
 export function mergeDecodedExpressions(dest, source) {
-  if (source === undefined) {
-    if (dest === undefined) {
-      return undefined;
-    }
-    source = {};
-  } else if (dest === undefined) {
-    dest = {};
-  }
-
-  function mergeOP(a, b) {
-    const args = x => {
-      if (x === undefined) return [];
-      return x.args === undefined ? [x.value] : x.args;
-    };
-
-    const t = args(a).concat(args(b));
-
-    return {
-      op: "&&",
-      args: t.filter((item, pos) => t.indexOf(item) == pos)
-    };
-  }
-
-  if (dest !== undefined && dest.op === "-") {
-    return;
+  if (dest.op === "-") {
+    return { op: '', args: [] };
   }
 
   switch (source.op) {
@@ -71,20 +65,19 @@ export function mergeDecodedExpressions(dest, source) {
       break;
 
     default:
-      if (dest === undefined) {
-        dest = { value: s.value };
-      } else {
-        switch (dest.op) {
-          case "-":
-            return;
+      switch (dest.op) {
+        case "-":
+          return;
 
-          case "&&":
+          /*
+        case "&&":
+          dest = mergeOP(source, dest);
+          break;
+*/
+        default:
             dest = mergeOP(source, dest);
-            break;
 
-          default:
-            dest.value = source.value;
-        }
+ //         dest.args.push(...source.args);
       }
   }
 
@@ -92,20 +85,5 @@ export function mergeDecodedExpressions(dest, source) {
 }
 
 export function encodeExpressions(encoded) {
-  if (encoded === undefined) {
-    return undefined;
-  }
-
-  let script;
-
-  switch (encoded.op) {
-    case "&&":
-      script = encoded.args.join(" && ");
-      break;
-
-    default:
-      script = encoded.value;
-  }
-
-  return script;
+  return encoded.args.join(encoded.op === '' ? '' : ' ' + encoded.op + ' ');
 }
