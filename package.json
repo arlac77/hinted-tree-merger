@@ -8,7 +8,9 @@
   "main": "src/merger.mjs",
   "module": "src/merger.mjs",
   "description": "merges two trees guided with hints",
-  "keywords": ["merge"],
+  "keywords": [
+    "merge"
+  ],
   "contributors": [
     {
       "name": "Markus Felten",
