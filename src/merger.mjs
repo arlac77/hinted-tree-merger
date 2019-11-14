@@ -22,7 +22,14 @@ import {
 
 import { hintFor } from "./hint.mjs";
 
-export { isEqual, isScalar, isEmpty, isToBeRemoved, compareWithDefinedOrder, sortObjectsByKeys };
+export {
+  isEqual,
+  isScalar,
+  isEmpty,
+  isToBeRemoved,
+  compareWithDefinedOrder,
+  sortObjectsByKeys
+};
 
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0
@@ -45,9 +52,11 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
   const h = hintFor(hints, path);
 
   if (h.key) {
-    const key = h.key;
+    const keys = asArray(h.key);
+    const key = keys[0];
+    
     const mf = (a, c) => {
-      const k = c[key];
+      const k = keys.map(k => c[k]).join(':');
       a.set(k, merge(a.get(k), c, appendPath(path, `[]`), actions, hints));
       return a;
     };

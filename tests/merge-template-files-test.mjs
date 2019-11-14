@@ -7,6 +7,7 @@ test("mergeTemplateFiles", t => {
       [
         {
           merger: "Other",
+          pattern: "a"
         },
         {
           merger: "Package",
@@ -23,6 +24,10 @@ test("mergeTemplateFiles", t => {
       ],
       [
         {
+          merger: "Other",
+          pattern: "b"
+        },
+        {
           merger: "Package",
           options: {
             badges: [
@@ -38,7 +43,7 @@ test("mergeTemplateFiles", t => {
       "",
       undefined,
       {
-        "": { key: "merger" },
+        "": { key: ["merger", "pattern"] },
         "*.options.badges": {
           key: "name",
           compare: (a, b) => a.name.localeCompare(b.name)
@@ -48,6 +53,11 @@ test("mergeTemplateFiles", t => {
     [
       {
         merger: "Other",
+        pattern: "a"
+      },
+      {
+        merger: "Other",
+        pattern: "b"
       },
       {
         merger: "Package",
