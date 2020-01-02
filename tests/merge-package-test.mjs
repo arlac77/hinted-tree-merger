@@ -79,7 +79,10 @@ const packageHints = {
 
 function mt(t, a, b, r, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, "", x => myActions.push(x), packageHints), r);
+  t.deepEqual(
+    merge(a, b, "", x => myActions.push(x), packageHints),
+    r
+  );
 
   if (actions) {
     t.deepEqual(actions, myActions);
@@ -92,6 +95,7 @@ mt.title = (providedTitle = "merge", a, b) =>
 test(
   mt,
   {
+    files: ["a"],
     devDependencies: {
       ava: "^2.3.0",
       c8: "^5.0.4",
@@ -118,6 +122,8 @@ test(
   },
   {
     type: "module",
+    files: ["a"],
+
     devDependencies: {
       ava: "^2.4.0",
       c8: "^5.0.4",
