@@ -67,7 +67,7 @@ export function mergeDecodedExpressions(dest, source) {
       return;
 
     case "&&":
-      dest = source.overwrite ? s : mergeOP(source, dest);
+      dest = source.overwrite ? source : mergeOP(source, dest);
       break;
 
     default:
