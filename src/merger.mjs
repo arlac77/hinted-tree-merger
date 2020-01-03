@@ -1,4 +1,5 @@
 export * from "./versions.mjs";
+export * from "./string-expressions.mjs";
 import {
   isEqual,
   isScalar,
@@ -34,9 +35,9 @@ function appendPath(path, suffix, separator = "") {
  *
  * @param {Array} a
  * @param {Array} b
- * @param path
- * @param actions
- * @param hints
+ * @param {string} path
+ * @param {Function} actions
+ * @param {Object} hints
  */
 export function mergeArrays(a, b, path, actions = nullAction, hints) {
   a = asArray(a);

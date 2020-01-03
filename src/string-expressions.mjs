@@ -1,6 +1,9 @@
+import {
+  nullAction,
+} from "./util.mjs";
+import { hintFor } from "./hint.mjs";
 
-
-export function mergeExpressions(a, b) {
+export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   if(a === undefined  && b === undefined) {
     return undefined;
   }
@@ -8,11 +11,14 @@ export function mergeExpressions(a, b) {
   const aa = decodeExpressions(a);
   const bb = decodeExpressions(b);
 
-  //console.log(a, aa);
-  //console.log(b, bb);
-  return encodeExpressions(mergeDecodedExpressions(aa, bb));
-}
+  const r = encodeExpressions(mergeDecodedExpressions(aa, bb));
 
+  if(r !== a) {
+    actions({ add: r, path }, hintFor(hints,path));
+  }
+
+  return r;
+}
 
 export function decodeExpressions(script) {
   if (script === undefined || script.match(/^\s*$/)) {

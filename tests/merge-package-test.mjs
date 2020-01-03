@@ -2,7 +2,8 @@ import test from "ava";
 import {
   merge,
   compareWithDefinedOrder,
-  mergeVersionsLargest
+  mergeVersionsLargest,
+  mergeExpressions
 } from "../src/merger.mjs";
 
 const packageKeyOrder = [
@@ -81,7 +82,7 @@ const packageHints = {
   bundeledDependencies: dependecyHints,
   "bundeledDependencies.*": dependecyEntryHints,
   "engines.*": dependecyEntryHints,
-  "scripts.*": { compare },
+  "scripts.*": { compare, merge: mergeExpressions },
   "*": {
     compare: (a, b) => compareWithDefinedOrder(a, b, packageKeyOrder)
   }
@@ -122,6 +123,8 @@ test(
   {
     files: ["a"],
     scripts: {
+      preprocess: "rollup a && chmod +x bin/yy",
+
       cover:
         "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp"
     },
@@ -139,6 +142,10 @@ test(
   },
   {
     type: "module",
+    scripts: {
+      preprocess: "rollup a",
+      prepare: "rollup x y && chmod +x bin/xx"
+    },
     devDependencies: {
       ava: "^2.4.0",
       c8: "^5.0.3",
@@ -159,6 +166,8 @@ test(
     type: "module",
     files: ["a"],
     scripts: {
+      prepare: "rollup x y && chmod +x bin/xx",
+      preprocess: "rollup a && chmod +x bin/yy",
       cover:
         "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp"
     },
@@ -178,6 +187,8 @@ test(
     }
   },
   [
+//    { add: "rollup a && chmod +x bin/yy", path: "scripts.preprocess" },
+    { add: "rollup x y && chmod +x bin/xx", path: "scripts.prepare" },
     { remove: "^2.3.0", path: "devDependencies.ava" },
     { add: "^2.4.0", path: "devDependencies.ava" },
     { remove: "^15.13.25", path: "devDependencies.semantic-release" },
