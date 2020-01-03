@@ -8,14 +8,20 @@ import {
 const packageKeyOrder = [
   "name",
   "version",
-  "type",
   "private",
   "publishConfig",
+  "files",
+  "sideEffects",
+  "type",
   "main",
-  "browser",
-  "module",
-  "svelte",
+  "umd:main",
+  "jsdelivr",
   "unpkg",
+  "module",
+  "source",
+  "jsnext:main",
+  "browser",
+  "svelte",
   "description",
   "keywords",
   "author",
@@ -50,9 +56,13 @@ const packageKeyOrder = [
   "template"
 ];
 
+function compare(a, b) {
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
 const dependecyEntryHints = {
   merge: mergeVersionsLargest,
-  compare: (a, b) => a.localeCompare(b)
+  compare
 };
 
 const dependecyHints = {
@@ -71,7 +81,7 @@ const packageHints = {
   bundeledDependencies: dependecyHints,
   "bundeledDependencies.*": dependecyEntryHints,
   "engines.*": dependecyEntryHints,
-  "scripts.*": {},
+  "scripts.*": { compare },
   "*": {
     compare: (a, b) => compareWithDefinedOrder(a, b, packageKeyOrder)
   }
@@ -96,6 +106,10 @@ test(
   mt,
   {
     files: ["a"],
+    scripts: {
+      cover:
+        "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp"
+    },
     devDependencies: {
       ava: "^2.3.0",
       c8: "^5.0.4",
@@ -123,7 +137,10 @@ test(
   {
     type: "module",
     files: ["a"],
-
+    scripts: {
+      cover:
+        "c8 -x 'tests/**/*' --temp-directory build/tmp ava && c8 report -r lcov -o build/coverage --temp-directory build/tmp"
+    },
     devDependencies: {
       ava: "^2.4.0",
       c8: "^5.0.4",
