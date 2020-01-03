@@ -73,7 +73,7 @@ const packageHints = {
   devDependencies: dependecyHints,
   "devDependencies.*": dependecyEntryHints,
   dependencies: dependecyHints,
-  "dependencies.*": dependecyEntryHints,
+  "dependencies.*": { ...dependecyEntryHints, type: "fix" },
   peerDependencies: dependecyHints,
   "peerDependencies.*": dependecyEntryHints,
   optionalDependencies: dependecyHints,
@@ -90,7 +90,18 @@ const packageHints = {
 function mt(t, a, b, r, actions) {
   let myActions = [];
   t.deepEqual(
-    merge(a, b, "", x => myActions.push(x), packageHints),
+    merge(
+      a,
+      b,
+      "",
+      (action, hint) => {
+        if (hint && hint.type) {
+          action.type = hint.type;
+        }
+        myActions.push(action);
+      },
+      packageHints
+    ),
     r
   );
 
