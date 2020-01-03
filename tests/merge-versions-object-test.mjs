@@ -5,11 +5,23 @@ import { mergeVersionsLargest } from "../src/versions.mjs";
 function mv(t, a, b, c, ea) {
   const actions = [];
   t.deepEqual(
-    merge(a, b, undefined, x => actions.push(x), {
-      "*": {
-        merge: mergeVersionsLargest
+    merge(
+      a,
+      b,
+      undefined,
+      (action, hint) => {
+        if (hint && hint.type) {
+          action.type = hint.type;
+        }
+        actions.push(action);
+      },
+      {
+        "*": {
+          merge: mergeVersionsLargest,
+          type: 'chore'
+        }
       }
-    }),
+    ),
     c
   );
   if (ea !== undefined) {
@@ -41,5 +53,8 @@ test(
     e: "1"
   },
   { b: "1", c: "1", e: "2" },
-  [{ remove: "1", path: "a" }, { add: "1", path: "c" }]
+  [
+    { remove: "1", path: "a", type: "chore" },
+    { add: "1", path: "c" }
+  ]
 );

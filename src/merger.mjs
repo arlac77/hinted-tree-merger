@@ -1,11 +1,4 @@
-export {
-  compareVersion,
-  mergeVersionsWithFilter,
-  mergeVersions,
-  mergeVersionsPreferNumeric,
-  mergeVersionsSmallest,
-  mergeVersionsLargest
-} from "./versions.mjs";
+export * from "./versions.mjs";
 import {
   isEqual,
   isScalar,
@@ -54,9 +47,9 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
   if (h.key) {
     const keys = asArray(h.key);
     const key = keys[0];
-    
+
     const mf = (a, c) => {
-      const k = keys.map(k => c[k]).join(':');
+      const k = keys.map(k => c[k]).join(":");
       a.set(k, merge(a.get(k), c, appendPath(path, `[]`), actions, hints));
       return a;
     };
@@ -80,7 +73,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
         const i = a.indexOf(value);
         if (i >= 0) {
           a.splice(i, 1);
-          actions({ remove: value, path: appendPath(path, `[${i}]`) });
+          actions({ remove: value, path: appendPath(path, `[${i}]`) }, h);
           return true;
         }
         return true;
@@ -93,7 +86,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
       if (!a.find(x => isEqual(x, s))) {
         const ii = indexFor(b, i, a);
         a.splice(ii, 0, s);
-        actions({ add: s, path: appendPath(path, `[${ii}]`) });
+        actions({ add: s, path: appendPath(path, `[${ii}]`) }, h);
       }
     }
     i++;
@@ -114,7 +107,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
   if (isScalar(a)) {
     if (b !== undefined && !isEqual(a, b)) {
       b = removeHintedValues(b);
-      actions({ add: b, path });
+      actions({ add: b, path }, hintFor(hints, path));
       return b;
     }
     return a;
@@ -138,7 +131,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
     if (hasDeleteHint(bv, av)) {
       if (av !== undefined) {
-        actions({ remove: av, path: p });
+        actions({ remove: av, path: p }, h);
       }
     } else {
       const mf = h.merge ? h.merge : merge;
