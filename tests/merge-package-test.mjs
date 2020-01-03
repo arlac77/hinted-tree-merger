@@ -133,7 +133,8 @@ test(
       "semantic-release": "^15.13.25"
     },
     engines: {
-      node: ">=8.0.0"
+      node: ">=8.0.0",
+      npm: "10"
     }
   },
   {
@@ -146,7 +147,8 @@ test(
       "semantic-release": "--delete--"
     },
     engines: {
-      node: ">=12.11.1"
+      node: ">=12.11.1",
+      npm: "8"
     },
     repository: {
       type: "git",
@@ -167,7 +169,8 @@ test(
       esm: "^3.2.25"
     },
     engines: {
-      node: ">=12.11.1"
+      node: ">=12.11.1",
+      npm: "10"
     },
     repository: {
       type: "git",

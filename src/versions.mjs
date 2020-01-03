@@ -165,6 +165,13 @@ function keepScalar(a, r) {
   return r.length === 1 && isScalar(a) ? r[0] : r;
 }
 
+/**
+ * 
+ * @param {any} a 
+ * @param {any} b 
+ * @param {string} path location in the tree
+ * @param actions 
+ */
 export function mergeVersions(a, b, path, actions) {
   return mergeVersionsWithFilter(a, b, path, actions, result =>
     keepScalar(a, result)
