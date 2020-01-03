@@ -4,7 +4,10 @@ import { mergeVersions } from "../src/versions.mjs";
 
 function mv(t, a, b, c, ea) {
   const actions = [];
-  t.deepEqual(mergeVersions(a, b, undefined, x => actions.push(x)), c);
+  t.deepEqual(
+    mergeVersions(a, b, undefined, x => actions.push(x)),
+    c
+  );
   if (ea !== undefined) {
     t.deepEqual(actions, ea, "actions");
   }
@@ -62,14 +65,17 @@ test(
   ["1.1", "2"],
   ["-1", "1.2", "1.3"],
   ["1.2", "1.3", "2"],
-  [{ remove: "1.1", path: undefined }, { add: ["1.2", "1.3"], path: undefined }]
+  [
+    { remove: "1.1", path: undefined },
+    { add: ["1.2", "1.3"], path: undefined }
+  ]
 );
 
 test(mv, ">=1.2.3", undefined, ">=1.2.3");
 test(mv, undefined, ">=1.2.3", ">=1.2.3");
 test(mv, ">=1.2.3", ">=1.2.3", ">=1.2.3");
 
-test(mv, "1.2.3", "1.2.4", ["1.2.3","1.2.4" ]);
+test(mv, "1.2.3", "1.2.4", ["1.2.3", "1.2.4"]);
 test.skip(mv, ">=1.2.3", ">=1.2.4", ">=1.2.3");
 
 test.skip(mv, ">=1.2.3", ">=1.3.0", ">=1.3.0");

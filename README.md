@@ -47,18 +47,20 @@ const r = mergeArrays(
     -   [Parameters](#parameters-2)
 -   [mergeVersionsWithFilter](#mergeversionswithfilter)
     -   [Parameters](#parameters-3)
--   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+-   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-4)
--   [hasDeleteHint](#hasdeletehint)
+-   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-5)
--   [isToBeRemoved](#istoberemoved)
+-   [hasDeleteHint](#hasdeletehint)
     -   [Parameters](#parameters-6)
--   [indexFor](#indexfor)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-7)
--   [sortObjectsByKeys](#sortobjectsbykeys)
+-   [indexFor](#indexfor)
     -   [Parameters](#parameters-8)
--   [hintFor](#hintfor)
+-   [sortObjectsByKeys](#sortobjectsbykeys)
     -   [Parameters](#parameters-9)
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters-10)
 
 ## mergeArrays
 
@@ -108,6 +110,19 @@ Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `actions` **Action**  (optional, default `nullAction`)
 -   `filter` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** 
+
+## mergeVersions
+
+merge to sets of version (expressions)
+
+### Parameters
+
+-   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** 
+-   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** 
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** location in the tree
+-   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** cb to notify about the actual selection
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** merged set of version expressions
 
 ## mergeVersionsPreferNumeric
 

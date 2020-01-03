@@ -134,7 +134,7 @@ test(
     },
     engines: {
       node: ">=8.0.0",
-      npm: "10"
+      npm: ">=10"
     }
   },
   {
@@ -148,7 +148,7 @@ test(
     },
     engines: {
       node: ">=12.11.1",
-      npm: "8"
+      npm: ">=8"
     },
     repository: {
       type: "git",
@@ -170,7 +170,7 @@ test(
     },
     engines: {
       node: ">=12.11.1",
-      npm: "10"
+      npm: ">=10"
     },
     repository: {
       type: "git",

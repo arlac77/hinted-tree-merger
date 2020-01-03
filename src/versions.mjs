@@ -2,7 +2,7 @@ import { hintFreeValue, nullAction, isScalar } from "./util.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
-function toArray(value) {
+function decomposeVersion(value) {
   value = String(value);
 
   let incrementIndex = -1;
@@ -12,15 +12,23 @@ function toArray(value) {
     return [99999];
   }
 
-  switch (value[0]) {
-    case "~":
-      value = value.substring(1);
-      incrementIndex = 1;
-      break;
-    case "^":
-      value = value.substring(1);
-      incrementIndex = 2;
-      break;
+  const p = value.match(/^([<=>~^]+)(.*)/);
+  if (p) {
+    switch (p[1]) {
+      case "~":
+        incrementIndex = 1;
+        break;
+      case "^":
+        incrementIndex = 2;
+        break;
+      case "=":
+        break;
+      case ">=":
+        break;
+      case "<=":
+        break;
+    }
+    value = p[2];
   }
 
   const slots = value.split(/\./).map(p => {
@@ -54,18 +62,18 @@ function toArray(value) {
  * @return {number} -1 if a < b, 0 if a == b and 1 if a > b
  */
 export function compareVersion(a, b) {
-  const uaa = toArray(a);
-  const ubb = toArray(b);
+  const da = decomposeVersion(a);
+  const db = decomposeVersion(b);
 
-  for (const i in uaa) {
-    if (i >= ubb.length) {
+  for (const i in da) {
+    if (i >= db.length) {
       break;
     }
 
-    if (uaa[i] < ubb[i]) {
+    if (da[i] < db[i]) {
       return -1;
     }
-    if (uaa[i] > ubb[i]) {
+    if (da[i] > db[i]) {
       return 1;
     }
   }
@@ -98,7 +106,13 @@ function toSet(a) {
  * @param {Action} actions
  * @param {Function} filter
  */
-export function mergeVersionsWithFilter(a, b, path, actions = nullAction, filter) {
+export function mergeVersionsWithFilter(
+  a,
+  b,
+  path,
+  actions = nullAction,
+  filter
+) {
   if (b === undefined) {
     return a;
   }
@@ -166,11 +180,12 @@ function keepScalar(a, r) {
 }
 
 /**
- * 
- * @param {any} a 
- * @param {any} b 
+ * merge to sets of version (expressions)
+ * @param {string|string[]|number|number[]} a
+ * @param {string|string[]|number|number[]} b
  * @param {string} path location in the tree
- * @param actions 
+ * @param {Function} actions cb to notify about the actual selection
+ * @return {string|string[]|number|number[]} merged set of version expressions
  */
 export function mergeVersions(a, b, path, actions) {
   return mergeVersionsWithFilter(a, b, path, actions, result =>
@@ -210,6 +225,9 @@ function toStr(s) {
  */
 export function mergeVersionsPreferNumeric(a, b, path, actions) {
   return mergeVersionsWithFilter(a, b, path, actions, result =>
-    keepScalar(a, result.map(x => toNumber(x)))
+    keepScalar(
+      a,
+      result.map(x => toNumber(x))
+    )
   );
 }
