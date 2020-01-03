@@ -95,8 +95,12 @@ function mt(t, a, b, r, actions) {
       b,
       "",
       (action, hint) => {
-        if (hint && hint.type) {
-          action.type = hint.type;
+        if (hint) {
+          for (const key of ["type", "skope"]) {
+            if (hint[key]) {
+              action[key] = hint[key];
+            }
+          }
         }
         myActions.push(action);
       },
@@ -143,6 +147,10 @@ test(
     },
     engines: {
       node: ">=12.11.1"
+    },
+    repository: {
+      type: "git",
+      url: "http://mock-provider.com/tragetUser/targetRepo"
     }
   },
   {
@@ -160,6 +168,10 @@ test(
     },
     engines: {
       node: ">=12.11.1"
+    },
+    repository: {
+      type: "git",
+      url: "http://mock-provider.com/tragetUser/targetRepo"
     }
   },
   [
@@ -168,6 +180,13 @@ test(
     { remove: "^15.13.25", path: "devDependencies.semantic-release" },
     { remove: ">=8.0.0", path: "engines.node" },
     { add: ">=12.11.1", path: "engines.node" },
-    { add: "module", path: "type" }
+    { add: "module", path: "type" },
+    {
+      add: {
+        type: "git",
+        url: "http://mock-provider.com/tragetUser/targetRepo"
+      },
+      path: "repository"
+    }
   ]
 );
