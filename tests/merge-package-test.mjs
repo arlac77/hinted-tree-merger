@@ -187,7 +187,6 @@ test(
     }
   },
   [
-//    { add: "rollup a && chmod +x bin/yy", path: "scripts.preprocess" },
     { add: "rollup x y && chmod +x bin/xx", path: "scripts.prepare" },
     { remove: "^2.3.0", path: "devDependencies.ava" },
     { add: "^2.4.0", path: "devDependencies.ava" },
@@ -204,3 +203,5 @@ test(
     }
   ]
 );
+
+test(mt, { dependencies: {} }, {}, {}, []);
