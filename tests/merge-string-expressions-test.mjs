@@ -1,7 +1,5 @@
 import test from "ava";
 import {
-  decodeExpressions,
-  encodeExpressions,
   mergeExpressions
 } from "../src/string-expressions.mjs";
 
@@ -20,8 +18,9 @@ test(mset, "a2", '', "a2");
 test(mset, "a3", '  ', "a3");
 test(mset, "a4", undefined, "a4");
 
-test(mset, "a && b", "a", "a && b");
-
+test(mset, "a&&b", "a", "a && b");
+test(mset, "a", "b", "a && b");
+test(mset, "a && b", "a && b", "a && b");
 
 /*
 test("package scripts decode/encode scripts &&", t => {

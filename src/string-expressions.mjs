@@ -1,20 +1,18 @@
-import {
-  nullAction,
-} from "./util.mjs";
+import { nullAction } from "./util.mjs";
 import { hintFor } from "./hint.mjs";
 
 export function mergeExpressions(a, b, path, actions = nullAction, hints) {
-  if(a === undefined  && b === undefined) {
+  if (a === undefined && b === undefined) {
     return undefined;
   }
 
   const aa = decodeExpressions(a);
   const bb = decodeExpressions(b);
-
   const r = encodeExpressions(mergeDecodedExpressions(aa, bb));
 
-  if(r !== a) {
-    actions({ add: r, path }, hintFor(hints,path));
+
+  if (r !== a) {
+    actions({ add: r, path }, hintFor(hints, path));
   }
 
   return r;
@@ -22,32 +20,30 @@ export function mergeExpressions(a, b, path, actions = nullAction, hints) {
 
 export function decodeExpressions(script) {
   if (script === undefined || script.match(/^\s*$/)) {
-    return { op: '', args: [] };
+    return { op: "", args: [] };
   }
 
   let overwrite = false;
 
   if (script === "-") {
     return { op: "-", args: [] };
-  } else {
-    if (script.match(/^#overwrite/)) {
-      script = script.replace(/^#overwrite\s+/, "");
-      overwrite = true;
-    }
-    if (script.match(/&&/)) {
-      return {
-        overwrite,
-        op: "&&",
-        args: script.split(/\s*&&\s*/)
-      };
-    } else {
-      return { op: '', args: [script], overwrite };
-    }
   }
+  if (script.match(/^#overwrite/)) {
+    script = script.replace(/^#overwrite\s+/, "");
+    overwrite = true;
+  }
+  if (script.match(/&&/)) {
+    return {
+      overwrite,
+      op: "&&",
+      args: script.split(/\s*&&\s*/)
+    };
+  }
+  return { op: "", args: [script], overwrite };
 }
 
 function mergeOP(a, b) {
-  const args = x => x === undefined ? [] : x.args;
+  const args = x => (x === undefined ? [] : x.args);
 
   const t = args(a).concat(args(b));
 
@@ -59,7 +55,7 @@ function mergeOP(a, b) {
 
 export function mergeDecodedExpressions(dest, source) {
   if (dest.op === "-") {
-    return { op: '', args: [] };
+    return { op: "", args: [] };
   }
 
   switch (source.op) {
@@ -75,15 +71,15 @@ export function mergeDecodedExpressions(dest, source) {
         case "-":
           return;
 
-          /*
+        /*
         case "&&":
           dest = mergeOP(source, dest);
           break;
 */
         default:
-            dest = mergeOP(source, dest);
+          dest = mergeOP(dest, source);
 
- //         dest.args.push(...source.args);
+        //         dest.args.push(...source.args);
       }
   }
 
@@ -91,5 +87,5 @@ export function mergeDecodedExpressions(dest, source) {
 }
 
 export function encodeExpressions(encoded) {
-  return encoded.args.join(encoded.op === '' ? '' : ' ' + encoded.op + ' ');
+  return encoded.args.join(encoded.op === "" ? "" : " " + encoded.op + " ");
 }
