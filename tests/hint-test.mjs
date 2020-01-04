@@ -1,6 +1,7 @@
 import test from "ava";
 import { hintFor } from "../src/hint.mjs";
-import { mergeVersions } from "../src/versions.mjs";
+
+const merge = "merge";
 
 function hf(t, hints, path, result) {
   t.deepEqual(hintFor(hints, path), result);
@@ -11,26 +12,15 @@ hf.title = (providedTitle = "", a, b) =>
 
 test(hf, {}, undefined, {});
 test(hf, undefined, "a", {});
-test(hf, { a: { merge: mergeVersions } }, "a", { merge: mergeVersions });
-test(hf, { a: { merge: mergeVersions } }, "b", {});
-test(hf, { "a.b": { merge: mergeVersions } }, "a.b", {
-  merge: mergeVersions
-});
-test(hf, { "*b": { merge: mergeVersions } }, "a.b", {
-  merge: mergeVersions
-});
-
-test(hf, { "a.*": { merge: mergeVersions } }, "a.b", {
-  merge: mergeVersions
-});
-
-test(hf, { "a.*": { merge: mergeVersions } }, "a", {
-});
-
-test(hf, { "a.*": { merge: mergeVersions } }, "c.b", {
-});
-
-test(hf, { "*": { removeEmpty: true }, "a.b": { key: "a" } }, "a.b", {
+test(hf, { a: { merge } }, "a", { merge });
+//test(hf, { a: { merge } }, "*", { merge });
+test(hf, { a: { merge } }, "b", {});
+test(hf, { "a.b": { merge } }, "a.b", { merge });
+test(hf, { "*b": { merge } }, "a.b", { merge });
+test(hf, { "a.*": { merge } }, "a.b", { merge });
+test(hf, { "a.*": { merge } }, "a", {});
+test(hf, { "a.*": { merge } }, "c.b", {});
+test(hf, { "*": { merge }, "a.b": { key: "a" } }, "a.b", {
   key: "a",
-  removeEmpty: true
+  merge
 });
