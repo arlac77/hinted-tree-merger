@@ -4,7 +4,10 @@ import { mergeVersions } from "../src/versions.mjs";
 
 function mt(t, a, b, r, hints, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, "", x => myActions.push(x), hints), r);
+  t.deepEqual(
+    merge(a, b, "", x => myActions.push(x), hints),
+    r
+  );
   if (actions !== undefined) {
     t.deepEqual(actions, myActions);
   }
@@ -14,12 +17,27 @@ mt.title = (providedTitle = "merge", a, b) =>
   `${providedTitle} ${a} ${b}`.trim();
 
 test(
+  "do not overwrite",
+  mt,
+  { a: 1 },
+  { a: 2 },
+  { a: 1 },
+  {
+    "*": { overwrite: false }
+  },
+  []
+);
+
+test(
   mt,
   { version: ["1.0.0", "2.0"] },
   { version: ["1.0.1", "-1.0.0"] },
   { version: ["1.0.1", "2.0"] },
   { version: { merge: mergeVersions } },
-  [{ remove: "1.0.0", path: "version" }, { add: "1.0.1", path: "version" }]
+  [
+    { remove: "1.0.0", path: "version" },
+    { add: "1.0.1", path: "version" }
+  ]
 );
 
 test("object remove key", mt, { a: 1 }, { a: "--delete--" }, {}, undefined, [

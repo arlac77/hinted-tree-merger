@@ -128,6 +128,12 @@ export function merge(a, b, path, actions = nullAction, hints) {
     const p = appendPath(path, key, ".");
     const h = hintFor(hints, p);
     const av = a[key];
+
+    if (h.overwrite === false && !isEmpty(av)) {
+      r[key] = av;
+      continue;
+    }
+    
     const bv = b[key];
 
     if (hasDeleteHint(bv, av)) {

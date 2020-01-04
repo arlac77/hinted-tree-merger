@@ -12,8 +12,8 @@ hf.title = (providedTitle = "", a, b) =>
 
 test(hf, {}, undefined, {});
 test(hf, undefined, "a", {});
+test(hf, { "*": { merge } }, "a", { merge });
 test(hf, { a: { merge } }, "a", { merge });
-//test(hf, { a: { merge } }, "*", { merge });
 test(hf, { a: { merge } }, "b", {});
 test(hf, { "a.b": { merge } }, "a.b", { merge });
 test(hf, { "*b": { merge } }, "a.b", { merge });
