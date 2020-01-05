@@ -89,7 +89,7 @@ const packageHints = {
 };
 
 function mt(t, a, b, r, actions) {
-  let myActions = [];
+  const myActions = [];
   t.deepEqual(
     merge(
       a,
@@ -204,4 +204,4 @@ test(
   ]
 );
 
-test(mt, { dependencies: {} }, {}, {}, []);
+test("remove empty dependencies", mt, { dependencies: {} }, {}, {}, []);
