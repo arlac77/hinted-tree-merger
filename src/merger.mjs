@@ -62,8 +62,8 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
         ? h.compare
         : // reorder after b order
           (x, y) =>
-            b.findIndex(e => e[key] === x[key]) -
-            b.findIndex(e => e[key] === y[key])
+            b.findIndex(e => isEqual(e[key], x[key])) -
+            b.findIndex(e => isEqual(e[key], y[key]))
     );
   }
 
@@ -133,7 +133,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
       r[key] = av;
       continue;
     }
-    
+
     const bv = b[key];
 
     if (hasDeleteHint(bv, av)) {
