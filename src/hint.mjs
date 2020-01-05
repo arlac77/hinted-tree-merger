@@ -12,6 +12,19 @@ export function hintFor(hints, path) {
     return { ...hints["*"] };
   }
 
+  /*
+  return {
+    ...hints["*"],
+    ...Object.fromEntries(
+      Object.entries(hints).filter(
+        ([key, hint]) =>
+          (key[0] === "*" && path.endsWith(key.substring(1))) ||
+          (key.endsWith("*") &&
+            path.startsWith(key.substring(0, key.length - 1)))
+      )
+    )
+  };
+*/
   return {
     ...Object.keys(hints)
       .filter(h => {
