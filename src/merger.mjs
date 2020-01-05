@@ -94,7 +94,13 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
   }
 
   if(h.removeEmpty) {
-    return a.filter(a => !isEmpty(a));
+    return a.filter((a,i) => {
+      if(isEmpty(a)) {
+        actions({ remove: a, path: appendPath(path, `[${i}]`) }, h);
+        return false;
+      }
+      return true;
+    });
   }
 
   return a;
