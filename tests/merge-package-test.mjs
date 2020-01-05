@@ -205,3 +205,20 @@ test(
 );
 
 test("remove empty dependencies", mt, { dependencies: {} }, {}, {}, []);
+test(
+  "remove dependencies",
+  mt,
+  { dependencies: { a: 1 } },
+  { dependencies: { a: "--delete--" } },
+  {},
+  [{ path: "dependencies.a", remove: 1, type: "fix" }]
+);
+
+test(
+  "remove dependencies none existing",
+  mt,
+  { dependencies: {} },
+  { dependencies: { a: "--delete--" } },
+  {},
+  []
+);
