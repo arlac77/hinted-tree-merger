@@ -2,8 +2,11 @@ import test from "ava";
 import { mergeArrays } from "../src/merger.mjs";
 
 function mat(t, a, b, r, hints) {
-  let myActions = [];
-  t.deepEqual(mergeArrays(a, b, "", x => myActions.push(x), hints), r);
+  const myActions = [];
+  t.deepEqual(
+    mergeArrays(a, b, "", x => myActions.push(x), hints),
+    r
+  );
 }
 
 mat.title = (providedTitle = "merge", a, b) =>
@@ -11,9 +14,19 @@ mat.title = (providedTitle = "merge", a, b) =>
 
 test(
   mat,
-  [{ k: 1, v: 1 }, { k: 2, v: 2, something: 5 }],
-  [{ k: 2, v: 2, other: 4 }, { k: 3, v: 3 }],
-  [{ k: 1, v: 1 }, { k: 2, v: 2, something: 5, other: 4 }, { k: 3, v: 3 }],
+  [
+    { k: 1, v: 1 },
+    { k: 2, v: 2, something: 5 }
+  ],
+  [
+    { k: 2, v: 2, other: 4 },
+    { k: 3, v: 3 }
+  ],
+  [
+    { k: 1, v: 1 },
+    { k: 2, v: 2, something: 5, other: 4 },
+    { k: 3, v: 3 }
+  ],
   {
     "*": {
       key: "k",
@@ -39,4 +52,8 @@ test(mat, ["a", "b"], ["-b"], ["a"]);
 test(mat, ["a", "b"], "-b", ["a"]);
 test(mat, ["a", "b"], "--delete-- b", ["a"]);
 test(mat, ["a", "b"], "--delete--b", ["a"]);
-test(mat, ["a", "b"], "--delete--c", ["a","b"]);
+test(mat, ["a", "b"], "--delete--c", ["a", "b"]);
+
+test(mat, ["a", "", null, {}, [], [1]], ["b"], ["a", [1], "b"], {
+  "*": { removeEmpty: true }
+});

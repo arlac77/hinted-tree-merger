@@ -93,6 +93,10 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     i++;
   }
 
+  if(h.removeEmpty) {
+    return a.filter(a => !isEmpty(a));
+  }
+
   return a;
 }
 
