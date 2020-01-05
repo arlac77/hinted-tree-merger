@@ -4,6 +4,10 @@ export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
 }
 
+export function compare(a, b) {
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
 /**
  * @param {any} value
  * @param {string|Function} expected
@@ -16,16 +20,18 @@ export function hasDeleteHint(value, expected) {
       if (expected === undefined) {
         return true;
       }
-      if(m[1].length === 0) { return true; }
+      if (m[1].length === 0) {
+        return true;
+      }
 
-      if(expected instanceof Function) {
+      if (expected instanceof Function) {
         return expected(m[1]);
       }
 
       return m[1] == expected;
     }
 
-    if(value[0] === '-' && expected instanceof Function) {
+    if (value[0] === "-" && expected instanceof Function) {
       return expected(value.substring(1));
     }
 
@@ -245,9 +251,9 @@ export function indexFor(b, i, a) {
 
 /**
  * sort keys in source
- * @param {Object} source 
+ * @param {Object} source
  * @param compare
- * @return {Object} 
+ * @return {Object}
  */
 export function sortObjectsByKeys(source, compare) {
   const sorted = {};
@@ -261,17 +267,16 @@ export function sortObjectsByKeys(source, compare) {
   return sorted;
 }
 
-export function compareWithDefinedOrder(a,b, definedOrder) {
+export function compareWithDefinedOrder(a, b, definedOrder) {
   const ai = definedOrder.indexOf(a);
   const bi = definedOrder.indexOf(b);
 
-  if(ai < 0) {
-    if(bi < 0) {
-      return a.localeCompare(b);
+  if (ai < 0) {
+    if (bi < 0) {
+      return compare(a,b);
     }
-  }
-  else {
-    if(bi < 0) {
+  } else {
+    if (bi < 0) {
       return -1;
     }
   }

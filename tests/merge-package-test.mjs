@@ -84,7 +84,7 @@ const packageHints = {
   "engines.*": dependecyEntryHints,
   "scripts.*": { compare, merge: mergeExpressions },
   "*": {
-    compare: (a, b) => compareWithDefinedOrder(a, b, packageKeyOrder)
+    orderBy: packageKeyOrder
   }
 };
 

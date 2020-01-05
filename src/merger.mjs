@@ -157,8 +157,13 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return undefined;
   }
 
-  if (h.compare) {
-    return sortObjectsByKeys(r, h.compare);
+  if (h.orderBy) {
+    return sortObjectsByKeys(r, (a, b) => compareWithDefinedOrder(a, b, h.orderBy));
+  }
+  else {
+    if (h.compare) {
+      return sortObjectsByKeys(r, h.compare);
+    }  
   }
 
   return r;
