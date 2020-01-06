@@ -1,9 +1,9 @@
 import test from "ava";
 import {
   merge,
-  compareWithDefinedOrder,
   mergeVersionsLargest,
-  mergeExpressions
+  mergeExpressions,
+  compare
 } from "../src/merger.mjs";
 
 const packageKeyOrder = [
@@ -56,10 +56,6 @@ const packageKeyOrder = [
   "xo",
   "template"
 ];
-
-function compare(a, b) {
-  return a < b ? -1 : a > b ? 1 : 0;
-}
 
 const dependecyEntryHints = {
   merge: mergeVersionsLargest,

@@ -1,5 +1,5 @@
 import test from "ava";
-import { mergeArrays } from "../src/merger.mjs";
+import { mergeArrays, compare } from "../src/merger.mjs";
 
 test("mergeTemplateFiles", t => {
   t.deepEqual(
@@ -46,7 +46,7 @@ test("mergeTemplateFiles", t => {
         "": { key: ["merger", "pattern"] },
         "*.options.badges": {
           key: "name",
-          compare: (a, b) => a.name.localeCompare(b.name)
+          compare
         }
       }
     ),

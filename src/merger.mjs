@@ -10,8 +10,9 @@ import {
   removeHintedValues,
   indexFor,
   hasDeleteHint,
-  sortObjectsByKeys,
-  compareWithDefinedOrder
+  compareWithDefinedOrder,
+  compare,
+  sortObjectsByKeys
 } from "./util.mjs";
 
 import { hintFor } from "./hint.mjs";
@@ -22,6 +23,7 @@ export {
   isEmpty,
   isToBeRemoved,
   compareWithDefinedOrder,
+  compare,
   sortObjectsByKeys
 };
 
