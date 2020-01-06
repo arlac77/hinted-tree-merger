@@ -37,7 +37,7 @@ mv.title = (providedTitle = "", a, b, c) =>
 test(mv, {}, {}, {}, []);
 test(mv, {}, undefined, {}, []);
 test(mv, undefined, undefined, undefined, []);
-test(mv, {}, { a: 1 }, { a: 1 }, [{ add: 1, path: "a" }]);
+test(mv, {}, { a: 1 }, { a: 1 }, [{ add: 1, path: "a", type: "chore" }]);
 
 test(
   mv,
@@ -55,6 +55,6 @@ test(
   { b: "1", c: "1", e: "2" },
   [
     { remove: "1", path: "a", type: "chore" },
-    { add: "1", path: "c" }
+    { add: "1", path: "c", type: "chore" }
   ]
 );

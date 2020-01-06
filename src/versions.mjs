@@ -1,4 +1,5 @@
 import { hintFreeValue, nullAction, isScalar } from "./util.mjs";
+import { hintFor } from "./hint.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
@@ -111,6 +112,7 @@ export function mergeVersionsWithFilter(
   b,
   path,
   actions = nullAction,
+  hints,
   filter
 ) {
   if (b === undefined) {
@@ -161,10 +163,11 @@ export function mergeVersionsWithFilter(
     value = [...value];
 
     if (value.length > 0) {
+      const h = hintFor(hints,path);
       if (value.length === 1) {
-        actions({ [slot]: value[0], path });
+        actions({ [slot]: value[0], path }, h);
       } else {
-        actions({ [slot]: value.sort(compareVersion), path });
+        actions({ [slot]: value.sort(compareVersion), path }, h);
       }
     }
   }
@@ -187,24 +190,25 @@ function keepScalar(a, r) {
  * @param {Function} actions cb to notify about the actual selection
  * @return {string|string[]|number|number[]} merged set of version expressions
  */
-export function mergeVersions(a, b, path, actions) {
-  return mergeVersionsWithFilter(a, b, path, actions, result =>
+export function mergeVersions(a, b, path, actions, hints) {
+  return mergeVersionsWithFilter(a, b, path, actions, hints, result =>
     keepScalar(a, result)
   );
 }
 
-export function mergeVersionsLargest(a, b, path, actions) {
+export function mergeVersionsLargest(a, b, path, actions, hints) {
   return mergeVersionsWithFilter(
     a,
     b,
     path,
     actions,
+    hints,
     result => result[result.length - 1]
   );
 }
 
-export function mergeVersionsSmallest(a, b, path, actions) {
-  return mergeVersionsWithFilter(a, b, path, actions, result => result[0]);
+export function mergeVersionsSmallest(a, b, path, actions, hints) {
+  return mergeVersionsWithFilter(a, b, path, actions, hints, result => result[0]);
 }
 
 function toNumber(s) {
@@ -223,8 +227,8 @@ function toStr(s) {
  * @param path
  * @param actions
  */
-export function mergeVersionsPreferNumeric(a, b, path, actions) {
-  return mergeVersionsWithFilter(a, b, path, actions, result =>
+export function mergeVersionsPreferNumeric(a, b, path, actions, hints) {
+  return mergeVersionsWithFilter(a, b, path, actions, hints, result =>
     keepScalar(
       a,
       result.map(x => toNumber(x))
