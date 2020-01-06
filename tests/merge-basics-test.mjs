@@ -3,7 +3,10 @@ import { merge } from "../src/merger.mjs";
 
 function mt(t, a, b, r, actions) {
   let myActions = [];
-  t.deepEqual(merge(a, b, undefined, x => myActions.push(x)), r);
+  t.deepEqual(
+    merge(a, b, undefined, x => myActions.push(x)),
+    r
+  );
   if (actions !== undefined) {
     t.deepEqual(actions, myActions);
   }
@@ -38,11 +41,18 @@ test(mt, null, undefined, null, []);
 
 test(mt, [], undefined, [], []);
 test(mt, undefined, [], [], [{ add: [], path: undefined }]);
-test(mt, [], [], [], []);
 
+test(mt, [], [], [], []);
 test(mt, [1], [1], [1], []);
 test(mt, [1], [3], [1, 3], [{ add: 3, path: "[1]" }]);
 test(mt, [1], [[4]], [1, [4]], [{ add: [4], path: "[1]" }]);
+test(
+  "deep copy",
+  mt,
+  undefined,
+  [{ k: 1, e: 2 }, { k: 3 }],
+  [{ k: 1, e: 2 }, { k: 3 }]
+);
 
 test(mt, {}, {}, {}, []);
 test(mt, {}, undefined, {}, []);
