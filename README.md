@@ -17,19 +17,30 @@ merges two trees guided with hints
 
 # usage
 
-```js
-import { mergeArrays } from "hinted-tree-merger";
+### merge array having entries identified by key
 
-const r = mergeArrays(
-        [{ k:1 e:1},{ k:2}],
-        [{ k:1 e:2},{ k:3}], // 2nd. array has precedence
+```js
+import { merge } from "hinted-tree-merger";
+
+const r = merge(
+        [{ k:1, e:1}, { k:2}],
+        [{ k:1, e:2}, { k:3}], // 2nd. array has precedence
         "",
       undefined,
       {
         "": { key: "k" } // identify slots by property "k"
       });
 
-  // r := [{ k:1 e:2 }, { k:2 }, { k:3 }] 
+  // r := [{ k:1 e:2 }, { k:2 }, { k:3 }]
+```
+
+### deep copy
+```js
+import { merge } from "hinted-tree-merger";
+
+const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
+
+  // r := [{ k:1 e:2 }, { k:2 }, { k:3 }]
 ```
 
 # API
