@@ -10,7 +10,8 @@
   "module": "src/merger.mjs",
   "description": "merges two trees guided with hints",
   "keywords": [
-    "merge", "deep copy"
+    "merge",
+    "deep copy"
   ],
   "contributors": [
     {
