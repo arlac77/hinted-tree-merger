@@ -10,8 +10,11 @@
   "module": "src/merger.mjs",
   "description": "merges two trees guided with hints",
   "keywords": [
+    "assign",
+    "deep",
+    "extend",
     "merge",
-    "deep copy"
+    "mixin"
   ],
   "contributors": [
     {
