@@ -1,6 +1,3 @@
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Known Vulnerabilities](https://snyk.io/test/github/arlac77/hinted-tree-merger/badge.svg)](https://snyk.io/test/github/arlac77/hinted-tree-merger)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![npm](https://img.shields.io/npm/v/hinted-tree-merger.svg)](https://www.npmjs.com/package/hinted-tree-merger)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![minified size](https://badgen.net/bundlephobia/min/hinted-tree-merger)](https://bundlephobia.com/result?p=hinted-tree-merger)
@@ -9,6 +6,9 @@
 [![Build Status](https://secure.travis-ci.org/arlac77/hinted-tree-merger.png)](http://travis-ci.org/arlac77/hinted-tree-merger)
 [![codecov.io](http://codecov.io/github/arlac77/hinted-tree-merger/coverage.svg?branch=master)](http://codecov.io/github/arlac77/hinted-tree-merger?branch=master)
 [![Coverage Status](https://coveralls.io/repos/arlac77/hinted-tree-merger/badge.svg)](https://coveralls.io/r/arlac77/hinted-tree-merger)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Known Vulnerabilities](https://snyk.io/test/github/arlac77/hinted-tree-merger/badge.svg)](https://snyk.io/test/github/arlac77/hinted-tree-merger)
 [![Greenkeeper](https://badges.greenkeeper.io/arlac77/hinted-tree-merger.svg)](https://greenkeeper.io/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/arlac77/hinted-tree-merger)
 
