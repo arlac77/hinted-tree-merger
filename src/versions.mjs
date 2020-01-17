@@ -82,16 +82,6 @@ export function compareVersion(a, b) {
   return 0;
 }
 
-export function toBeRemoved(value) {
-  if (typeof value === "string") {
-    const m = value.match(/^-(-delete--)?\s*(.*)/);
-    if (m) {
-      return true;
-    }
-  }
-
-  return false;
-}
 
 function toSet(a) {
   if (isScalar(a)) {
