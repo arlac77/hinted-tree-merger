@@ -101,11 +101,18 @@ function toSet(a) {
 }
 
 /**
- * @param {string|number} a
- * @param {string|number} b
- * @param {string} path
- * @param {Action} actions
- * @param {Function} filter
+ * maps version values (to number)
+ * @typedef {Function} VersionMapper
+ */
+ 
+/**
+ * @param {string|string[]|number|number[]} a
+ * @param {string|string[]|number|number[]} b
+ * @param {string} path location in the tree
+ * @param {Function} actions cb to notify about the actual selection
+ * @param {Object} hints
+ * @param {VersionMapper} filter
+ * @return {string|string[]|number|number[]} merged set of version expressions
  */
 export function mergeVersionsWithFilter(
   a,
@@ -188,6 +195,7 @@ function keepScalar(a, r) {
  * @param {string|string[]|number|number[]} b
  * @param {string} path location in the tree
  * @param {Function} actions cb to notify about the actual selection
+ * @param {Object} hints
  * @return {string|string[]|number|number[]} merged set of version expressions
  */
 export function mergeVersions(a, b, path, actions, hints) {
@@ -221,11 +229,14 @@ function toStr(s) {
 }
 
 /**
- * Same as mergeVersions but merge result are numbers if possible
- * @param a
- * @param b
- * @param path
- * @param actions
+ * Same as mergeVersions but merge result are converted into
+ * numbers if possible
+ * @param {string|string[]|number|number[]} a
+ * @param {string|string[]|number|number[]} b
+ * @param {string} path location in the tree
+ * @param {Function} actions cb to notify about the actual selection
+ * @param {Object} hints
+ * @return {string|string[]|number|number[]} merged set of version expressions
  */
 export function mergeVersionsPreferNumeric(a, b, path, actions, hints) {
   return mergeVersionsWithFilter(a, b, path, actions, hints, result =>
