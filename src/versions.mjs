@@ -10,7 +10,7 @@ function decomposeVersion(value) {
 
   /** url means highest version */
   if (value.match(/^[\w\-\+]+:/)) {
-    return [99999];
+    return [Number.MAX_SAFE_INTEGER];
   }
 
   const p = value.match(/^([<=>~^]+)(.*)/);
@@ -35,7 +35,7 @@ function decomposeVersion(value) {
   const slots = value.split(/\./).map(p => {
     const w = parseInt(p, 10);
     if (isNaN(w)) {
-      return 99999;
+      return Number.MAX_SAFE_INTEGER;
     }
     return w;
   });
