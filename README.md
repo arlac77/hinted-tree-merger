@@ -51,30 +51,44 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
 
 ### Table of Contents
 
--   [mergeArrays](#mergearrays)
+-   [mergeSkip](#mergeskip)
     -   [Parameters](#parameters)
--   [merge](#merge)
+-   [mergeArrays](#mergearrays)
     -   [Parameters](#parameters-1)
+-   [merge](#merge)
+    -   [Parameters](#parameters-2)
 -   [MAX_SAFE_INTEGER](#max_safe_integer)
 -   [compareVersion](#compareversion)
-    -   [Parameters](#parameters-2)
+    -   [Parameters](#parameters-3)
 -   [VersionMapper](#versionmapper)
 -   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    -   [Parameters](#parameters-3)
--   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-4)
--   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+-   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-5)
--   [hasDeleteHint](#hasdeletehint)
+-   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-6)
--   [isToBeRemoved](#istoberemoved)
+-   [hasDeleteHint](#hasdeletehint)
     -   [Parameters](#parameters-7)
--   [indexFor](#indexfor)
+-   [isToBeRemoved](#istoberemoved)
     -   [Parameters](#parameters-8)
--   [sortObjectsByKeys](#sortobjectsbykeys)
+-   [indexFor](#indexfor)
     -   [Parameters](#parameters-9)
--   [hintFor](#hintfor)
+-   [sortObjectsByKeys](#sortobjectsbykeys)
     -   [Parameters](#parameters-10)
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters-11)
+
+## mergeSkip
+
+Skip merging use left side
+
+### Parameters
+
+-   `a`  
+-   `b`  
+-   `path`  
+-   `actions`  
+-   `hints`  
 
 ## mergeArrays
 

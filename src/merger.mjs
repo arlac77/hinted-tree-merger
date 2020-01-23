@@ -34,6 +34,13 @@ function appendPath(path, suffix, separator = "") {
 }
 
 /**
+ * Skip merging use left side
+ */
+export function mergeSkip(a, b, path, actions, hints) {
+  return a;
+}
+
+/**
  *
  * @param {Array} a
  * @param {Array} b

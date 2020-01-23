@@ -3,6 +3,7 @@ import {
   merge,
   mergeVersionsLargest,
   mergeExpressions,
+  mergeSkip,
   compare
 } from "../src/merger.mjs";
 
@@ -79,6 +80,7 @@ const packageHints = {
   "bundeledDependencies.*": dependecyEntryHints,
   "engines.*": dependecyEntryHints,
   "scripts.*": { compare, merge: mergeExpressions },
+  "template": { merge: mergeSkip },
   "*": {
     orderBy: packageKeyOrder
   }
@@ -134,6 +136,9 @@ test(
     engines: {
       node: ">=8.0.0",
       npm: ">=10"
+    },
+    template: {
+      a : 1
     }
   },
   {
@@ -156,6 +161,9 @@ test(
     repository: {
       type: "git",
       url: "http://mock-provider.com/tragetUser/targetRepo"
+    },
+    template: {
+      b : 2
     }
   },
   {
@@ -180,6 +188,9 @@ test(
     repository: {
       type: "git",
       url: "http://mock-provider.com/tragetUser/targetRepo"
+    },
+    template: {
+      a : 1
     }
   },
   [
