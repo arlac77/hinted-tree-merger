@@ -32,7 +32,7 @@ export function hasDeleteHint(value, expected) {
     }
 
     if (value[0] === "-" && expected instanceof Function) {
-      return expected(value.substring(1));
+      return expected(value.slice(1));
     }
 
     if (value === `-${expected}`) {
