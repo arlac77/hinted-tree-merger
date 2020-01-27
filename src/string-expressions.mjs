@@ -10,7 +10,6 @@ export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   const bb = decodeExpressions(b);
   const r = encodeExpressions(mergeDecodedExpressions(aa, bb));
 
-
   if (r !== a) {
     actions({ add: r, path }, hintFor(hints, path));
   }
@@ -25,8 +24,10 @@ export function decodeExpressions(script) {
 
   let overwrite = false;
 
-  if (script === "-") {
-    return { op: "-", args: [] };
+  const m = script.match(/^--delete--\s*(.*)/);
+
+  if (m) {
+    return { op: "-", args: m[1] };
   }
   if (script.match(/^#overwrite/)) {
     script = script.replace(/^#overwrite\s+/, "");
@@ -60,7 +61,7 @@ export function mergeDecodedExpressions(dest, source) {
 
   switch (source.op) {
     case "-":
-      return;
+      return { op: "", args: dest.args.filter(f => f !== source.args[0]) };
 
     case "&&":
       dest = source.overwrite ? source : mergeOP(source, dest);
@@ -78,8 +79,6 @@ export function mergeDecodedExpressions(dest, source) {
 */
         default:
           dest = mergeOP(dest, source);
-
-        //         dest.args.push(...source.args);
       }
   }
 

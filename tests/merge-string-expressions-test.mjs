@@ -24,6 +24,11 @@ test(mset, "a && b", "a && b", "a && b");
 
 test(mset, "documentation lint src/expander.mjs", "documentation lint src/expander.mjs", "documentation lint src/expander.mjs");
 
+test(mset, "a && b", "--delete-- a", "b");
+test(mset, "a && b", "--delete-- b", "a");
+//test(mset, "a && b", "--delete-- c", "a && b");
+//test(mset, "a && b", "--delete-- a && --delete-- b", "");
+
 /*
 test("package scripts decode/encode scripts &&", t => {
   const d = decodeScripts({
