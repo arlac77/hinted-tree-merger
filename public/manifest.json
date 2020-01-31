@@ -1,0 +1,10 @@
+{
+  "name": "hinted-tree-merger",
+  "description": "merges two trees guided with hints",
+  "icons": [
+    {
+      "src": "facicon.ico",
+      "sizes": "16x16"
+    }
+  ]
+}
