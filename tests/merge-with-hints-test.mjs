@@ -55,6 +55,19 @@ test(
 );
 
 test(
+  "object remove key several -> remove empty",
+  mt,
+  { a: "value a", b: "value b" },
+  { a: "--delete-- value a", b: "--delete--" },
+  undefined,
+  { "": { removeEmpty: true } },
+  [
+    { remove: "value a", path: "a" },
+    { remove: "value b", path: "b" }
+  ]
+);
+
+test(
   "object remove missing key",
   mt,
   {},
