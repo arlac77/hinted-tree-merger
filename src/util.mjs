@@ -122,6 +122,31 @@ export function removeHintedValues(object) {
   return result;
 }
 
+export function deepCopy(object) {
+  if (isScalar(object)) {
+    return object;
+  }
+
+  if (Array.isArray(object)) {
+    return object.map(o => deepCopy(o));
+  }
+
+  if (object instanceof Map || object instanceof Set || object instanceof Date) {
+    return object;
+  }
+
+  const result = {};
+
+  for (const key of Object.keys(object)) {
+    const value = deepCopy(object[key]);
+    if (!isEmpty(value)) {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
 export function isEmpty(a) {
   if (a === undefined || a === null || a === "") {
     return true;

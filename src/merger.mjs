@@ -8,6 +8,7 @@ import {
   asArray,
   nullAction,
   removeHintedValues,
+  deepCopy,
   indexFor,
   hasDeleteHint,
   compareWithDefinedOrder,
@@ -126,8 +127,10 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 export function merge(a, b, path, actions = nullAction, hints) {
   if (isScalar(a)) {
     if (b !== undefined && !isEqual(a, b)) {
-      b = removeHintedValues(b);
-      actions({ add: b, path }, hintFor(hints, path));
+      const hint = hintFor(hints, path);
+
+      b = hint.keepHints ? deepCopy(b) : removeHintedValues(b);
+      actions({ add: b, path }, hint);
       return b;
     }
     return a;

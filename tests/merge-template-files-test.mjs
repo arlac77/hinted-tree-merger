@@ -28,6 +28,7 @@ test("mergeTemplateFiles", t => {
       },
       {
         dependencies: {
+          other: "--delete--",
           rollup: "1.2.3"
         },
         template: {
@@ -54,6 +55,7 @@ test("mergeTemplateFiles", t => {
       "",
       undefined,
       {
+        "dependencies" : { keepHints: true },
         "template.files": { key: ["merger", "pattern"] },
         "*.options.badges": {
           key: "name",
@@ -63,6 +65,7 @@ test("mergeTemplateFiles", t => {
     ),
     {
       dependencies: {
+        other: "--delete--",
         rollup: "1.2.3"
       },
       template: {
