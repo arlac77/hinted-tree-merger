@@ -6,18 +6,20 @@ export function mergeExpressions(a, b, path, actions = nullAction, hints) {
     return undefined;
   }
 
-  const aa = decodeExpressions(a);
-  const bb = decodeExpressions(b);
+  const hint = hintFor(hints, path);
+
+  const aa = decodeExpressions(a, hint);
+  const bb = decodeExpressions(b, hint);
   const r = encodeExpressions(mergeDecodedExpressions(aa, bb));
 
   if (r !== a) {
-    actions({ add: r, path }, hintFor(hints, path));
+    actions({ add: r, path }, hint);
   }
 
   return r;
 }
 
-export function decodeExpressions(script) {
+export function decodeExpressions(script, hint) {
   if (script === undefined || script.match(/^\s*$/)) {
     return { op: "", args: [] };
   }
@@ -26,13 +28,17 @@ export function decodeExpressions(script) {
 
   const m = script.match(/^--delete--\s*(.*)/);
 
-  if (m) {
+  if (m && !hint.keepHints) {
     return { op: "-", args: m[1] };
   }
+
   if (script.match(/^#overwrite/)) {
-    script = script.replace(/^#overwrite\s+/, "");
+    if (!hint.keepHints) {
+      script = script.replace(/^#overwrite\s+/, "");
+    }
     overwrite = true;
   }
+  
   if (script.match(/&&/)) {
     return {
       overwrite,

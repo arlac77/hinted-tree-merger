@@ -1,10 +1,8 @@
 import test from "ava";
-import {
-  mergeExpressions
-} from "../src/string-expressions.mjs";
+import { mergeExpressions } from "../src/string-expressions.mjs";
 
-function mset(t, a, b, r) {
-  t.deepEqual(mergeExpressions(a, b), r);
+function mset(t, a, b, hints, r) {
+  t.deepEqual(mergeExpressions(a, b, "", undefined, hints), r);
 }
 
 mset.title = (providedTitle = "merge", a, b) =>
@@ -12,22 +10,32 @@ mset.title = (providedTitle = "merge", a, b) =>
 
 test(mset, undefined, undefined, undefined);
 
-test(mset, "a0", "a0", "a0");
-test(mset, "a1", undefined, "a1");
-test(mset, "a2", '', "a2");
-test(mset, "a3", '  ', "a3");
-test(mset, "a4", undefined, "a4");
+test(mset, "a0", "a0", {}, "a0");
+test(mset, "a1", undefined, {}, "a1");
+test(mset, "a2", "", {}, "a2");
+test(mset, "a3", "  ", {}, "a3");
+test(mset, "a4", undefined, {}, "a4");
 
-test(mset, "a&&b", "a", "a && b");
-test(mset, "a", "b", "a && b");
-test(mset, "a && b", "a && b", "a && b");
+test(mset, "a&&b", "a", {}, "a && b");
+test(mset, "a", "b", {}, "a && b");
+test(mset, "a && b", "a && b", {}, "a && b");
 
-test(mset, "documentation lint src/expander.mjs", "documentation lint src/expander.mjs", "documentation lint src/expander.mjs");
+test(
+  mset,
+  "documentation lint src/expander.mjs",
+  "documentation lint src/expander.mjs",
+  {},
+  "documentation lint src/expander.mjs"
+);
 
-test(mset, "a && b", "--delete-- a", "b");
-test(mset, "a && b", "--delete-- b", "a");
-//test(mset, "a && b", "--delete-- c", "a && b");
-//test(mset, "a && b", "--delete-- a && --delete-- b", "");
+test(mset, "a", "--delete-- a", {}, "");
+test("keepHints --delete value", mset, "a", "--delete-- a", { "*": { keepHints: true } }, "a && --delete-- a");
+test("keepHints", mset, "a", "--delete--", { "*": { keepHints: true } }, "a && --delete--");
+
+test(mset, "a && b", "--delete-- a", {}, "b");
+test(mset, "a && b", "--delete-- b", {}, "a");
+//test(mset, "a && b", "--delete-- c", {}, "a && b");
+//test(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
 
 /*
 test("package scripts decode/encode scripts &&", t => {
