@@ -35,8 +35,8 @@ test("keepHints without value", mset, "a", "--delete--", { "*": { keepHints: tru
 
 test(mset, "a && b", "--delete-- a", {}, "b");
 test(mset, "a && b", "--delete-- b", {}, "a");
-//test(mset, "a && b", "--delete-- c", {}, "a && b");
-//test(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
+test(mset, "a && b", "--delete-- c", {}, "a && b");
+test.skip(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
 
 /*
 test("package scripts decode/encode scripts &&", t => {
