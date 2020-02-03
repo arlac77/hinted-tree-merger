@@ -29,8 +29,9 @@ test(
 );
 
 test(mset, "a", "--delete-- a", {}, "");
-test("keepHints --delete value", mset, "a", "--delete-- a", { "*": { keepHints: true } }, "a && --delete-- a");
-test("keepHints", mset, "a", "--delete--", { "*": { keepHints: true } }, "a && --delete--");
+test("keepHints single", mset, "a", "--delete-- a", { "*": { keepHints: true } }, "a && --delete-- a");
+test("keepHints several", mset, "a", "--delete-- a && --delete-- b", { "*": { keepHints: true } }, "a && --delete-- a && --delete-- b");
+test("keepHints without value", mset, "a", "--delete--", { "*": { keepHints: true } }, "a && --delete--");
 
 test(mset, "a && b", "--delete-- a", {}, "b");
 test(mset, "a && b", "--delete-- b", {}, "a");
