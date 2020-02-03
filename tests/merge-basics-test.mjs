@@ -69,15 +69,17 @@ test("Set empty", mt, new Set(), new Set(), new Set(), []);
 test(mt, new Set([1]), new Set([2]), new Set([1, 2]), [
   { add: 2, path: "[1]" }
 ]);
+
 test(
   "Set with delete",
   mt,
-  new Set(["a"]),
+  new Set(["a", "c"]),
   new Set(["-a", "b"]),
-  new Set(["b"]),
+  new Set(["c", "b"]),
   [
     { remove: "a", path: "[0]" },
-    { add: "b", path: "[0]" }
+    { add: "b", path: "[1]" }
   ]
 );
+
 test(mt, new Set(), [], new Set(), []);
