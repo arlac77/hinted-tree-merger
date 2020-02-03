@@ -140,6 +140,10 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return mergeArrays(a, b, path, actions, hints);
   }
 
+  if (a instanceof Set) {
+    return new Set(mergeArrays([...a], [...b], path, actions, hints));
+  }
+
   if (b === undefined) {
     b = {};
   }
