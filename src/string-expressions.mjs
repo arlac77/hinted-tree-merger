@@ -61,7 +61,7 @@ function mergeOP(a, b) {
 
   return {
     op: "&&",
-    args: t.filter((item, pos) => t.indexOf(item) == pos)
+    args: t.filter((item, pos) => t.indexOf(item) === pos)
   };
 }
 
@@ -83,11 +83,6 @@ export function mergeDecodedExpressions(dest, source) {
         case "-":
           return;
 
-        /*
-        case "&&":
-          dest = mergeOP(source, dest);
-          break;
-*/
         default:
           dest = mergeOP(dest, source);
       }
