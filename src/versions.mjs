@@ -125,6 +125,7 @@ export function mergeVersionsWithFilter(
   if (b === undefined) {
     return a;
   }
+  const hint = hintFor(hints, path);
   const aVersions = toSet(a);
   const bVersions = toSet(b);
 
@@ -142,7 +143,9 @@ export function mergeVersionsWithFilter(
           }
 
           newVersions.delete(x);
-          newVersions.delete(v);
+          if(!hint.keepHints) {
+            newVersions.delete(v);
+          } 
         }
       });
     }
@@ -170,11 +173,10 @@ export function mergeVersionsWithFilter(
     value = [...value];
 
     if (value.length > 0) {
-      const h = hintFor(hints,path);
       if (value.length === 1) {
-        actions({ [slot]: value[0], path }, h);
+        actions({ [slot]: value[0], path }, hint);
       } else {
-        actions({ [slot]: value.sort(compareVersion), path }, h);
+        actions({ [slot]: value.sort(compareVersion), path }, hint);
       }
     }
   }
