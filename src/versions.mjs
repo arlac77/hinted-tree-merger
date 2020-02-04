@@ -104,7 +104,7 @@ function toSet(a) {
  * maps version values (to number)
  * @typedef {Function} VersionMapper
  */
- 
+
 /**
  * @param {string|string[]|number|number[]} a
  * @param {string|string[]|number|number[]} b
@@ -126,6 +126,7 @@ export function mergeVersionsWithFilter(
     return a;
   }
   const hint = hintFor(hints, path);
+
   const aVersions = toSet(a);
   const bVersions = toSet(b);
 
@@ -143,9 +144,9 @@ export function mergeVersionsWithFilter(
           }
 
           newVersions.delete(x);
-          if(!hint.keepHints) {
+          if (!hint.keepHints) {
             newVersions.delete(v);
-          } 
+          }
         }
       });
     }
@@ -218,7 +219,14 @@ export function mergeVersionsLargest(a, b, path, actions, hints) {
 }
 
 export function mergeVersionsSmallest(a, b, path, actions, hints) {
-  return mergeVersionsWithFilter(a, b, path, actions, hints, result => result[0]);
+  return mergeVersionsWithFilter(
+    a,
+    b,
+    path,
+    actions,
+    hints,
+    result => result[0]
+  );
 }
 
 function toNumber(s) {

@@ -2,10 +2,10 @@ import test from "ava";
 
 import { mergeVersions } from "../src/versions.mjs";
 
-function mv(t, a, b, c, ea) {
+function mv(t, a, b, c, ea, hints) {
   const actions = [];
   t.deepEqual(
-    mergeVersions(a, b, undefined, x => actions.push(x)),
+    mergeVersions(a, b, undefined, x => actions.push(x), hints),
     c
   );
   if (ea !== undefined) {
@@ -58,6 +58,19 @@ test(
   ["--delete-- 1"],
   ["2"],
   [{ remove: "1", path: undefined }]
+);
+
+test(
+  "keepHints",
+  mv,
+  ["1", "2"],
+  ["--delete-- 1"],
+  ["2", "--delete-- 1"],
+  [
+    { remove: "1", path: undefined },
+    { add: "--delete-- 1", path: undefined }
+  ],
+  { "*": { keepHints: true } }
 );
 
 test(

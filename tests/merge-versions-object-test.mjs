@@ -2,7 +2,7 @@ import test from "ava";
 import { merge } from "../src/merger.mjs";
 import { mergeVersionsLargest } from "../src/versions.mjs";
 
-function mv(t, a, b, c, ea) {
+function mv(t, a, b, c, ea, hints) {
   const actions = [];
   t.deepEqual(
     merge(
@@ -18,8 +18,9 @@ function mv(t, a, b, c, ea) {
       {
         "*": {
           merge: mergeVersionsLargest,
-          type: 'chore'
-        }
+          type: "chore"
+        },
+        ...hints
       }
     ),
     c
@@ -57,4 +58,23 @@ test(
     { remove: "1", path: "a", type: "chore" },
     { add: "1", path: "c", type: "chore" }
   ]
+);
+
+test(
+  mv,
+  {
+    a: "1",
+    b: "1"
+  },
+  {
+    a: "--delete--",
+    c: "1"
+  },
+  { a: "--delete--", b: "1", c: "1" },
+  [
+    { remove: "1", path: "a", type: "chore" },
+    { add: "--delete--", path: "a", type: "chore" },
+    { add: "1", path: "c", type: "chore" }
+  ],
+  { "*": { keepHints: true, merge: mergeVersionsLargest, type: "chore" } }
 );

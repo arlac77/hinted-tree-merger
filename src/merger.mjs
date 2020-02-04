@@ -103,9 +103,9 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
     i++;
   }
 
-  if(h.removeEmpty) {
-    return a.filter((a,i) => {
-      if(isEmpty(a)) {
+  if (h.removeEmpty) {
+    return a.filter((a, i) => {
+      if (isEmpty(a)) {
         actions({ remove: a, path: appendPath(path, `[${i}]`) }, h);
         return false;
       }
@@ -162,7 +162,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
     const bv = b[key];
 
-    if (hasDeleteHint(bv, av)) {
+    if (!h.keepHints && hasDeleteHint(bv, av)) {
       if (av !== undefined) {
         actions({ remove: av, path: p }, h);
       }
@@ -184,12 +184,13 @@ export function merge(a, b, path, actions = nullAction, hints) {
   }
 
   if (h.orderBy) {
-    return sortObjectsByKeys(r, (a, b) => compareWithDefinedOrder(a, b, h.orderBy));
-  }
-  else {
+    return sortObjectsByKeys(r, (a, b) =>
+      compareWithDefinedOrder(a, b, h.orderBy)
+    );
+  } else {
     if (h.compare) {
       return sortObjectsByKeys(r, h.compare);
-    }  
+    }
   }
 
   return r;
