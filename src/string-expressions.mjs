@@ -11,10 +11,12 @@ export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   const aa = decodeExpressions(a, hint);
   const bb = decodeExpressions(b, hint);
 
-  /*console.log("AA",aa);
+  /*
+  console.log("AA",aa);
   console.log("BB",bb);
   console.log(mergeDecodedExpressions(aa, bb));
   */
+
   const r = encodeExpressions(mergeDecodedExpressions(aa, bb));
 
   if (r !== a) {
@@ -43,7 +45,7 @@ export function decodeExpressions(script, hint) {
     }
     overwrite = true;
   }
-  
+
   if (script.match(/&&/)) {
     return {
       overwrite,
@@ -70,12 +72,20 @@ export function mergeDecodedExpressions(dest, source) {
     return { op: "", args: [] };
   }
 
+  if (source.overwrite) {
+    return source;
+  }
+
+  if (dest.overwrite) {
+    return dest;
+  }
+
   switch (source.op) {
     case "-":
       return { op: dest.op, args: dest.args.filter(f => f !== source.args[0]) };
 
     case "&&":
-      dest = source.overwrite ? source : mergeOP(source, dest);
+      dest = mergeOP(source, dest);
       break;
 
     default:
