@@ -137,6 +137,8 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 ## mergeVersionsWithFilter
 
+merge and filter two sets of version (expressions)
+
 ### Parameters
 
 -   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** 
@@ -150,7 +152,7 @@ Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ## mergeVersions
 
-merge to sets of version (expressions)
+merge two sets of version (expressions)
 
 ### Parameters
 

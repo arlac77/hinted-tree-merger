@@ -106,6 +106,7 @@ function toSet(a) {
  */
 
 /**
+ * merge and filter two sets of version (expressions)
  * @param {string|string[]|number|number[]} a
  * @param {string|string[]|number|number[]} b
  * @param {string} path location in the tree
@@ -193,7 +194,7 @@ function keepScalar(a, r) {
 }
 
 /**
- * merge to sets of version (expressions)
+ * merge two sets of version (expressions)
  * @param {string|string[]|number|number[]} a
  * @param {string|string[]|number|number[]} b
  * @param {string} path location in the tree
