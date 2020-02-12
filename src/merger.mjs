@@ -65,16 +65,15 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
       return a;
     };
 
-    const aa = [...b.reduce(mf, a.reduce(mf, new Map())).values()];
+    const valuesByKeys = b.reduce(mf, a.reduce(mf, new Map()));
 
-    return aa.sort(
-      h.compare
-        ? h.compare
-        : // reorder after b order
-          (x, y) =>
-            b.findIndex(e => isEqual(e[key], x[key])) -
-            b.findIndex(e => isEqual(e[key], y[key]))
-    );
+    return [...valuesByKeys.keys()]
+      .sort(
+        h.orderBy
+          ? (a, b) => compareWithDefinedOrder(a, b, h.orderBy)
+          : h.compare
+      )
+      .map(key => valuesByKeys.get(key));
   }
 
   let i = 0;

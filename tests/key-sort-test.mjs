@@ -17,7 +17,7 @@ function mt(t, a, b, r, hints, actions) {
   }
 }
 
-mt.title = (providedTitle = "merge", a, b, r, hints) =>
+mt.title = (providedTitle = "merge & sort", a, b, r, hints) =>
   `${providedTitle} ${JSON.stringify(a)} ${JSON.stringify(b)} ${JSON.stringify(
     hints
   )}`.trim();
