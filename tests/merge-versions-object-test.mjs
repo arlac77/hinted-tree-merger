@@ -42,6 +42,17 @@ test(mv, {}, { a: 1 }, { a: 1 }, [{ add: 1, path: "a", type: "chore" }]);
 
 test(
   mv,
+  { systemd: ">=244.1" },
+  { systemd: ">=244.2" },
+  { systemd: ">=244.2" },
+  [
+    { remove: ">=244.1", path: "systemd", type: "chore" },
+    { add: ">=244.2", path: "systemd", type: "chore" }
+  ]
+);
+
+test(
+  mv,
   {
     a: "1",
     b: "1",
