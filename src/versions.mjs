@@ -160,13 +160,13 @@ export function mergeVersionsWithFilter(
   const removed = new Set();
 
   nv.forEach(x => {
-    if (!aVersions.has(toNumber(x)) && !aVersions.has(toStr(x))) {
+    if (!aVersions.has(toNumber(x)) && !aVersions.has(String(x))) {
       added.add(x);
     }
   });
 
   aVersions.forEach(x => {
-    if (!nv.has(toNumber(x)) && !nv.has(toStr(x))) {
+    if (!nv.has(toNumber(x)) && !nv.has(String(x))) {
       removed.add(x);
     }
   });
@@ -233,10 +233,6 @@ export function mergeVersionsSmallest(a, b, path, actions, hints) {
 function toNumber(s) {
   const f = parseFloat(s);
   return String(f) == s ? f : s;
-}
-
-function toStr(s) {
-  return s instanceof String ? s : String(s);
 }
 
 /**
