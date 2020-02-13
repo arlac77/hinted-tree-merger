@@ -11,7 +11,7 @@ test("travis real merge", t => {
       jobs: {
         include: [
           {
-            stage: "docs",
+            stage: "doc",
             node_js: "lts/*",
             skip_cleanup: "true",
             script: [
@@ -43,7 +43,7 @@ test("travis real merge", t => {
       jobs: {
         include: [
           {
-            stage: "docs",
+            stage: "doc",
             node_js: "lts/*",
             skip_cleanup: "true",
             script: [
@@ -83,10 +83,11 @@ test("travis real merge", t => {
     undefined,
     undefined,
     {
-      "*": { removeEmpty: true },
+      "*": { scope: "travis", removeEmpty: true },
       "*node_js": { merge: mergeVersionsPreferNumeric },
       "jobs.include": {
-        key: "stage"
+        key: "stage",
+        orderBy: ["test", "doc", "release"]
       }
     }
   );
@@ -101,7 +102,7 @@ test("travis real merge", t => {
     jobs: {
       include: [
         {
-          stage: "docs",
+          stage: "doc",
           node_js: "lts/*",
           skip_cleanup: "true",
           script: [
