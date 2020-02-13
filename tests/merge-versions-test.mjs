@@ -61,6 +61,22 @@ test(
 );
 
 test(
+  mv,
+  ["1", "2"],
+  [-1],
+  ["2"],
+  [{ remove: "1", path: undefined }]
+);
+
+test(
+  mv,
+  [-1, "2"],
+  ["-1"],
+  ["2"],
+  [{ remove: "-1", path: undefined }]
+);
+
+test(
   "keepHints",
   mv,
   ["1", "2"],
