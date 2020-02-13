@@ -57,15 +57,14 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   if (h.key) {
     const keys = asArray(h.key);
-    const key = keys[0];
 
-    const mf = (a, c) => {
+    const a2m = (a, c) => {
       const k = keys.map(k => c[k]).join(":");
       a.set(k, merge(a.get(k), c, appendPath(path, `[]`), actions, hints));
       return a;
     };
 
-    const valuesByKeys = b.reduce(mf, a.reduce(mf, new Map()));
+    const valuesByKeys = b.reduce(a2m, a.reduce(a2m, new Map()));
 
     return [...valuesByKeys.keys()]
       .sort(
