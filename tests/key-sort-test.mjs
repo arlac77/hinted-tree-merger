@@ -46,3 +46,11 @@ test(
   { c: 0, b: 0, a: 0 },
   { "*": { orderBy: ["c", "b", "a"] } }
 );
+
+test(
+  mt,
+  { key: { a: 0, c: 0 } },
+  { key: { a: 0, b: 0, c: 0 } },
+  { key: { c: 0, b: 0, a: 0 } },
+  { "key": { orderBy: ["c", "b", "a"] } }
+);
