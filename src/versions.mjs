@@ -22,34 +22,32 @@ function decomposeVersion(value) {
       case "^":
         incrementIndex = 2;
         break;
+      /*
       case "=":
         break;
       case ">=":
         break;
       case "<=":
-        break;
+        break;*/
     }
     value = p[2];
   }
 
-  const slots = value.split(/\./).map(p => {
+  const slots = value.split(/\./).map((p, i) => {
     const w = parseInt(p, 10);
-    if (isNaN(w)) {
-      return Number.MAX_SAFE_INTEGER;
-    }
-    return w;
+    return isNaN(w)
+      ? Number.MAX_SAFE_INTEGER
+      : i === incrementIndex
+      ? w + 1
+      : w;
   });
 
-  const m = value.match(/\-(\w+)\.?(.*)/);
+  const m = value.match(/\-(\w+)\.?(.*)$/);
 
   if (m) {
     let e = m ? slots.pop() : 0;
     const last = slots.pop();
     return [...slots, last - suffixes[m[1]], e];
-  }
-
-  if (incrementIndex >= 0) {
-    slots[incrementIndex] = slots[incrementIndex] + 1;
   }
 
   return slots;
