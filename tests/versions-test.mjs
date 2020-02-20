@@ -9,9 +9,13 @@ function cv(t, a, b, c) {
 cv.title = (providedTitle = "", a, b) =>
   `equal ${providedTitle} ${a} ${b}`.trim();
 
+test(cv, 1.0, 1, 0);
+test(cv, "1.0", 1, 0);
+
 test(cv, "1", "2", -1);
 test(cv, "2", "1", 1);
 test(cv, 11, 12, -1);
+
 test(cv, 1.0, 3, -1);
 test(cv, 1.0, "4", -1);
 test(cv, "1.0.1", "1.0.2", -1);
