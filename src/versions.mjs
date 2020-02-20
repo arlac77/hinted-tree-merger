@@ -13,7 +13,10 @@ function decomposeVersion(value) {
     return [Number.MAX_SAFE_INTEGER];
   }
 
-  const p = value.match(/^([<=>~^]+)(.*)/);
+  const p = value.match(/^([<=>~^]+)?([^-]*)(\-(\w+)\.?(.*))?$/);
+
+  let suffixWeight;
+
   if (p) {
     switch (p[1]) {
       case "~":
@@ -31,6 +34,8 @@ function decomposeVersion(value) {
         break;*/
     }
     value = p[2];
+
+    suffixWeight = suffixes[p[4]];
   }
 
   const slots = value.split(/\./).map((p, i) => {
@@ -42,12 +47,8 @@ function decomposeVersion(value) {
       : w;
   });
 
-  const m = value.match(/\-(\w+)\.?(.*)$/);
-
-  if (m) {
-    let e = m ? slots.pop() : 0;
-    const last = slots.pop();
-    return [...slots, last - suffixes[m[1]], e];
+  if (suffixWeight) {
+    slots.push(slots.pop() - suffixWeight, parseInt(p[5], 10));
   }
 
   return slots;
