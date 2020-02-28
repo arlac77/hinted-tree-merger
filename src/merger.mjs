@@ -168,7 +168,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
       const mf = h.merge ? h.merge : merge;
       const m = mf(av, bv, p, actions, hints);
 
-      if (h && h.removeEmpty && isEmpty(m)) {
+      if (h.remove || (h.removeEmpty && isEmpty(m))) {
       } else {
         r[key] = m;
       }

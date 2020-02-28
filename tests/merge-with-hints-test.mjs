@@ -29,6 +29,18 @@ test(
 );
 
 test(
+  "remove",
+  mt,
+  { a: 1 },
+  { },
+  { },
+  {
+    "a": { remove: true }
+  },
+  []
+);
+
+test(
   mt,
   { version: ["1.0.0", "2.0"] },
   { version: ["1.0.1", "-1.0.0"] },
