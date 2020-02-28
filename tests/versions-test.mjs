@@ -55,6 +55,10 @@ test(cv, "1.2.3", "arlac77/lightserver.git", -1);
 test(cv, "1.2.3", "arlac77/light-server.git", -1);
 test(cv, "arlac77/lightserver.git", "arlac77/lightserver.git", 0);
 
+test(cv, "1.0.0-1", "1.0.0-1", 0);
+test.skip(cv, "1.0.0-2", "1.0.0-1", 1);
+test.skip(cv, "1.0.0-1", "1.0.0-2", -1);
+
 test(cv, "1.0.0-beta.5", "1.0.0-beta.6", -1);
 test(cv, "1.0.0-beta.6", "1.0.0-beta.5", 1);
 test(cv, "1.0.0-beta", "1.0.0-beta", 0);
