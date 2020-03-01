@@ -16,6 +16,7 @@ function decomposeVersion(value) {
   const p = value.match(/^([<=>~^]+)?([^-]*)(\-(\w+)\.?(.*))?$/);
 
   let suffixWeight;
+  let extraSlot;
 
   if (p) {
     switch (p[1]) {
@@ -36,6 +37,9 @@ function decomposeVersion(value) {
     value = p[2];
 
     suffixWeight = suffixes[p[4]];
+    if (!suffixWeight) {
+      extraSlot = parseInt(p[4], 10);
+    }
   }
 
   const slots = value.split(/\./).map((p, i) => {
@@ -49,6 +53,10 @@ function decomposeVersion(value) {
 
   if (suffixWeight) {
     slots.push(slots.pop() - suffixWeight, parseInt(p[5], 10));
+  }
+
+  if (extraSlot) {
+    slots.push(extraSlot);
   }
 
   return slots;
