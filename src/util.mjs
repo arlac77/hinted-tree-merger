@@ -131,7 +131,11 @@ export function deepCopy(object) {
     return object.map(o => deepCopy(o));
   }
 
-  if (object instanceof Map || object instanceof Set || object instanceof Date) {
+  if (
+    object instanceof Map ||
+    object instanceof Set ||
+    object instanceof Date
+  ) {
     return object;
   }
 
@@ -298,8 +302,9 @@ export function compareWithDefinedOrder(a, b, definedOrder) {
 
   if (ai < 0) {
     if (bi < 0) {
-      return compare(a,b);
+      return compare(a, b);
     }
+    return 0;
   } else {
     if (bi < 0) {
       return -1;
