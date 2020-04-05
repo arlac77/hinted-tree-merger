@@ -39,6 +39,7 @@ test(mset, "a && b", "--delete-- c", {}, "a && b");
 test.skip(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
 
 test(mset, "ava", "#overwrite ava --timeout 2m", {}, "ava --timeout 2m");
+test(mset, "ava --timeout 2m", "#overwrite ava --timeout 2m", {}, "ava --timeout 2m");
 
 /*
 test("package scripts decode/encode scripts &&", t => {
