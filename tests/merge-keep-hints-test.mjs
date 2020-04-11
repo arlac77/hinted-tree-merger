@@ -19,7 +19,10 @@ test(
   mt,
   { a: "x", b: "y" },
   { a: "--delete--" },
-  [{ add: "--delete--", path: "a" }],
+  [
+    { remove: "x", path: "a" },
+    { add: "--delete--", path: "a" }
+  ],
   { "*": { keepHints: true } },
   { a: "--delete--", b: "y" }
 );
@@ -31,4 +34,25 @@ test(
   [{ add: "--delete--", path: "a" }],
   { "*": { keepHints: true } },
   { a: "--delete--" }
+);
+
+test(
+  mt,
+  {
+    depends: { systemd: ">=244.1", "nginx-mainline": ">=1.17.9" },
+    dependes: { "nginx-mainline": ">=1.17.9" }
+  },
+  {
+    depends: { "nginx-mainline": ">=1.17.9" },
+    dependes: "--delete--"
+  },
+  [
+    { remove: { "nginx-mainline": ">=1.17.9" }, path: "dependes" },
+    { add: "--delete--", path: "dependes" }
+  ],
+  { "*": { keepHints: true } },
+  {
+    depends: { systemd: ">=244.1", "nginx-mainline": ">=1.17.9" },
+    dependes: "--delete--"
+  }
 );
