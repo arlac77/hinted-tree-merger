@@ -38,6 +38,15 @@ test(
 
 test(
   mt,
+  new Set(["a"]),
+  new Set(["--delete-- b","-c"]),
+  [{ add: "--delete-- b", path: "[1]" },{ add: "-c", path: "[2]" }],
+  { "*": { keepHints: true } },
+  new Set(["a", "--delete-- b","-c"])
+);
+
+test(
+  mt,
   {
     depends: { systemd: ">=244.1", "nginx-mainline": ">=1.17.9" },
     dependes: { "nginx-mainline": ">=1.17.9" }

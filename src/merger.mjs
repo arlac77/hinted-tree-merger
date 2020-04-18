@@ -79,11 +79,14 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
   for (const s of b) {
     if (
       !hasDeleteHint(s, value => {
+        if (h.keepHints) {
+          return false;
+        }
+
         const i = a.indexOf(value);
         if (i >= 0) {
           a.splice(i, 1);
           actions({ remove: value, path: appendPath(path, `[${i}]`) }, h);
-          return true;
         }
         return true;
       })
@@ -162,7 +165,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
     //if (p === "pacman") console.log(p, h, av, bv);
 
-   // console.log(p, hasDeleteHint(bv, av));
+    // console.log(p, hasDeleteHint(bv, av));
 
     if (hasDeleteHint(bv, av)) {
       if (h.keepHints) {
