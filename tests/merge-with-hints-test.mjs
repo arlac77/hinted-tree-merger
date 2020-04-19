@@ -29,13 +29,25 @@ test(
 );
 
 test(
+  "do not overwrite deep",
+  mt,
+  { a: { b1: 1 } },
+  { a: { b2: 2 } },
+  { a: { b1: 1, b2: 2 } },
+  {
+    "*": { overwrite: false }
+  },
+  [{ add: 2, path: "a.b2" }]
+);
+
+test(
   "remove",
   mt,
   { a: 1 },
-  { },
-  { },
+  {},
+  {},
   {
-    "a": { remove: true }
+    a: { remove: true }
   },
   []
 );
