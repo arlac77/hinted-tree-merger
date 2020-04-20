@@ -12,7 +12,7 @@ function nsc(t, a) {
   t.false(isScalar(a));
 }
 
-nsc.title = (providedTitle = "", a) => `isScalar ${providedTitle} ${a}`.trim();
+nsc.title = (providedTitle = "", a) => `not isScalar ${providedTitle} ${a}`.trim();
 
 test(sc, 1);
 test(sc, 2n);
