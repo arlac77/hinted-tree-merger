@@ -90,7 +90,7 @@ export function removeHintedValues(object) {
   }
 
   if (Array.isArray(object)) {
-    return object.filter((o) =>
+    return object.filter(o =>
       typeof o === "string" &&
       (o.match(/--delete--\s*(.*)/) || o.match(/^-([\.\w]+)/))
         ? false
@@ -128,7 +128,7 @@ export function deepCopy(object) {
   }
 
   if (Array.isArray(object)) {
-    return object.map((o) => deepCopy(o));
+    return object.map(o => deepCopy(o));
   }
 
   if (object instanceof Map) {
@@ -218,7 +218,7 @@ export function isEqual(a, b, hints) {
       return (
         b instanceof Set &&
         a.size === b.size &&
-        [...a].every((value) => b.has(value))
+        [...a].every(value => b.has(value))
       );
     }
     if (a instanceof Map) {
@@ -258,7 +258,7 @@ const scalarTypes = new Set([
   "string",
   "number",
   "bigint",
-  "boolean",
+  "boolean"
 ]);
 
 export function isScalar(a) {
@@ -279,7 +279,7 @@ export function isScalar(a) {
  */
 export function indexFor(b, i, a) {
   const n = b[i + 1];
-  const f = a.findIndex((x) => isEqual(x, n));
+  const f = a.findIndex(x => isEqual(x, n));
   return f >= 0 ? f : a.length;
 }
 
@@ -294,9 +294,7 @@ export function sortObjectsByKeys(source, compare) {
 
   Object.keys(source)
     .sort(compare)
-    .forEach((key) => {
-      sorted[key] = source[key];
-    });
+    .forEach(key => (sorted[key] = source[key]));
 
   return sorted;
 }
