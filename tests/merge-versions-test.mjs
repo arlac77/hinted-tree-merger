@@ -1,11 +1,16 @@
 import test from "ava";
 
-import { mergeVersions } from "../src/versions.mjs";
+import {
+  mergeVersions,
+  mergeVersionsLargest,
+  mergeVersionsSmallest,
+  mergeVersionsPreferNumeric
+} from "../src/versions.mjs";
 
-function mv(t, a, b, c, ea, hints) {
+function mv(t, f, a, b, c, ea, hints) {
   const actions = [];
   t.deepEqual(
-    mergeVersions(a, b, undefined, x => actions.push(x), hints),
+    f(a, b, undefined, x => actions.push(x), hints),
     c
   );
   if (ea !== undefined) {
@@ -13,25 +18,27 @@ function mv(t, a, b, c, ea, hints) {
   }
 }
 
-mv.title = (providedTitle = "", a, b, c) =>
-  `merge version ${providedTitle} ${c} := ${a} << ${b}`.trim();
+mv.title = (providedTitle = "", f, a, b, c) =>
+  `${f.name} ${providedTitle} ${c} := ${a} << ${b}`.trim();
 
-test(mv, undefined, undefined, undefined);
-test(mv, "1", undefined, "1");
-test(mv, undefined, "1", "1", [{ add: "1", path: undefined }]);
+test(mv, mergeVersions, undefined, undefined, undefined);
+test(mv, mergeVersions, "1", undefined, "1");
+test(mv, mergeVersions, undefined, "1", "1", [{ add: "1", path: undefined }]);
 
 test(
   "scalar + scalar",
   mv,
+  mergeVersions,
   "1",
   "2",
   ["1", "2"],
   [{ add: "2", path: undefined }]
 );
-test("scalar + scalar same", mv, "1", "1", "1", []);
+test("scalar + scalar same", mv, mergeVersions, "1", "1", "1", []);
 test(
   "scalar + array",
   mv,
+  mergeVersions,
   "1",
   ["2"],
   ["1", "2"],
@@ -40,20 +47,22 @@ test(
 test(
   "array + scalar",
   mv,
+  mergeVersions,
   ["1"],
   "2",
   ["1", "2"],
   [{ add: "2", path: undefined }]
 );
 
-test(mv, [], [], [], []);
-test(mv, [], ["1"], ["1"], [{ add: "1", path: undefined }]);
-test(mv, ["1"], [], ["1"], []);
-test(mv, ["1"], ["1"], ["1"], []);
-test(mv, ["1", "2"], [1], ["1", "2"], []);
+test(mv, mergeVersions, [], [], [], []);
+test(mv, mergeVersions, [], ["1"], ["1"], [{ add: "1", path: undefined }]);
+test(mv, mergeVersions, ["1"], [], ["1"], []);
+test(mv, mergeVersions, ["1"], ["1"], ["1"], []);
+test(mv, mergeVersions, ["1", "2"], [1], ["1", "2"], []);
 
 test(
   mv,
+  mergeVersions,
   ["1", "2"],
   ["--delete-- 1"],
   ["2"],
@@ -62,6 +71,7 @@ test(
 
 test(
   mv,
+  mergeVersions,
   ["1", "2"],
   [-1],
   ["2"],
@@ -70,6 +80,7 @@ test(
 
 test(
   mv,
+  mergeVersions,
   [-1, "2"],
   ["-1"],
   ["2"],
@@ -79,6 +90,7 @@ test(
 test(
   "keepHints",
   mv,
+  mergeVersions,
   ["1", "2"],
   ["--delete-- 1"],
   ["2", "--delete-- 1"],
@@ -91,6 +103,7 @@ test(
 
 test(
   mv,
+  mergeVersions,
   ["1.1", "2"],
   ["-1", "1.2", "1.3"],
   ["1.2", "1.3", "2"],
@@ -100,16 +113,37 @@ test(
   ]
 );
 
-test(mv, ">=1.2.3", undefined, ">=1.2.3");
-test(mv, undefined, ">=1.2.3", ">=1.2.3");
-test(mv, ">=1.2.3", ">=1.2.3", ">=1.2.3");
+test(mv, mergeVersions, ">=1.2.3", undefined, ">=1.2.3");
+test(mv, mergeVersions, undefined, ">=1.2.3", ">=1.2.3");
+test(mv, mergeVersions, ">=1.2.3", ">=1.2.3", ">=1.2.3");
 
-test(mv, "1.2.3", "1.2.4", ["1.2.3", "1.2.4"]);
-test.skip(mv, ">=1.2.3", ">=1.2.4", ">=1.2.3");
+test(mv, mergeVersions, "1.2.3", "1.2.4", ["1.2.3", "1.2.4"]);
+test.skip(mv, mergeVersions, ">=1.2.3", ">=1.2.4", ">=1.2.3");
 
-test.skip(mv, ">=1.2.3", ">=1.3.0", ">=1.3.0");
-test.skip(mv, ">=1.2.3", ">=2.0.0", ">=2.0.0");
+test.skip(mv, mergeVersions, ">=1.2.3", ">=1.3.0", ">=1.3.0");
+test.skip(mv, mergeVersions, ">=1.2.3", ">=2.0.0", ">=2.0.0");
 
-test.skip(mv, ">=1.2.3", ">=1.2.3", ">=1.2.4");
-test.skip(mv, ">=1.3.0", ">=1.2.3", ">=1.3.0");
-test.skip(mv, ">=2.0.0", ">=1.2.3", ">=2.0.0");
+test.skip(mv, mergeVersions, ">=1.2.3", ">=1.2.3", ">=1.2.4");
+test.skip(mv, mergeVersions, ">=1.3.0", ">=1.2.3", ">=1.3.0");
+test.skip(mv, mergeVersions, ">=2.0.0", ">=1.2.3", ">=2.0.0");
+
+test(mv, mergeVersionsLargest, undefined, undefined, undefined);
+test(mv, mergeVersionsLargest, "1", undefined, "1");
+test(mv, mergeVersionsLargest, undefined, "1", "1", [
+  { add: "1", path: undefined }
+]);
+
+test(mv, mergeVersionsSmallest, undefined, undefined, undefined);
+test(mv, mergeVersionsSmallest, "1", undefined, "1");
+test(mv, mergeVersionsSmallest, undefined, "1", "1", [
+  { add: "1", path: undefined }
+]);
+test(mv, mergeVersionsSmallest, ["2"], ["1", "3"], "1");
+test(mv, mergeVersionsSmallest, ["2.1"], [1, "3"], "1");
+
+test(mv, mergeVersionsPreferNumeric, undefined, undefined, undefined);
+test(mv, mergeVersionsPreferNumeric, "1", undefined, "1");
+test(mv, mergeVersionsPreferNumeric, undefined, "1", 1, [
+  { add: 1, path: undefined }
+]);
+test(mv, mergeVersionsPreferNumeric, ["1", "2"], [1, 3], [1, 2, 3]);
