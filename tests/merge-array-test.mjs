@@ -63,6 +63,11 @@ test("orderBy",
   { "*": { key: "k", orderBy: ["c", "b", "a"] } }
 );
 
+test(mat, undefined, ["a"], ["a"]);
+test(mat, undefined, ["-a"], []);
+test(mat, undefined, [undefined], [undefined]);
+//test(mat, undefined, undefined, undefined);
+
 test(mat, ["a", "b"], ["-b"], ["a"]);
 
 test(mat, ["a", "b"], "-b", ["a"]);
