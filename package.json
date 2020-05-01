@@ -7,6 +7,9 @@
   "sideEffects": false,
   "type": "module",
   "main": "src/merger.mjs",
+  "exports": {
+    ".": "./src/merger.mjs"
+  },
   "description": "merges two trees guided with hints",
   "keywords": [
     "assign",
