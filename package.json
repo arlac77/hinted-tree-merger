@@ -6,7 +6,7 @@
   },
   "sideEffects": false,
   "type": "module",
-  "main": "src/merger.mjs",
+  "main": "./src/merger.mjs",
   "exports": {
     ".": "./src/merger.mjs",
     "./": "./"
