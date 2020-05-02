@@ -17,6 +17,7 @@ mt.title = (providedTitle = "merge", a, b) =>
 
 test(mt, 1, 2, 2, [{ add: 2, path: undefined }]);
 test(mt, 1, undefined, 1, []);
+test(mt, undefined, 1, 1, [{ add: 1, path: undefined }]);
 test(mt, undefined, 2, 2, [{ add: 2, path: undefined }]);
 
 test(mt, 11n, 22n, 22n, [{ add: 22n, path: undefined }]);
