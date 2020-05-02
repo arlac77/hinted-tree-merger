@@ -14,7 +14,17 @@ function mt(t, a, b, r, hints, actions) {
 }
 
 mt.title = (providedTitle = "merge", a, b) =>
-  `${providedTitle} ${a} ${b}`.trim();
+  `${providedTitle} ${JSON.stringify(a)} ${b}`.trim();
+
+test(
+  mt,
+  {},
+  { a: "--delete--", b: { c: "--delete--" } },
+  { b: {} },
+  {
+  },
+  [{ add: {}, path: "b" }]
+);
 
 test(
   "do not overwrite",

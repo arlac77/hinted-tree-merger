@@ -163,10 +163,6 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
     const bv = b[key];
 
-    //if (p === "pacman") console.log(p, h, av, bv);
-
-    // console.log(p, hasDeleteHint(bv, av));
-
     if (hasDeleteHint(bv, av)) {
       if (h.keepHints) {
         r[key] = bv;
