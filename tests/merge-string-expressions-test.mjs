@@ -38,13 +38,13 @@ test(mset, "a && b", "--delete-- b", {}, "a");
 test(mset, "a && b", "--delete-- c", {}, "a && b");
 test.skip(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
 
-test(mset, "ava", "#overwrite ava --timeout 2m", {}, "ava --timeout 2m");
-test(mset, "ava --timeout 2m", "#overwrite ava --timeout 2m", {}, "ava --timeout 2m");
+test(mset, "ava", "--overwrite-- ava --timeout 2m", {}, "ava --timeout 2m");
+test(mset, "ava --timeout 2m", "--overwrite-- ava --timeout 2m", {}, "ava --timeout 2m");
 
 /*
 test("package scripts decode/encode scripts &&", t => {
   const d = decodeScripts({
-    a: "#overwrite xx && yy&&zz",
+    a: "--overwrite-- xx && yy&&zz",
     b: "XXX YYY ZZZ"
   });
 
@@ -115,7 +115,7 @@ test("package scripts decode/merge/encode overwrite", t => {
   });
 
   const d2 = decodeScripts({
-    a: "#overwrite xxx"
+    a: "--overwrite-- xxx"
   });
 
   t.deepEqual(mergeScripts(d1, d2), {

@@ -39,9 +39,9 @@ export function decodeExpressions(script, hint) {
     return { op: "-", args: m[1] };
   }
 
-  if (script.match(/^#overwrite/)) {
+  if (script.match(/^--overwrite--/)) {
     if (!hint.keepHints) {
-      script = script.replace(/^#overwrite\s+/, "");
+      script = script.replace(/^--overwrite--\s+/, "");
     }
     overwrite = true;
   }
