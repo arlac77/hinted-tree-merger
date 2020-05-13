@@ -32,9 +32,14 @@ test(hft, { "*": { merge }, "a.b": { key: "a" } }, "a.b", {
 test(
   hft,
   // order of entries matters !!
-  { "*": { type: "chore" }, "dependencies.*": { type: "fix" } },
+  {
+    "*": { type: "chore", scope: "package" },
+    "dependencies.*": { type: "fix", extra: true }
+  },
   "dependencies.b",
   {
+    extra: true,
+    scope: "package",
     type: "fix"
   }
 );

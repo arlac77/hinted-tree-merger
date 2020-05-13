@@ -12,20 +12,25 @@ export function hintFor(hints, path) {
     return { ...hints["*"] };
   }
 
-  return {
-    ...Object.keys(hints)
-      .filter(h => {
-        return (
-          (h[0] === "*" && path.endsWith(h.slice(1))) ||
-          (h.endsWith("*") && path.startsWith(h.slice(0, h.length - 1)))
-        );
-      })
-      .reduce(
-        (a, c) => {
-          return { ...a, ...hints[c] };
-        },
-        { ...hints["*"] }
-      ),
-    ...hints[path]
-  };
+  const pathsToConsult = [
+    ...Object.keys(hints).filter(
+      h =>
+        (h[0] === "*" && path.endsWith(h.slice(1))) ||
+        (h.endsWith("*") && path.startsWith(h.slice(0, h.length - 1)))
+    ),
+    path
+  ];
+
+  const hint = {};
+
+  for (const p of pathsToConsult) {
+    const h = hints[p];
+    if (h !== undefined) {
+      for (const [k, v] of Object.entries(h)) {
+        hint[k] = v;
+      }
+    }
+  }
+
+  return hint;
 }
