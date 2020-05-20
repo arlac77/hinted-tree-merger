@@ -1,4 +1,5 @@
 export * from "./versions.mjs";
+export * from "./walker.mjs";
 export * from "./string-expressions.mjs";
 import {
   isEqual,

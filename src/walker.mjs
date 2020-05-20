@@ -1,4 +1,3 @@
-import { isScalar } from "./util.mjs";
 
 /**
  * Iterates over all members
