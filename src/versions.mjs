@@ -10,7 +10,7 @@ function decomposeVersion(value) {
 
   /** url means highest version */
   if (value.match(/^[\w\-\+]+:/)) {
-    return [Number.MAX_SAFE_INTEGER];
+    return { slots: [Number.MAX_SAFE_INTEGER] };
   }
 
   const p = value.match(/^([<=>~^]+)?([^-]*)(\-(\w+)\.?(.*))?$/);
@@ -59,7 +59,7 @@ function decomposeVersion(value) {
     slots.push(extraSlot);
   }
 
-  return slots;
+  return { slots };
 }
 
 /**
@@ -73,15 +73,18 @@ export function compareVersion(a, b) {
   const da = decomposeVersion(a);
   const db = decomposeVersion(b);
 
-  for (const i in da) {
-    if (i >= db.length) {
+  const das = da.slots;
+  const dbs = db.slots;
+  
+  for (const i in das) {
+    if (i >= dbs.length) {
       break;
     }
 
-    if (da[i] < db[i]) {
+    if (das[i] < dbs[i]) {
       return -1;
     }
-    if (da[i] > db[i]) {
+    if (das[i] > dbs[i]) {
       return 1;
     }
   }
