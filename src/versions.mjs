@@ -160,7 +160,7 @@ export function mergeVersionsWithFilter(
     }
   });
 
-  const res = filter(Array.from(new Set(newVersions)).sort(compareVersion));
+  const res = filter([...new Set(newVersions)].sort(compareVersion));
   const nv = toSet(res);
 
   const added = new Set();
