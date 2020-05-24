@@ -3,7 +3,7 @@ import { hintFor } from "./hint.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
-function decomposeVersion(value) {
+export function decomposeVersion(value) {
   value = String(value);
 
   let incrementIndex = -1;
