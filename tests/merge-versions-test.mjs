@@ -118,8 +118,9 @@ test(mv, mergeVersions, undefined, ">=1.2.3", ">=1.2.3");
 test(mv, mergeVersions, ">=1.2.3", ">=1.2.3", ">=1.2.3");
 
 test(mv, mergeVersions, "1.2.3", "1.2.4", ["1.2.3", "1.2.4"]);
-test.skip(mv, mergeVersions, ">=1.2.3", ">=1.2.4", ">=1.2.3");
 
+
+test.skip(mv, mergeVersions, ">=1.2.3", ">=1.2.4", ">=1.2.3");
 test.skip(mv, mergeVersions, ">=1.2.3", ">=1.3.0", ">=1.3.0");
 test.skip(mv, mergeVersions, ">=1.2.3", ">=2.0.0", ">=2.0.0");
 
@@ -132,6 +133,10 @@ test(mv, mergeVersionsLargest, "1", undefined, "1");
 test(mv, mergeVersionsLargest, undefined, "1", "1", [
   { add: "1", path: undefined }
 ]);
+
+test(mv, mergeVersionsLargest, ">=1.2.3", ">=1.2.4", ">=1.2.4");
+test(mv, mergeVersionsLargest, "1.2.3", ">=1.2.4", ">=1.2.4");
+test(mv, mergeVersionsLargest, ">=1.2.3", "1.2.4", "1.2.4");
 
 test(mv, mergeVersionsSmallest, undefined, undefined, undefined);
 test(mv, mergeVersionsSmallest, "1", undefined, "1");
