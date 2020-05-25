@@ -3,63 +3,87 @@ import { hintFor } from "./hint.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
+function increment(values, index) {
+  //return values.map((w, i) => (i === index ? w + 1 : i > index ? 0 : w));
+  return values.map((w, i) => (i > index ? Number.MAX_SAFE_INTEGER : w));
+}
+
 export function decomposeVersion(value) {
   value = String(value);
 
-  let incrementIndex = -1;
-
   /** url means highest version */
   if (value.match(/^[\w\-\+]+:/)) {
-    return { slots: [Number.MAX_SAFE_INTEGER] };
+    return {
+      lower: [Number.MAX_SAFE_INTEGER],
+      upper: [Number.MAX_SAFE_INTEGER]
+    };
   }
 
   const p = value.match(/^([<=>~^]+)?([^-]*)(\-(\w+)\.?(.*))?$/);
 
-  let suffixWeight;
-  let extraSlot;
+  let lower, upper;
 
   if (p) {
+    value = p[2];
+    lower = value.split(/\./).map(p => {
+      const w = parseInt(p, 10);
+      return isNaN(w) ? Number.MAX_SAFE_INTEGER : w;
+    });
+
     switch (p[1]) {
       case "~":
-        incrementIndex = 1;
+        upper = increment(lower, 1);
         break;
       case "^":
-        incrementIndex = 2;
+        upper = increment(lower, 0);
         break;
-      /*
-      case "=":
-        break;
+
       case ">=":
+        upper = [Number.MAX_SAFE_INTEGER];
         break;
+
       case "<=":
-        break;*/
+        upper = lower;
+        lower = [0];
+        break;
+
+      default:
+        upper = lower;
     }
-    value = p[2];
 
-    suffixWeight = suffixes[p[4]];
-    if (!suffixWeight) {
-      extraSlot = parseInt(p[4], 10);
+    const suffixWeight = suffixes[p[4]];
+    if (suffixWeight) {
+      lower.push(lower.pop() - suffixWeight);
+      const extra = parseInt(p[5], 10);
+      if (extra) {
+        lower.push(extra);
+      }
+    } else {
+      const extra = parseInt(p[4], 10);
+      if (extra) {
+        lower.push(extra);
+      }
     }
   }
 
-  const slots = value.split(/\./).map((p, i) => {
-    const w = parseInt(p, 10);
-    return isNaN(w)
-      ? Number.MAX_SAFE_INTEGER
-      : i === incrementIndex
-      ? w + 1
-      : w;
-  });
+  return { lower, upper };
+}
 
-  if (suffixWeight) {
-    slots.push(slots.pop() - suffixWeight, parseInt(p[5], 10));
+function cmp(a, b) {
+  for (const i in a) {
+    if (i >= a.length) {
+      break;
+    }
+
+    if (a[i] < b[i]) {
+      return -1;
+    }
+    if (a[i] > b[i]) {
+      return 1;
+    }
   }
 
-  if (extraSlot) {
-    slots.push(extraSlot);
-  }
-
-  return { slots };
+  return 0;
 }
 
 /**
@@ -73,23 +97,11 @@ export function compareVersion(a, b) {
   const da = decomposeVersion(a);
   const db = decomposeVersion(b);
 
-  const das = da.slots;
-  const dbs = db.slots;
-  
-  for (const i in das) {
-    if (i >= dbs.length) {
-      break;
-    }
+  //console.log(a, da);
+  //console.log(b, db);
 
-    if (das[i] < dbs[i]) {
-      return -1;
-    }
-    if (das[i] > dbs[i]) {
-      return 1;
-    }
-  }
-
-  return 0;
+  const r = cmp(da.lower, db.lower);
+  return r === 0 ? cmp(da.upper, db.upper) : r;
 }
 
 export function toBeRemoved(value) {
