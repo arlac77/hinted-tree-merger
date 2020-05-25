@@ -234,7 +234,7 @@ export function isEqual(a, b, hints) {
       return true;
     }
 
-    for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
+    for (const key of new Set(Object.keys(a).concat(Object.keys(b)))) {
       /*
       if (b[key] === "--delete--" && a[key] !== undefined) {
         return false;

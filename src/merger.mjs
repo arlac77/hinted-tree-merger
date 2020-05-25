@@ -152,7 +152,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
 
   const r = {};
 
-  for (const key of new Set([...Object.keys(a), ...Object.keys(b)])) {
+  for (const key of new Set(Object.keys(a).concat(Object.keys(b)))) {
     const p = appendPath(path, key, ".");
     const h = hintFor(hints, p);
     const av = a[key];
