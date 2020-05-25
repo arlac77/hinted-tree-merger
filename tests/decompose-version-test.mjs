@@ -7,7 +7,7 @@ function dvt(t, a, b) {
   t.deepEqual(decomposeVersion(a), b);
 }
 
-dvt.title = (providedTitle = "", a, b) => `equal ${providedTitle} ${a}`.trim();
+dvt.title = (providedTitle = "", a, b) => `decompose ${providedTitle} ${a}`.trim();
 
 test(dvt, 1.0, { lower: [1] });
 test(dvt, 1.2, { lower: [1,2] });

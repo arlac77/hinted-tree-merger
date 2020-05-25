@@ -69,6 +69,10 @@ export function decomposeVersion(value) {
   return { lower, upper };
 }
 
+export function composeVersion(decomposed) {
+  return decomposed.lower.join('.');
+}
+
 function cmp(a, b) {
   for (const i in a) {
     if (i >= a.length) {
@@ -102,6 +106,16 @@ export function compareVersion(a, b) {
 
   const r = cmp(da.lower, db.lower);
   return r === 0 ? cmp(da.upper, db.upper) : r;
+}
+
+export function unionVersion(a, b) {
+  const da = decomposeVersion(a);
+  const db = decomposeVersion(b);
+
+  return composeVersion({
+    lower: cmp(da.lower, db.lower) < 0 ? da.lower : db.lower,
+    upper: cmp(da.upper, db.upper) > 0 ? da.upper : db.upper
+  });
 }
 
 export function toBeRemoved(value) {
