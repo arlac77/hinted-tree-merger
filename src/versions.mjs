@@ -3,9 +3,8 @@ import { hintFor } from "./hint.mjs";
 
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
-function increment(values, index) {
-  //return values.map((w, i) => (i === index ? w + 1 : i > index ? 0 : w));
-  return values.map((w, i) => (i > index ? Number.MAX_SAFE_INTEGER : w));
+function upperLimit(values, index, hasSuffix) {
+  return values.map((w, i) => (i > index ? hasSuffix ? 0 : Number.MAX_SAFE_INTEGER : w));
 }
 
 export function decomposeVersion(value) {
@@ -25,31 +24,11 @@ export function decomposeVersion(value) {
 
   if (p) {
     value = p[2];
+
     lower = value.split(/\./).map(p => {
       const w = parseInt(p, 10);
       return isNaN(w) ? Number.MAX_SAFE_INTEGER : w;
     });
-
-    switch (p[1]) {
-      case "~":
-        upper = increment(lower, 1);
-        break;
-      case "^":
-        upper = increment(lower, 0);
-        break;
-
-      case ">=":
-        upper = [Number.MAX_SAFE_INTEGER];
-        break;
-
-      case "<=":
-        upper = lower;
-        lower = [0];
-        break;
-
-      default:
-        upper = lower;
-    }
 
     const suffixWeight = suffixes[p[4]];
     if (suffixWeight) {
@@ -64,13 +43,34 @@ export function decomposeVersion(value) {
         lower.push(extra);
       }
     }
+
+    switch (p[1]) {
+      case "~":
+        upper = upperLimit(lower, 1, suffixWeight);
+        break;
+      case "^":
+        upper = upperLimit(lower, 0, suffixWeight);
+        break;
+
+      case ">=":
+        upper = [Number.MAX_SAFE_INTEGER];
+        break;
+
+      case "<=":
+        upper = lower;
+        lower = [0];
+        break;
+
+      default:
+        upper = lower;
+    }
   }
 
   return { lower, upper };
 }
 
 export function composeVersion(decomposed) {
-  return decomposed.lower.join('.');
+  return decomposed.lower.join(".");
 }
 
 function cmp(a, b) {
@@ -91,7 +91,7 @@ function cmp(a, b) {
 }
 
 /**
- * compare two versions
+ * Compare two versions
  *
  * @param {string|number} a
  * @param {string|number} b
@@ -108,6 +108,12 @@ export function compareVersion(a, b) {
   return r === 0 ? cmp(da.upper, db.upper) : r;
 }
 
+/**
+ * Forms union of two versions
+ * @param {string|number} a 
+ * @param {string|number} b 
+ * @return {string|number}
+ */
 export function unionVersion(a, b) {
   const da = decomposeVersion(a);
   const db = decomposeVersion(b);
