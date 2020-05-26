@@ -4,7 +4,9 @@ import { hintFor } from "./hint.mjs";
 const suffixes = { alpha: 0.3, beta: 0.2, rc: 0.1 };
 
 function upperLimit(values, index, hasSuffix) {
-  return values.map((w, i) => (i > index ? hasSuffix ? 0 : Number.MAX_SAFE_INTEGER : w));
+  return values.map((w, i) =>
+    i > index ? (hasSuffix ? 0 : Number.MAX_SAFE_INTEGER) : w
+  );
 }
 
 export function decomposeVersion(value) {
@@ -70,7 +72,28 @@ export function decomposeVersion(value) {
 }
 
 export function composeVersion(decomposed) {
-  return decomposed.lower.join(".");
+  let slots = decomposed.lower;
+
+  slots = slots.map(s => {
+    if (Number.isInteger(s)) {
+      return s;
+    }
+
+    for (const v in suffixes) {
+      const x = s.toFixed(0) - s;
+
+      //console.log(v, suffixes[v], x, suffixes[v] > x - 0.001, suffixes[v] < x + 0.001);
+
+      if (suffixes[v] > x - 0.001 && suffixes[v] < x + 0.001) {
+        return `${s.toFixed(0)}-${v}`;
+      }
+    }
+
+    return s;
+  });
+
+  const r = slots.slice(0, 3).join(".");
+  return slots.length > 3 ? `${r}-${slots[3]}` : r;
 }
 
 function cmp(a, b) {
@@ -110,8 +133,8 @@ export function compareVersion(a, b) {
 
 /**
  * Forms union of two versions
- * @param {string|number} a 
- * @param {string|number} b 
+ * @param {string|number} a
+ * @param {string|number} b
  * @return {string|number}
  */
 export function unionVersion(a, b) {
