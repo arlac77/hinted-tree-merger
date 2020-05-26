@@ -71,9 +71,7 @@ export function decomposeVersion(value) {
   return { lower, upper };
 }
 
-export function composeVersion(decomposed) {
-  let slots = decomposed.lower;
-
+function joinSlots(slots) {
   slots = slots.map(s => {
     if (Number.isInteger(s)) {
       return s;
@@ -94,6 +92,24 @@ export function composeVersion(decomposed) {
 
   const r = slots.slice(0, 3).join(".");
   return slots.length > 3 ? `${r}-${slots[3]}` : r;
+}
+
+export function composeVersion(decomposed) {
+  if (decomposed.upper[0] === Number.MAX_SAFE_INTEGER) {
+    return ">=" + joinSlots(decomposed.lower);
+  }
+  if (decomposed.upper[1] === Number.MAX_SAFE_INTEGER) {
+    return "^" + joinSlots(decomposed.lower);
+  }
+  if (decomposed.upper[2] === Number.MAX_SAFE_INTEGER) {
+    return "~" + joinSlots(decomposed.lower);
+  }
+
+  if (decomposed.lower[0] === 0 /*&& decomposed.upper[0] !== 0*/) {
+    return "<=" + joinSlots(decomposed.upper);
+  }
+
+  return joinSlots(decomposed.lower);
 }
 
 function cmp(a, b) {
@@ -141,9 +157,12 @@ export function unionVersion(a, b) {
   const da = decomposeVersion(a);
   const db = decomposeVersion(b);
 
+  //console.log(cmp(da.lower, db.lower));
+  //console.log(cmp(da.upper, db.upper));
+
   return composeVersion({
-    lower: cmp(da.lower, db.lower) < 0 ? da.lower : db.lower,
-    upper: cmp(da.upper, db.upper) > 0 ? da.upper : db.upper
+    lower: cmp(da.lower, db.lower) > 0 ? da.lower : db.lower,
+    upper: cmp(da.upper, db.upper) < 0 ? da.upper : db.upper
   });
 }
 

@@ -36,18 +36,18 @@ test(dvt, "~3.0.0-beta.6", {
 
 test(dvt, "=1.2.3", { lower: [1, 2, 3] });
 test(dvt, "= 1.2.3", { lower: [1, 2, 3] });
-test(dvt, ">= 1.2.3", { lower: [1, 2, 3], upper: [Number.MAX_SAFE_INTEGER] });
-test(dvt, "<= 1.2.3", { lower: [0], upper: [1, 2, 3] });
+test(dvt, ">= 1.2.3", { lower: [1, 2, 3], upper: [Number.MAX_SAFE_INTEGER] }, ">=1.2.3");
+test(dvt, "<= 1.2.3", { lower: [0], upper: [1, 2, 3] }, "<=1.2.3");
 
 test(dvt, "^1.2.3", {
   lower: [1, 2, 3],
   upper: [1, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]
-});
+},"^1.2.3");
 
 test(dvt, "~1.2.3", {
   lower: [1, 2, 3],
   upper: [1, 2, Number.MAX_SAFE_INTEGER]
-});
+},"~1.2.3");
 
 test(dvt, "https://github.com/somwhere", {
   lower: [Number.MAX_SAFE_INTEGER]
