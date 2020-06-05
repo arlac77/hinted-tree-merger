@@ -1,5 +1,5 @@
 import test from "ava";
-import { merge, mergeVersionsPreferNumeric } from "../src/merger.mjs";
+import { merge, mergeVersionsPreferNumeric } from "hinted-tree-merger";
 
 test("travis merge", t => {
   const merged = merge(

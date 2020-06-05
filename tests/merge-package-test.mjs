@@ -5,7 +5,7 @@ import {
   mergeExpressions,
   mergeSkip,
   compare
-} from "../src/merger.mjs";
+} from "hinted-tree-merger";
 
 const sortedKeys = [
   "name",

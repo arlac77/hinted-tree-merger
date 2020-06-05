@@ -1,5 +1,5 @@
 import test from "ava";
-import { merge, compare } from "../src/merger.mjs";
+import { merge, compare } from "hinted-tree-merger";
 
 test("mergeTemplateFiles", t => {
   t.deepEqual(

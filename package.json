@@ -6,9 +6,9 @@
   },
   "sideEffects": false,
   "type": "module",
-  "main": "./src/merger.mjs",
+  "main": "./src/index.mjs",
   "exports": {
-    ".": "./src/merger.mjs"
+    ".": "./src/index.mjs"
   },
   "description": "merges two trees guided with hints",
   "keywords": [
@@ -28,8 +28,8 @@
   "scripts": {
     "test": "ava --timeout 2m",
     "cover": "c8 -x 'tests/**/*' --temp-directory build/tmp ava --timeout 2m && c8 report -r lcov -o build/coverage --temp-directory build/tmp",
-    "docs": "documentation readme ./src/merger.mjs --section=API",
-    "lint": "documentation lint ./src/merger.mjs"
+    "docs": "documentation readme ./src/index.mjs --section=API",
+    "lint": "documentation lint ./src/index.mjs"
   },
   "devDependencies": {
     "ava": "^3.8.2",
@@ -38,7 +38,7 @@
     "semantic-release": "^17.0.8"
   },
   "engines": {
-    "node": ">=12.16.3"
+    "node": ">=12.18.0"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 import test from "ava";
-import { mergeExpressions } from "../src/string-expressions.mjs";
+import { mergeExpressions } from "hinted-tree-merger";
 
 function mset(t, a, b, hints, r) {
   t.deepEqual(mergeExpressions(a, b, "", undefined, hints), r);

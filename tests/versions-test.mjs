@@ -1,6 +1,6 @@
 import test from "ava";
 
-import { compareVersion } from "../src/versions.mjs";
+import { compareVersion } from "hinted-tree-merger";
 
 function cvt(t, a, b, c) {
   t.is(compareVersion(a, b), c);

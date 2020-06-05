@@ -5,7 +5,7 @@ import {
   mergeVersionsLargest,
   mergeVersionsSmallest,
   mergeVersionsPreferNumeric
-} from "../src/versions.mjs";
+} from "hinted-tree-merger";
 
 function mv(t, f, a, b, c, ea, hints) {
   const actions = [];

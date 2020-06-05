@@ -1,11 +1,7 @@
-export * from "./versions.mjs";
-export * from "./walker.mjs";
-export * from "./string-expressions.mjs";
 import {
   isEqual,
   isScalar,
   isEmpty,
-  isToBeRemoved,
   asArray,
   nullAction,
   removeHintedValues,
@@ -13,21 +9,11 @@ import {
   indexFor,
   hasDeleteHint,
   compareWithDefinedOrder,
-  compare,
   sortObjectsByKeys
 } from "./util.mjs";
 
 import { hintFor } from "./hint.mjs";
 
-export {
-  isEqual,
-  isScalar,
-  isEmpty,
-  isToBeRemoved,
-  compareWithDefinedOrder,
-  compare,
-  sortObjectsByKeys
-};
 
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0

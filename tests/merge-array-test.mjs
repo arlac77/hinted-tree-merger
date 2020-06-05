@@ -1,5 +1,5 @@
 import test from "ava";
-import { mergeArrays } from "../src/merger.mjs";
+import { mergeArrays } from "hinted-tree-merger";
 
 function mat(t, a, b, r, hints) {
   const myActions = [];

@@ -1,5 +1,5 @@
 import test from "ava";
-import { merge } from "../src/merger.mjs";
+import { merge } from "hinted-tree-merger";
 
 function compare(a, b) {
   return a < b ? -1 : a > b ? 1 : 0;

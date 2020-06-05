@@ -1,6 +1,5 @@
 import test from "ava";
-import { merge } from "../src/merger.mjs";
-import { mergeVersionsLargest } from "../src/versions.mjs";
+import { merge, mergeVersionsLargest } from "hinted-tree-merger";
 
 function mv(t, a, b, c, ea, hints) {
   const actions = [];

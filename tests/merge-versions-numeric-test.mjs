@@ -1,6 +1,6 @@
 import test from "ava";
 
-import { mergeVersionsPreferNumeric } from "../src/versions.mjs";
+import { mergeVersionsPreferNumeric } from "hinted-tree-merger";
 
 function mvpn(t, a, b, result, ea) {
   const actions = [];
