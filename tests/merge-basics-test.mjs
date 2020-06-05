@@ -70,6 +70,15 @@ test("object both sides same key", mt, { a: 1 }, { a: 2 }, { a: 2 }, [
   { add: 2, path: "a" }
 ]);
 
+test(
+  "object both sides same key function value",
+  mt,
+  { a: console.log },
+  { a: console.warn },
+  { a: console.warn },
+  [{ add: console.warn, path: "a" }]
+);
+
 test("Set empty", mt, new Set(), new Set(), new Set(), []);
 test(mt, new Set([1]), new Set([2]), new Set([1, 2]), [
   { add: 2, path: "[1]" }
