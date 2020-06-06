@@ -20,9 +20,10 @@ test(mt, 1, undefined, 1, []);
 test(mt, undefined, 2, 2, [{ add: 2, path: undefined }]);
 
 test(mt, console.log, console.log, console.log, []);
-test(mt, console.error, console.warn, console.warn, [
-  { add: console.warn, path: undefined }
-]);
+
+function x1() {}
+function x2() {}
+test(mt, x1, x2, x2, [{ add: x2, path: undefined }]);
 
 test(mt, 11n, 22n, 22n, [{ add: 22n, path: undefined }]);
 test(mt, 11n, undefined, 11n, []);
