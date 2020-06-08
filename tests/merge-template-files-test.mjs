@@ -75,10 +75,6 @@ test("mergeTemplateFiles", t => {
             pattern: "a"
           },
           {
-            merger: "Other",
-            pattern: "b"
-          },
-          {
             merger: "Package",
             options: {
               badges: [
@@ -94,6 +90,10 @@ test("mergeTemplateFiles", t => {
                 }
               ]
             }
+          },
+          {
+            merger: "Other",
+            pattern: "b"
           }
         ]
       }
