@@ -17,6 +17,9 @@ test(hft, { "*": { merge } }, "a", { merge });
 test(hft, { "": { merge } }, "", { merge });
 test(hft, { "": { merge } }, "a", {});
 
+test(hft, { "*": { keepHints: true } }, "[1]", { keepHints: true });
+
+
 test(hft, { a: { merge } }, "a", { merge });
 test(hft, { a: { merge } }, "b", {});
 test(hft, { "a.b": { merge } }, "a.b", { merge });

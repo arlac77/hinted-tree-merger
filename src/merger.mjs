@@ -7,6 +7,7 @@ import {
   removeHintedValues,
   deepCopy,
   indexFor,
+  keyFor,
   hasDeleteHint,
   compareWithDefinedOrder,
   sortObjectsByKeys
@@ -41,40 +42,8 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
   const h = hintFor(hints, path);
 
-  if (h.key) {
-    const keys = asArray(h.key);
-
-    const a2m = (acc, cur, index) => {
-      const keyValues = keys.map(k => cur[k]);
-      const k = /*keyValues.every(v => v === undefined) ? index :*/ keyValues.join(
-        ":"
-      );
-      //console.log(k);
-      acc.set(
-        k,
-        merge(acc.get(k), cur, appendPath(path, "[]"), actions, hints)
-      );
-      return acc;
-    };
-
-    const valuesByKeys = b.reduce(a2m, a.reduce(a2m, new Map()));
-
-    if(h.orderBy || h.compare) {
-      return [...valuesByKeys.keys()]
-      .sort(
-        h.orderBy
-          ? (a, b) => compareWithDefinedOrder(a, b, h.orderBy)
-          : h.compare
-      )
-      .map(key => valuesByKeys.get(key));
-    }
-    
-    // no sorting at all
-    return [...valuesByKeys.values()];
-  }
-
-  let i = 0;
-  for (const s of b) {
+  for (let i = 0; i < b.length; i++) {
+    const s = b[i];
     if (
       !hasDeleteHint(s, value => {
         if (h.keepHints) {
@@ -93,13 +62,41 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
         a = [];
       }
 
+      const key = keyFor(s, h);
+      if (key) {
+        const index = a.findIndex(o => keyFor(o, h) === key);
+
+        if (index >= 0) {
+          a[index] = merge(
+            a[index],
+            s,
+            appendPath(path, `[${index}]`),
+            actions,
+            hints
+          );
+
+          continue;
+        }
+      }
+
       if (!a.find(x => isEqual(x, s))) {
         const ii = indexFor(b, i, a);
-        a.splice(ii, 0, s);
-        actions({ add: s, path: appendPath(path, `[${ii}]`) }, h);
+
+        a.splice(
+          ii,
+          0,
+          merge(undefined, s, appendPath(path, `[${ii}]`), actions, hints)
+        );
       }
     }
-    i++;
+  }
+
+  if (h.orderBy) {
+    a = a.sort((a, b) =>
+      compareWithDefinedOrder(keyFor(a, h), keyFor(b, h), h.orderBy)
+    );
+  } else if (h.compare) {
+    a = a.sort(h.compare);
   }
 
   if (h.removeEmpty) {
@@ -116,7 +113,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 }
 
 /**
- * merge to values
+ * Merge to values
  * @param {any} a
  * @param {any} b
  * @param {Object[]} actions
@@ -127,7 +124,6 @@ export function merge(a, b, path, actions = nullAction, hints) {
   if (isScalar(a)) {
     if (b !== undefined && !isEqual(a, b)) {
       const hint = hintFor(hints, path);
-
       b = hint.keepHints ? deepCopy(b) : removeHintedValues(b);
       actions({ add: b, path }, hint);
       return b;

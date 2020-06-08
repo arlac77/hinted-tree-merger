@@ -1,12 +1,16 @@
 import test from "ava";
 import { mergeArrays } from "hinted-tree-merger";
 
-function mat(t, a, b, r, hints) {
+function mat(t, a, b, r, hints, expectedActions) {
   const myActions = [];
   t.deepEqual(
     mergeArrays(a, b, "", x => myActions.push(x), hints),
     r
   );
+
+  if(expectedActions) {
+    t.deepEqual(myActions, expectedActions, "actions");
+  }
 }
 
 mat.title = (providedTitle = "merge", a, b) =>
@@ -35,7 +39,7 @@ test(
   }
 );
 
-test.skip(
+test(
   mat,
   [{ o: 1 }, { k: "a", o: 2 }, { o: 3 }],
   [{ k: "a", o: 2.1 }],
@@ -53,7 +57,7 @@ test(mat, [], [{ k: 2, v: ["-a", "b"] }], [{ k: 2, v: ["b"] }], {
   }
 });
 
-test(mat, [{ k: 1 }], [{ k: 2 }, { k: 1 }], [{ k: 1 }, { k: 2 }], {
+test(mat, [{ k: 1 }], [{ k: 2 }, { k: 1 }], [{ k: 2 }, { k: 1 }], {
   "*": {
     key: "k"
   }

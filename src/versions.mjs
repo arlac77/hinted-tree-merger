@@ -208,8 +208,12 @@ export function mergeVersionsWithFilter(
   filter
 ) {
   if (b === undefined) {
-    return a;
+    if (a === undefined) {
+      return undefined;
+    }
+    b = [];
   }
+
   const hint = hintFor(hints, path);
 
   const aVersions = toSet(a);

@@ -18,7 +18,7 @@ test("travis merge", t => {
         include: [
           {
             stage: "test",
-            //node_js: ["-13"],
+            node_js: ["-13"],
             script: ["npm run cover", "npx codecov"]
           }
         ]
@@ -41,7 +41,7 @@ test("travis merge", t => {
       include: [
         {
           stage: "test",
-          node_js: ["13.8.0"],
+          //node_js: ["13.8.0"],
           script: ["npm run cover", "npx codecov"]
         }
       ]

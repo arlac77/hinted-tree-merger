@@ -1,7 +1,7 @@
 import test from "ava";
 import { merge, mergeVersionsPreferNumeric } from "hinted-tree-merger";
 
-test.skip("travis merge", t => {
+test("travis merge", t => {
   const merged = merge(
     {
       name: "API to readme",
@@ -52,7 +52,7 @@ test.skip("travis merge", t => {
     }
   );
 
-  console.log(JSON.stringify(merged, undefined, 2));
+  //console.log(JSON.stringify(merged, undefined, 2));
 
   t.deepEqual(merged, {
     name: "API to readme",

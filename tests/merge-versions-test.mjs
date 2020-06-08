@@ -147,7 +147,7 @@ test(mv, mergeVersionsSmallest, ["2"], ["1", "3"], "1");
 test(mv, mergeVersionsSmallest, ["2.1"], [1, "3"], "1");
 
 test(mv, mergeVersionsPreferNumeric, undefined, undefined, undefined);
-test(mv, mergeVersionsPreferNumeric, "1", undefined, "1");
+test(mv, mergeVersionsPreferNumeric, "1", undefined, 1);
 test(mv, mergeVersionsPreferNumeric, undefined, "1", 1, [
   { add: 1, path: undefined }
 ]);

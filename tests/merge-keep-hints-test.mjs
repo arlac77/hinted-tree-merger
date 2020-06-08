@@ -8,7 +8,7 @@ function mt(t, a, b, actions, hints, r) {
     r
   );
   if (actions !== undefined) {
-    t.deepEqual(actions, myActions);
+    t.deepEqual(actions, myActions, "actions");
   }
 }
 

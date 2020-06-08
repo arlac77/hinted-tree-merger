@@ -31,6 +31,10 @@ test(
   [1.2, 1.3, 2],
   [
     { remove: "1.1", path: undefined },
-    { add: ["1.2","1.3" ], path: undefined }
+    { add: ["1.2", "1.3"], path: undefined }
   ]
 );
+
+test(mvpn, ["13.8.0", "-1"], ["13.7.0"], ["13.7.0", "13.8.0"]);
+test(mvpn, ["13.8.0", "-1"], undefined, ["13.8.0"]);
+test(mvpn, ["13.8.0", "-13"], undefined, []);
