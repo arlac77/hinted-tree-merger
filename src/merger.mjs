@@ -14,7 +14,6 @@ import {
 
 import { hintFor } from "./hint.mjs";
 
-
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0
     ? suffix
@@ -47,21 +46,31 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 
     const a2m = (acc, cur, index) => {
       const keyValues = keys.map(k => cur[k]);
-      const k = /*keyValues.every(v => v === undefined) ? index :*/ keyValues.join(":");
+      const k = /*keyValues.every(v => v === undefined) ? index :*/ keyValues.join(
+        ":"
+      );
       //console.log(k);
-      acc.set(k, merge(acc.get(k), cur, appendPath(path, `[]`), actions, hints));
+      acc.set(
+        k,
+        merge(acc.get(k), cur, appendPath(path, "[]"), actions, hints)
+      );
       return acc;
     };
 
     const valuesByKeys = b.reduce(a2m, a.reduce(a2m, new Map()));
 
-    return [...valuesByKeys.keys()]
+    if(h.orderBy || h.compare) {
+      return [...valuesByKeys.keys()]
       .sort(
         h.orderBy
           ? (a, b) => compareWithDefinedOrder(a, b, h.orderBy)
           : h.compare
       )
       .map(key => valuesByKeys.get(key));
+    }
+    
+    // no sorting at all
+    return [...valuesByKeys.values()];
   }
 
   let i = 0;
