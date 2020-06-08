@@ -272,7 +272,7 @@ export function isScalar(a) {
 }
 
 /**
- * find best insertion point for b[i] in a
+ * Find best insertion point for b[i] in a
  * @param {any[]} b
  * @param {number} i
  * @param {any[]} a
@@ -284,7 +284,23 @@ export function indexFor(b, i, a) {
 }
 
 /**
- * sort keys in source
+ * Deliver key value to identify object
+ * @param {any} object 
+ * @param {Object} hint
+ * @return {string}
+ */
+export function keyFor(object, hint) {
+  if (hint && hint.key) {
+    const keys = asArray(hint.key);
+    const keyValues = keys.map(k => object[k]);
+    return keyValues.every(v => v === undefined) ? undefined : keyValues.join(":");
+  }
+
+  return undefined;
+}
+
+/**
+ * Sort keys in source
  * @param {Object} source
  * @param compare
  * @return {Object}
