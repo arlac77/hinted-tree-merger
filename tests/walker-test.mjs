@@ -44,7 +44,7 @@ test(wt, value4, [
 ]);
 
 const value5 = { a: 1, b: { c: 2 } };
-test.only("object nested", wt, value5, [
+test("object nested", wt, value5, [
   { value: value5, path: [], parents: [] },
   { value: 1, path: ["a"], parents: [value5] },
   { value: { c: 2 }, path: ["b"], parents: [value5] },
