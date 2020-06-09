@@ -291,9 +291,15 @@ export function indexFor(b, i, a) {
  */
 export function keyFor(object, hint) {
   if (hint && hint.key) {
-    const keys = asArray(hint.key);
-    const keyValues = keys.map(k => object[k]);
-    return keyValues.every(v => v === undefined) ? undefined : keyValues.join(":");
+    const andKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\&/);
+
+    if(andKeys.length > 1) {
+      const keyValues = andKeys.map(k => object[k]);
+      return keyValues.every(v => v === undefined) ? undefined : keyValues.join(":");
+    }
+
+    const orKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\|/);
+    return orKeys.map(k => object[k]).find(v => v !== undefined);
   }
 
   return undefined;
