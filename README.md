@@ -50,21 +50,21 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
 
 ### Table of Contents
 
--   [mergeSkip](#mergeskip)
-    -   [Parameters](#parameters)
--   [mergeArrays](#mergearrays)
-    -   [Parameters](#parameters-1)
--   [merge](#merge)
-    -   [Parameters](#parameters-2)
--   [MAX_SAFE_INTEGER](#max_safe_integer)
+-   [upper](#upper)
 -   [compareVersion](#compareversion)
-    -   [Parameters](#parameters-3)
+    -   [Parameters](#parameters)
+-   [unionVersion](#unionversion)
+    -   [Parameters](#parameters-1)
 -   [VersionMapper](#versionmapper)
 -   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    -   [Parameters](#parameters-4)
+    -   [Parameters](#parameters-2)
 -   [mergeVersions](#mergeversions)
-    -   [Parameters](#parameters-5)
+    -   [Parameters](#parameters-3)
 -   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+    -   [Parameters](#parameters-4)
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters-5)
+-   [walk](#walk)
     -   [Parameters](#parameters-6)
 -   [hasDeleteHint](#hasdeletehint)
     -   [Parameters](#parameters-7)
@@ -72,54 +72,24 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
     -   [Parameters](#parameters-8)
 -   [indexFor](#indexfor)
     -   [Parameters](#parameters-9)
--   [sortObjectsByKeys](#sortobjectsbykeys)
+-   [keyFor](#keyfor)
     -   [Parameters](#parameters-10)
--   [hintFor](#hintfor)
+-   [sortObjectsByKeys](#sortobjectsbykeys)
     -   [Parameters](#parameters-11)
+-   [mergeSkip](#mergeskip)
+    -   [Parameters](#parameters-12)
+-   [mergeArrays](#mergearrays)
+    -   [Parameters](#parameters-13)
+-   [merge](#merge)
+    -   [Parameters](#parameters-14)
 
-## mergeSkip
-
-Skip merging use left side
-
-### Parameters
-
--   `a`  
--   `b`  
--   `path`  
--   `actions`  
--   `hints`  
-
-## mergeArrays
-
-### Parameters
-
--   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
--   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)**  (optional, default `nullAction`)
--   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## merge
-
-merge to values
-
-### Parameters
-
--   `a` **any** 
--   `b` **any** 
--   `path`  
--   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
--   `hints` **any** 
-
-Returns **any** merged value
-
-## MAX_SAFE_INTEGER
+## upper
 
 url means highest version
 
 ## compareVersion
 
-compare two versions
+Compare two versions
 
 ### Parameters
 
@@ -127,6 +97,17 @@ compare two versions
 -   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** \-1 if a &lt; b, 0 if a == b and 1 if a > b
+
+## unionVersion
+
+Forms union of two versions
+
+### Parameters
+
+-   `a` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+-   `b` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number))** 
 
 ## VersionMapper
 
@@ -178,6 +159,25 @@ numbers if possible
 
 Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** merged set of version expressions
 
+## hintFor
+
+construct hint for a given path
+
+### Parameters
+
+-   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## walk
+
+Iterates over all members
+
+### Parameters
+
+-   `value` **any** 
+-   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>**  (optional, default `[]`)
+-   `parents`   (optional, default `[]`)
+
 ## hasDeleteHint
 
 ### Parameters
@@ -200,7 +200,7 @@ Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## indexFor
 
-find best insertion point for b[i] in a
+Find best insertion point for b[i] in a
 
 ### Parameters
 
@@ -208,9 +208,20 @@ find best insertion point for b[i] in a
 -   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 -   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
 
+## keyFor
+
+Deliver key value to identify object
+
+### Parameters
+
+-   `object` **any** 
+-   `hint` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
 ## sortObjectsByKeys
 
-sort keys in source
+Sort keys in source
 
 ### Parameters
 
@@ -219,14 +230,41 @@ sort keys in source
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
-## hintFor
+## mergeSkip
 
-construct hint for a given path
+Skip merging use left side
 
 ### Parameters
 
--   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `a`  
+-   `b`  
+-   `path`  
+-   `actions`  
+-   `hints`  
+
+## mergeArrays
+
+### Parameters
+
+-   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)**  (optional, default `nullAction`)
+-   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## merge
+
+Merge to values
+
+### Parameters
+
+-   `a` **any** 
+-   `b` **any** 
+-   `path`  
+-   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
+-   `hints` **any** 
+
+Returns **any** merged value
 
 # install
 
