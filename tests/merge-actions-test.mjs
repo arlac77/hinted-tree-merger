@@ -1,5 +1,5 @@
 import test from "ava";
-import { merge, mergeVersionsPreferNumeric,mergeSkip } from "hinted-tree-merger";
+import { merge, mergeVersionsPreferNumeric } from "hinted-tree-merger";
 
 test("action merge", t => {
   const merged = merge(
