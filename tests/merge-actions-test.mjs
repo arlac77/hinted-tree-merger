@@ -1,7 +1,7 @@
 import test from "ava";
-import { merge, mergeVersionsPreferNumeric } from "hinted-tree-merger";
+import { merge, mergeVersionsPreferNumeric,mergeSkip } from "hinted-tree-merger";
 
-test("travis merge", t => {
+test("action merge", t => {
   const merged = merge(
     {
       name: "API to readme",
@@ -14,7 +14,7 @@ test("travis merge", t => {
         },
         steps: [
           { uses: "actions/checkout@v2" },
-          { name: "doc", uses: "actions/setup-node@v1" },
+          { uses: "actions/setup-node@v1", with: { "node-version": "14.4.0" } },
           { run: "npm install" }
         ]
       }
@@ -30,9 +30,8 @@ test("travis merge", t => {
         },
         steps: [
           {
-            name: "doc",
             uses: "actions/setup-node@v1",
-            with: { "node-version": "14.4.0" }
+            with: { "node-version": "14.7.0" }
           }
         ]
       }
@@ -43,11 +42,12 @@ test("travis merge", t => {
       "*": {
         removeEmpty: true
       },
-      "*.node-version": {
+      "*.matrix.node-version": {
+        scope: "deps",
         merge: mergeVersionsPreferNumeric
       },
       "*.steps": {
-        key: ["id","name"]
+        key: "id|name|uses|run"
       }
     }
   );
@@ -66,9 +66,8 @@ test("travis merge", t => {
       steps: [
         { uses: "actions/checkout@v2" },
         {
-          name: "doc",
           uses: "actions/setup-node@v1",
-          with: { "node-version": "14.4.0" }
+          with: { "node-version": "14.7.0" }
         },
         { run: "npm install" }
       ]
