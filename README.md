@@ -62,9 +62,9 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
     -   [Parameters](#parameters-3)
 -   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-4)
--   [hintFor](#hintfor)
-    -   [Parameters](#parameters-5)
 -   [walk](#walk)
+    -   [Parameters](#parameters-5)
+-   [hintFor](#hintfor)
     -   [Parameters](#parameters-6)
 -   [hasDeleteHint](#hasdeletehint)
     -   [Parameters](#parameters-7)
@@ -159,15 +159,6 @@ numbers if possible
 
 Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** merged set of version expressions
 
-## hintFor
-
-construct hint for a given path
-
-### Parameters
-
--   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ## walk
 
 Iterates over all members
@@ -177,6 +168,15 @@ Iterates over all members
 -   `value` **any** 
 -   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>**  (optional, default `[]`)
 -   `parents`   (optional, default `[]`)
+
+## hintFor
+
+construct hint for a given path
+
+### Parameters
+
+-   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## hasDeleteHint
 
