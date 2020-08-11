@@ -47,6 +47,7 @@ test(cvt, ">=1.1.0", ">=1.0.0", 1);
 test(cvt, ">=1.0.0", ">=2.0.0", -1);
 test(cvt, ">=2.0.0", ">=1.0.0", 1);
 
+test.skip(cvt, "^10.17 || >=12.3", ">=12.3", 0);
 
 test(cvt, "1", "git+https://github.com/arlac77/light-server.git", -1);
 test(cvt, "1", "arlac77/lightserver", -1);
@@ -67,6 +68,8 @@ test(cvt, "1.0.2-beta", "1.0.2-rc", -1);
 test(cvt, "1.0.0-rc", "1.0.0-beta", 1);
 test(cvt, "1.0.0-beta.8", "1.0.0-rc.1", -1);
 test(cvt, "1.0.0-rc.1", "1.0.0-beta.8", 1);
+
+
 
 test("sort versions", t => {
   t.deepEqual(
