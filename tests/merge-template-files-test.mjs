@@ -9,7 +9,8 @@ test("mergeTemplate", t => {
           mergers: [
             {
               merger: "Other",
-              pattern: "a"
+              pattern: "a",
+              disabled: true
             },
             {
               merger: "Package",
@@ -55,7 +56,7 @@ test("mergeTemplate", t => {
       "",
       undefined,
       {
-        "dependencies" : { keepHints: true },
+        dependencies: { keepHints: true },
         "template.mergers": { key: ["merger", "pattern"] },
         "*.options.badges": {
           key: "name",
@@ -72,7 +73,8 @@ test("mergeTemplate", t => {
         mergers: [
           {
             merger: "Other",
-            pattern: "a"
+            pattern: "a",
+            disabled: true
           },
           {
             merger: "Package",
