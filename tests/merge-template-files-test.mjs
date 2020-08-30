@@ -1,12 +1,12 @@
 import test from "ava";
 import { merge, compare } from "hinted-tree-merger";
 
-test("mergeTemplateFiles", t => {
+test("mergeTemplate", t => {
   t.deepEqual(
     merge(
       {
         template: {
-          files: [
+          mergers: [
             {
               merger: "Other",
               pattern: "a"
@@ -32,7 +32,7 @@ test("mergeTemplateFiles", t => {
           rollup: "1.2.3"
         },
         template: {
-          files: [
+          mergers: [
             {
               merger: "Other",
               pattern: "b"
@@ -56,7 +56,7 @@ test("mergeTemplateFiles", t => {
       undefined,
       {
         "dependencies" : { keepHints: true },
-        "template.files": { key: ["merger", "pattern"] },
+        "template.mergers": { key: ["merger", "pattern"] },
         "*.options.badges": {
           key: "name",
           compare
@@ -69,7 +69,7 @@ test("mergeTemplateFiles", t => {
         rollup: "1.2.3"
       },
       template: {
-        files: [
+        mergers: [
           {
             merger: "Other",
             pattern: "a"
