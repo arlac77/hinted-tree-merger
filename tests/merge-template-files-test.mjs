@@ -36,6 +36,10 @@ test("mergeTemplate", t => {
           mergers: [
             {
               merger: "Other",
+              pattern: "a",
+            },
+            {
+              merger: "Other",
               pattern: "b"
             },
             {
