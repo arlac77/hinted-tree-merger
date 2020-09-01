@@ -82,8 +82,12 @@ test(
   [{ add: console.warn, path: "a" }]
 );
 
-test("object both sides empty string", mt, { }, { a: "" }, { a: "" }, [
+test("object both sides empty string", mt, {}, { a: "" }, { a: "" }, [
   { add: "", path: "a" }
+]);
+
+test("object both sides empty string", mt, undefined, { a: "" }, { a: "" }, [
+  { add: { a: "" }, path: undefined }
 ]);
 
 test("Set empty", mt, new Set(), new Set(), new Set(), []);

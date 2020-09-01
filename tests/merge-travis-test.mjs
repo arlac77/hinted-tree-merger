@@ -92,8 +92,6 @@ test("travis real merge", t => {
     }
   );
 
-  //t.log(JSON.stringify(merged,undefined,2));
-
   t.deepEqual(merged, {
     language: "node_js",
     node_js: ["10.15.3", "11.12.0"],

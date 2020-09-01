@@ -33,10 +33,11 @@ test("mergeTemplate", t => {
           rollup: "1.2.3"
         },
         template: {
+          properties: { rollup: { config: "" } },
           mergers: [
             {
               merger: "Other",
-              pattern: "a",
+              pattern: "a"
             },
             {
               merger: "Other",
@@ -74,6 +75,7 @@ test("mergeTemplate", t => {
         rollup: "1.2.3"
       },
       template: {
+        properties: { rollup: { config: "" } },
         mergers: [
           {
             merger: "Other",

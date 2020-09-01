@@ -80,7 +80,7 @@ export function hintFreeValue(value) {
   return value;
 }
 
-export function removeHintedValues(object) {
+export function removeHintedValues(object, removeEmpty = false) {
   if (typeof object === "string" && object.match(/--delete--\s*(.*)/)) {
     return undefined;
   }
@@ -113,8 +113,8 @@ export function removeHintedValues(object) {
   const result = {};
 
   for (const key of Object.keys(object)) {
-    const value = removeHintedValues(object[key]);
-    if (!isEmpty(value)) {
+    const value = removeHintedValues(object[key], removeEmpty);
+    if (!(removeEmpty && isEmpty(value)) && value !== undefined) {
       result[key] = value;
     }
   }
@@ -174,11 +174,18 @@ export function isEmpty(a) {
     return false;
   }
 
+  /*
   if (Object.keys(a).length === 0) {
     return true;
+  }*/
+
+  for(const value of Object.values(a)) {
+    if(!isEmpty(value)) {
+      return false;
+    }
   }
 
-  return false;
+  return true;
 }
 
 export function isEqual(a, b, hints) {

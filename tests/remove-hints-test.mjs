@@ -34,4 +34,4 @@ test(rhv, [1, "--delete-- a"], [1]);
 test("array into empty", rhv, ["--delete-- a"], []);
 
 test("deep array", rhv, { a: [1, "--delete-- a"] }, { a: [1] });
-test("deep array lonley", rhv, { a: ["--delete-- a"] }, {});
+test("deep array lonley", rhv, { a: ["--delete-- a"] }, { a: [] });
