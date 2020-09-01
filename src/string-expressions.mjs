@@ -50,10 +50,10 @@ export function decodeExpressions(script, hint) {
     return {
       overwrite,
       op: "&&",
-      args: script.split(/\s*&&\s*/)
+      args: script.split(/\s*&&\s*/).map(v=>v.trim())
     };
   }
-  return { op: "", args: [script], overwrite };
+  return { op: "", args: [script.trim()], overwrite };
 }
 
 function mergeOP(a, b) {

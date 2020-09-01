@@ -15,6 +15,7 @@ test(mset, "a1", undefined, {}, "a1");
 test(mset, "a2", "", {}, "a2");
 test(mset, "a3", "  ", {}, "a3");
 test(mset, "a4", undefined, {}, "a4");
+test(mset, "a5 ", "a5", {}, "a5");
 
 test(mset, "a&&b", "a", {}, "a && b");
 test(mset, "a", "b", {}, "a && b");
