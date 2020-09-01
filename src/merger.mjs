@@ -150,8 +150,12 @@ export function merge(a, b, path, actions = nullAction, hints) {
     const h = hintFor(hints, p);
     const av = a[key];
 
-    
-    if (h.merge === undefined && h.overwrite === false && !isEmpty(av) && isScalar(av)) {
+    if (
+      h.merge === undefined &&
+      h.overwrite === false &&
+      !isEmpty(av) &&
+      isScalar(av)
+    ) {
       r[key] = av;
       continue;
     }
