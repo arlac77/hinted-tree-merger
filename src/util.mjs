@@ -147,10 +147,7 @@ export function deepCopy(object) {
   const result = {};
 
   for (const [key, value] of Object.entries(object)) {
-    const copiedValue = deepCopy(value);
-    if (!isEmpty(copiedValue)) {
-      result[key] = copiedValue;
-    }
+    result[key] = deepCopy(value);
   }
 
   return result;
@@ -285,7 +282,7 @@ export function indexFor(b, i, a) {
 
 /**
  * Deliver key value to identify object
- * @param {any} object 
+ * @param {any} object
  * @param {Object} hint
  * @return {string}
  */
@@ -293,9 +290,11 @@ export function keyFor(object, hint) {
   if (hint && hint.key) {
     const andKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\&/);
 
-    if(andKeys.length > 1) {
+    if (andKeys.length > 1) {
       const keyValues = andKeys.map(k => object[k]);
-      return keyValues.every(v => v === undefined) ? undefined : keyValues.join(":");
+      return keyValues.every(v => v === undefined)
+        ? undefined
+        : keyValues.join(":");
     }
 
     const orKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\|/);

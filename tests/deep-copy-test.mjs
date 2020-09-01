@@ -28,3 +28,4 @@ test(dct, a => {});
 test(dct, {});
 test(dct, { a: "1" });
 test(dct, { a: "" });
+test(dct, { a: { b: "1" } });
