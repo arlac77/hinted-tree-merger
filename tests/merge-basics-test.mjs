@@ -15,6 +15,8 @@ function mt(t, a, b, r, actions) {
 mt.title = (providedTitle = "merge", a, b) =>
   `${providedTitle} ${a instanceof Function ? a.name : a} ${b}`.trim();
 
+test("empty string", mt, "a", "", "", [{ add: "", path: undefined }]);
+
 test(mt, 1, 2, 2, [{ add: 2, path: undefined }]);
 test(mt, 1, undefined, 1, []);
 test(mt, undefined, 2, 2, [{ add: 2, path: undefined }]);
@@ -79,6 +81,10 @@ test(
   { a: console.warn },
   [{ add: console.warn, path: "a" }]
 );
+
+test("object both sides empty string", mt, { }, { a: "" }, { a: "" }, [
+  { add: "", path: "a" }
+]);
 
 test("Set empty", mt, new Set(), new Set(), new Set(), []);
 test(mt, new Set([1]), new Set([2]), new Set([1, 2]), [
