@@ -174,11 +174,6 @@ export function isEmpty(a) {
     return false;
   }
 
-  /*
-  if (Object.keys(a).length === 0) {
-    return true;
-  }*/
-
   for(const value of Object.values(a)) {
     if(!isEmpty(value)) {
       return false;
