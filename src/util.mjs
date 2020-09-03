@@ -8,6 +8,8 @@ export function compare(a, b) {
   return a < b ? -1 : a > b ? 1 : 0;
 }
 
+const DELTE_HINT_REGEX = /^--delete--\s*(.*)/;
+
 /**
  * @param {any} value
  * @param {string|Function} expected
@@ -15,7 +17,7 @@ export function compare(a, b) {
  */
 export function hasDeleteHint(value, expected) {
   if (typeof value === "string") {
-    const m = value.match(/^--delete--\s*(.*)/);
+    const m = value.match(DELTE_HINT_REGEX);
     if (m) {
       if (expected === undefined) {
         return true;
@@ -43,6 +45,7 @@ export function hasDeleteHint(value, expected) {
   return false;
 }
 
+
 /**
  * should value be removed
  * @param {string} value
@@ -55,7 +58,7 @@ export function isToBeRemoved(value, fromTemplate) {
   }
 
   if (typeof fromTemplate === "string") {
-    const m = fromTemplate.match(/--delete--\s*(.*)/);
+    const m = fromTemplate.match(DELTE_HINT_REGEX);
     if (m) {
       const flag = m[1] === value;
       return { removeOriginal: flag, keepOriginal: !flag };
@@ -67,7 +70,7 @@ export function isToBeRemoved(value, fromTemplate) {
 
 export function hintFreeValue(value) {
   if (typeof value === "string") {
-    const m = value.match(/^--delete--\s*(.*)/);
+    const m = value.match(DELTE_HINT_REGEX);
     if (m) {
       return m[1];
     }
@@ -81,7 +84,7 @@ export function hintFreeValue(value) {
 }
 
 export function removeHintedValues(object, removeEmpty = false) {
-  if (typeof object === "string" && object.match(/--delete--\s*(.*)/)) {
+  if (typeof object === "string" && object.match(DELTE_HINT_REGEX)) {
     return undefined;
   }
 
@@ -92,7 +95,7 @@ export function removeHintedValues(object, removeEmpty = false) {
   if (Array.isArray(object)) {
     return object.filter(o =>
       typeof o === "string" &&
-      (o.match(/--delete--\s*(.*)/) || o.match(/^-([\.\w]+)/))
+      (o.match(DELTE_HINT_REGEX) || o.match(/^-([\.\w]+)/))
         ? false
         : true
     );
@@ -234,12 +237,6 @@ export function isEqual(a, b, hints) {
     }
 
     for (const key of new Set(Object.keys(a).concat(Object.keys(b)))) {
-      /*
-      if (b[key] === "--delete--" && a[key] !== undefined) {
-        return false;
-      }
-*/
-
       if (!isEqual(a[key], b[key], hints)) {
         return false;
       }
