@@ -310,7 +310,7 @@ export function keyFor(object, hint) {
  * Sort keys in source
  * @param {Object} source
  * @param compare
- * @return {Object}
+ * @return {Object} source with keys orderd by compare function
  */
 export function sortObjectsByKeys(source, compare) {
   const sorted = {};
