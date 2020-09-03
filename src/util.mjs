@@ -325,7 +325,8 @@ export function sortObjectsByKeys(source, compare) {
 export function compareWithDefinedOrder(a, b, definedOrder) {
   function matchingIndex(value) {
     for(const i in definedOrder) {
-      if(value.match(definedOrder[i])) {
+      const o = definedOrder[i];
+      if(o instanceof RegExp && value.match(o) || o === value) {
         return i;
       }
     }
