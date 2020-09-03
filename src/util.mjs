@@ -323,8 +323,18 @@ export function sortObjectsByKeys(source, compare) {
 }
 
 export function compareWithDefinedOrder(a, b, definedOrder) {
-  const ai = definedOrder.indexOf(a);
-  const bi = definedOrder.indexOf(b);
+  function matchingIndex(value) {
+    for(const i in definedOrder) {
+      if(value.match(definedOrder[i])) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  const ai = matchingIndex(a);
+  const bi = matchingIndex(b);
 
   if (ai < 0) {
     if (bi < 0) {
