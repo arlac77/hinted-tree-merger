@@ -99,3 +99,4 @@ test(mat, ["a", "", null, {}, [], [1]], ["b"], ["a", [1], "b"], {
 test(mat, [true], [true], [true]);
 test(mat, [false], [false], [false]);
 test(mat, [true, false], [false], [true, false]);
+test(mat, [0], [0], [0]);
