@@ -8,7 +8,7 @@ function mat(t, a, b, r, hints, expectedActions) {
     r
   );
 
-  if(expectedActions) {
+  if (expectedActions) {
     t.deepEqual(myActions, expectedActions, "actions");
   }
 }
@@ -95,3 +95,7 @@ test(mat, ["a", "b"], "--delete--c", ["a", "b"]);
 test(mat, ["a", "", null, {}, [], [1]], ["b"], ["a", [1], "b"], {
   "*": { removeEmpty: true }
 });
+
+test(mat, [true], [true], [true]);
+test(mat, [false], [false], [false]);
+test(mat, [true, false], [false], [true, false]);

@@ -44,7 +44,7 @@ test(mt, false, undefined, false);
 test(mt, undefined, false, false, [{ add: false, path: undefined }]);
 test(mt, undefined, true, true, [{ add: true, path: undefined }]);
 test(mt, [true], [true], [true], []);
-test.skip(mt, [false], [false], [false], []);
+test(mt, [false], [false], [false], []);
 test(
   mt,
   { a: true, b: false },

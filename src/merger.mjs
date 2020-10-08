@@ -79,7 +79,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
         }
       }
 
-      if (!a.find(x => isEqual(x, s))) {
+      if (a.find(x => isEqual(x, s)) === undefined) {
         const ii = indexFor(b, i, a);
 
         a.splice(
