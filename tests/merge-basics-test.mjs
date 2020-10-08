@@ -13,7 +13,9 @@ function mt(t, a, b, r, actions) {
 }
 
 mt.title = (providedTitle = "merge", a, b) =>
-  `${providedTitle} ${a instanceof Function ? a.name : a} ${b}`.trim();
+  `${providedTitle} ${a instanceof Function ? a.name : a} ${
+    typeof b === "bigint" ? b : JSON.stringify(b)
+  }`.trim();
 
 test("empty string", mt, "a", "", "", [{ add: "", path: undefined }]);
 
@@ -41,6 +43,15 @@ test(mt, true, undefined, true);
 test(mt, false, undefined, false);
 test(mt, undefined, false, false, [{ add: false, path: undefined }]);
 test(mt, undefined, true, true, [{ add: true, path: undefined }]);
+test(mt, [true], [true], [true], []);
+test.skip(mt, [false], [false], [false], []);
+test(
+  mt,
+  { a: true, b: false },
+  { a: true, b: false },
+  { a: true, b: false },
+  []
+);
 
 test(mt, undefined, undefined, undefined, []);
 test(mt, null, null, null, []);
