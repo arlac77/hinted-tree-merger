@@ -14,6 +14,7 @@ test(wt, 2n, [{ value: 2n, path: [], parents: [] }]);
 test(wt, "a", [{ value: "a", path: [], parents: [] }]);
 test(wt, true, [{ value: true, path: [], parents: [] }]);
 test(wt, undefined, [{ value: undefined, path: [], parents: [] }]);
+test(wt, null, [{ value: null, path: [], parents: [] }]);
 
 const value1 = [3];
 test(wt, value1, [

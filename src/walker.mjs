@@ -10,6 +10,10 @@ export function* walk(value, path = [], parents = []) {
     parents
   };
 
+  if (value === null) {
+    return;
+  }
+
   parents = [...parents, value];
 
   if (Array.isArray(value)) {
