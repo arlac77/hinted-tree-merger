@@ -1,5 +1,9 @@
 import test from "ava";
-import { merge, mergeVersions } from "hinted-tree-merger";
+import {
+  merge,
+  mergeVersions,
+  mergeVersionsPreferNumeric
+} from "hinted-tree-merger";
 
 function mt(t, a, b, r, hints, actions) {
   let myActions = [];
@@ -77,16 +81,16 @@ test.skip(
   mt,
   undefined,
   { matrix: { "node-version": [-15, "15.1.0"] } },
-  { matrix: { "node-version": ["15.1.0"] } },
+  { matrix: { "node-version": "15.1.0" } },
   {
     "*.node-version": {
-      merge: "mergeVersionsPreferNumeric"
+      merge: mergeVersionsPreferNumeric
     }
   },
   [
     {
-      add: { matrix: { "node-version": ["15.1.0"] } },
-      path: ""
+      add: "15.1.0",
+      path: "matrix.node-version"
     }
   ]
 );
