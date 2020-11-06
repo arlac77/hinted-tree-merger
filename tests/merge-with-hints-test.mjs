@@ -56,6 +56,23 @@ test(
 );
 
 test(
+  "into empty wihout hints",
+  mt,
+  undefined,
+  { version: ["-1.0", "2.0"] },
+  { version: ["2.0"] },
+  { version: { merge: mergeVersions } },
+  [
+    {
+      add: {
+        version: ["2.0"]
+      },
+      path: ""
+    }
+  ]
+);
+
+test(
   mt,
   { version: ["1.0.0", "2.0"] },
   { version: ["1.0.1", "-1.0.0"] },
