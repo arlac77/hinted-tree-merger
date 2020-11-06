@@ -56,7 +56,7 @@ test(
 );
 
 test(
-  "into empty wihout hints",
+  "into empty without hints",
   mt,
   undefined,
   { version: ["-1.0", "2.0"] },
@@ -67,6 +67,25 @@ test(
       add: {
         version: ["2.0"]
       },
+      path: ""
+    }
+  ]
+);
+
+test.skip(
+  "into empty without hints 2",
+  mt,
+  undefined,
+  { matrix: { "node-version": [-15, "15.1.0"] } },
+  { matrix: { "node-version": ["15.1.0"] } },
+  {
+    "*.node-version": {
+      merge: "mergeVersionsPreferNumeric"
+    }
+  },
+  [
+    {
+      add: { matrix: { "node-version": ["15.1.0"] } },
       path: ""
     }
   ]
