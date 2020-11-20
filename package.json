@@ -51,10 +51,6 @@
   },
   "homepage": "https://github.com/arlac77/hinted-tree-merger#readme",
   "template": {
-    "inheritFrom": [
-      "arlac77/template-esm-only",
-      "arlac77/template-github",
-      "arlac77/template-vscode"
-    ]
+    "inheritFrom": "arlac77/template-esm-only"
   }
 }
