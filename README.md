@@ -48,38 +48,135 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
 
 ### Table of Contents
 
+-   [hintFor](#hintfor)
+    -   [Parameters](#parameters)
+-   [mergeSkip](#mergeskip)
+    -   [Parameters](#parameters-1)
+-   [mergeArrays](#mergearrays)
+    -   [Parameters](#parameters-2)
+-   [merge](#merge)
+    -   [Parameters](#parameters-3)
+-   [hasDeleteHint](#hasdeletehint)
+    -   [Parameters](#parameters-4)
+-   [isToBeRemoved](#istoberemoved)
+    -   [Parameters](#parameters-5)
+-   [indexFor](#indexfor)
+    -   [Parameters](#parameters-6)
+-   [keyFor](#keyfor)
+    -   [Parameters](#parameters-7)
+-   [sortObjectsByKeys](#sortobjectsbykeys)
+    -   [Parameters](#parameters-8)
 -   [upper](#upper)
 -   [compareVersion](#compareversion)
-    -   [Parameters](#parameters)
+    -   [Parameters](#parameters-9)
 -   [unionVersion](#unionversion)
-    -   [Parameters](#parameters-1)
+    -   [Parameters](#parameters-10)
 -   [VersionMapper](#versionmapper)
 -   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    -   [Parameters](#parameters-2)
--   [mergeVersions](#mergeversions)
-    -   [Parameters](#parameters-3)
--   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
-    -   [Parameters](#parameters-4)
--   [hintFor](#hintfor)
-    -   [Parameters](#parameters-5)
--   [walk](#walk)
-    -   [Parameters](#parameters-6)
--   [hasDeleteHint](#hasdeletehint)
-    -   [Parameters](#parameters-7)
--   [isToBeRemoved](#istoberemoved)
-    -   [Parameters](#parameters-8)
--   [indexFor](#indexfor)
-    -   [Parameters](#parameters-9)
--   [keyFor](#keyfor)
-    -   [Parameters](#parameters-10)
--   [sortObjectsByKeys](#sortobjectsbykeys)
     -   [Parameters](#parameters-11)
--   [mergeSkip](#mergeskip)
+-   [mergeVersions](#mergeversions)
     -   [Parameters](#parameters-12)
--   [mergeArrays](#mergearrays)
+-   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     -   [Parameters](#parameters-13)
--   [merge](#merge)
+-   [walk](#walk)
     -   [Parameters](#parameters-14)
+
+## hintFor
+
+construct hint for a given path
+
+### Parameters
+
+-   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## mergeSkip
+
+Skip merging use left side
+
+### Parameters
+
+-   `a`  
+-   `b`  
+-   `path`  
+-   `actions`  
+-   `hints`  
+
+## mergeArrays
+
+### Parameters
+
+-   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
+-   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)**  (optional, default `nullAction`)
+-   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+## merge
+
+Merge to values
+
+### Parameters
+
+-   `a` **any** 
+-   `b` **any** 
+-   `path`  
+-   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
+-   `hints` **any** 
+
+Returns **any** merged value
+
+## hasDeleteHint
+
+### Parameters
+
+-   `value` **any** 
+-   `expected` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** 
+
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean))** 
+
+## isToBeRemoved
+
+should value be removed
+
+### Parameters
+
+-   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `fromTemplate` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** true if fromTemplate tells is to delete value
+
+## indexFor
+
+Find best insertion point for b[i] in a
+
+### Parameters
+
+-   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+-   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
+
+## keyFor
+
+Deliver key value to identify object
+
+### Parameters
+
+-   `object` **any** 
+-   `hint` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+## sortObjectsByKeys
+
+Sort keys in source
+
+### Parameters
+
+-   `source` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `compare`  
+
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** source with keys orderd by compare function
 
 ## upper
 
@@ -157,15 +254,6 @@ numbers if possible
 
 Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)> | [number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number) \| [Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>)** merged set of version expressions
 
-## hintFor
-
-construct hint for a given path
-
-### Parameters
-
--   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
 ## walk
 
 Iterates over all members
@@ -175,94 +263,6 @@ Iterates over all members
 -   `value` **any** 
 -   `path` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>**  (optional, default `[]`)
 -   `parents`   (optional, default `[]`)
-
-## hasDeleteHint
-
-### Parameters
-
--   `value` **any** 
--   `expected` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function))** 
-
-Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) \| [boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean))** 
-
-## isToBeRemoved
-
-should value be removed
-
-### Parameters
-
--   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `fromTemplate` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** true if fromTemplate tells is to delete value
-
-## indexFor
-
-Find best insertion point for b[i] in a
-
-### Parameters
-
--   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
--   `i` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
--   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;any>** 
-
-## keyFor
-
-Deliver key value to identify object
-
-### Parameters
-
--   `object` **any** 
--   `hint` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-## sortObjectsByKeys
-
-Sort keys in source
-
-### Parameters
-
--   `source` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `compare`  
-
-Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** source with keys orderd by compare function
-
-## mergeSkip
-
-Skip merging use left side
-
-### Parameters
-
--   `a`  
--   `b`  
--   `path`  
--   `actions`  
--   `hints`  
-
-## mergeArrays
-
-### Parameters
-
--   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
--   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)** 
--   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
--   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)**  (optional, default `nullAction`)
--   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-## merge
-
-Merge to values
-
-### Parameters
-
--   `a` **any** 
--   `b` **any** 
--   `path`  
--   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
--   `hints` **any** 
-
-Returns **any** merged value
 
 # install
 
