@@ -1,4 +1,4 @@
-import { DELETE_HINT_REGEX } from "./hint.mjs";
+import { DELETE_HINT_REGEX, SHORT_DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX } from "./hint.mjs";
 
 export function nullAction() { }
 
@@ -68,18 +68,20 @@ export function isToBeRemoved(value, fromTemplate) {
   return { removeOriginal: false, keepOriginal: true };
 }
 
+/**
+ * Remove hint(s) form a value.
+ * @param {string|any} value
+ * @returns {any} value without hint
+ */
 export function hintFreeValue(value) {
   if (typeof value === "string") {
-    const m = value.match(DELETE_HINT_REGEX);
-    if (m) {
-      return m[1];
-    }
-    const m2 = value.match(/^-([\.\w]+)/);
-    if (m2) {
-      return m2[1];
+    for (const r of [DELETE_HINT_REGEX, SHORT_DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX]) {
+      const m = value.match(r);
+      if (m) {
+        return m[1];
+      }
     }
   }
-
   return value;
 }
 
@@ -95,7 +97,7 @@ export function removeHintedValues(object, removeEmpty = false) {
   if (Array.isArray(object)) {
     return object.filter(o =>
       typeof o === "string" &&
-        (o.match(DELETE_HINT_REGEX) || o.match(/^-([\.\w]+)/))
+        (o.match(DELETE_HINT_REGEX) || o.match(SHORT_DELETE_HINT_REGEX))
         ? false
         : true
     );

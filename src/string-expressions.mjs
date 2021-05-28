@@ -39,9 +39,11 @@ export function decodeExpressions(script, hint) {
     return { op: "-", args: m[1] };
   }
 
-  if (script.match(OVERWRITE_HINT_REGEX)) {
+  const m2 = script.match(OVERWRITE_HINT_REGEX);
+
+  if (m2) {
     if (!hint.keepHints) {
-      script = script.replace(OVERWRITE_HINT_REGEX, "");
+      script = m2[1];
     }
     overwrite = true;
   }

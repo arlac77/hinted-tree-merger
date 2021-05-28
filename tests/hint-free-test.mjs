@@ -10,3 +10,4 @@ hfv.title = (providedTitle = "", a, r) => `remove ${providedTitle} ${a}`.trim();
 test(hfv, "--delete-- a", "a");
 test(hfv, "-a", "a");
 test(hfv, "a", "a");
+test(hfv, "--overwrite-- a", "a");
