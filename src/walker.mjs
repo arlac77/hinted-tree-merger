@@ -1,5 +1,5 @@
 /**
- * Iterates over all members
+ * Iterates over all members.
  * @param {any} value
  * @param {any[]} path
  */

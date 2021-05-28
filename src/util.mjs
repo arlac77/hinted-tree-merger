@@ -47,7 +47,7 @@ export function hasDeleteHint(value, expected) {
 
 
 /**
- * should value be removed
+ * Should value be removed.
  * @param {string} value
  * @param {string} fromTemplate
  * @return {number} true if fromTemplate tells is to delete value

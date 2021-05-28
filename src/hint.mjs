@@ -1,5 +1,5 @@
 /**
- * construct hint for a given path
+ * Construct hint for a given path.
  * @param {Object} hints
  * @param {string} path
  */

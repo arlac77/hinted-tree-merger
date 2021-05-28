@@ -130,7 +130,7 @@ function cmp(a, b) {
 }
 
 /**
- * Compare two versions
+ * Compare two versions.
  *
  * @param {string|number} a
  * @param {string|number} b
@@ -148,7 +148,7 @@ export function compareVersion(a, b) {
 }
 
 /**
- * Forms union of two versions
+ * Forms union of two versions.
  * @param {string|number} a
  * @param {string|number} b
  * @return {string|number}
@@ -190,7 +190,7 @@ function toSet(a) {
  */
 
 /**
- * merge and filter two sets of version (expressions)
+ * Merge and filter two sets of version (expressions).
  * @param {string|string[]|number|number[]} a
  * @param {string|string[]|number|number[]} b
  * @param {string} path location in the tree
