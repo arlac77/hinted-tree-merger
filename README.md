@@ -83,7 +83,7 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
 
 ## hintFor
 
-construct hint for a given path
+Construct hint for a given path.
 
 ### Parameters
 
@@ -92,7 +92,7 @@ construct hint for a given path
 
 ## mergeSkip
 
-Skip merging use left side
+Skip merging use left side always.
 
 ### Parameters
 
@@ -114,7 +114,7 @@ Skip merging use left side
 
 ## merge
 
-Merge to values
+Merge to values.
 
 ### Parameters
 
@@ -137,7 +137,7 @@ Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ## isToBeRemoved
 
-should value be removed
+Should value be removed.
 
 ### Parameters
 
@@ -184,7 +184,7 @@ url means highest version
 
 ## compareVersion
 
-Compare two versions
+Compare two versions.
 
 ### Parameters
 
@@ -195,7 +195,7 @@ Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## unionVersion
 
-Forms union of two versions
+Forms union of two versions.
 
 ### Parameters
 
@@ -212,7 +212,7 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 ## mergeVersionsWithFilter
 
-merge and filter two sets of version (expressions)
+Merge and filter two sets of version (expressions).
 
 ### Parameters
 
@@ -256,7 +256,7 @@ Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/
 
 ## walk
 
-Iterates over all members
+Iterates over all members.
 
 ### Parameters
 
