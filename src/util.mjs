@@ -1,4 +1,6 @@
-export function nullAction() {}
+import { DELETE_HINT_REGEX } from "./hint.mjs";
+
+export function nullAction() { }
 
 export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
@@ -7,8 +9,6 @@ export function asArray(a) {
 export function compare(a, b) {
   return a < b ? -1 : a > b ? 1 : 0;
 }
-
-const DELETE_HINT_REGEX = /^--delete--\s*(.*)/;
 
 /**
  * @param {any} value
@@ -95,7 +95,7 @@ export function removeHintedValues(object, removeEmpty = false) {
   if (Array.isArray(object)) {
     return object.filter(o =>
       typeof o === "string" &&
-      (o.match(DELETE_HINT_REGEX) || o.match(/^-([\.\w]+)/))
+        (o.match(DELETE_HINT_REGEX) || o.match(/^-([\.\w]+)/))
         ? false
         : true
     );
@@ -177,8 +177,8 @@ export function isEmpty(a) {
     return false;
   }
 
-  for(const value of Object.values(a)) {
-    if(!isEmpty(value)) {
+  for (const value of Object.values(a)) {
+    if (!isEmpty(value)) {
       return false;
     }
   }
@@ -321,9 +321,9 @@ export function sortObjectsByKeys(source, compare) {
 
 export function compareWithDefinedOrder(a, b, definedOrder) {
   function matchingIndex(value) {
-    for(const i in definedOrder) {
+    for (const i in definedOrder) {
       const o = definedOrder[i];
-      if(o instanceof RegExp && value.match(o) || o === value) {
+      if (o instanceof RegExp && value.match(o) || o === value) {
         return i;
       }
     }
