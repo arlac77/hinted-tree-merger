@@ -60,26 +60,28 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
     *   [Parameters](#parameters-4)
 *   [isToBeRemoved](#istoberemoved)
     *   [Parameters](#parameters-5)
-*   [indexFor](#indexfor)
+*   [hintFreeValue](#hintfreevalue)
     *   [Parameters](#parameters-6)
-*   [keyFor](#keyfor)
+*   [indexFor](#indexfor)
     *   [Parameters](#parameters-7)
-*   [sortObjectsByKeys](#sortobjectsbykeys)
+*   [keyFor](#keyfor)
     *   [Parameters](#parameters-8)
+*   [sortObjectsByKeys](#sortobjectsbykeys)
+    *   [Parameters](#parameters-9)
 *   [upper](#upper)
 *   [compareVersion](#compareversion)
-    *   [Parameters](#parameters-9)
-*   [unionVersion](#unionversion)
     *   [Parameters](#parameters-10)
+*   [unionVersion](#unionversion)
+    *   [Parameters](#parameters-11)
 *   [VersionMapper](#versionmapper)
 *   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    *   [Parameters](#parameters-11)
-*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-12)
-*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-13)
-*   [walk](#walk)
+*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     *   [Parameters](#parameters-14)
+*   [walk](#walk)
+    *   [Parameters](#parameters-15)
 
 ## hintFor
 
@@ -145,6 +147,16 @@ Should value be removed.
 *   `fromTemplate` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** true if fromTemplate tells is to delete value
+
+## hintFreeValue
+
+Remove hint(s) form a value.
+
+### Parameters
+
+*   `value` **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | any)** 
+
+Returns **any** value without hint
 
 ## indexFor
 
