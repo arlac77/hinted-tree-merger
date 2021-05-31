@@ -32,6 +32,7 @@ export function decodeExpressions(script, hint) {
   }
 
   let overwrite = false;
+  let like = false;
 
   const m = script.match(/^--delete--\s*(.*)/);
 
@@ -46,20 +47,41 @@ export function decodeExpressions(script, hint) {
     overwrite = true;
   }
 
+  if (script.match(/^--like--/)) {
+    if (!hint.keepHints) {
+      script = script.replace(/^--like--\s+/, "");
+    }
+    like = true;
+  }
+
   if (script.match(/&&/)) {
     return {
+      like,
       overwrite,
       op: "&&",
       args: script.split(/\s*&&\s*/).map(v=>v.trim())
     };
   }
-  return { op: "", args: [script.trim()], overwrite };
+  return { op: "", args: [script.trim()], overwrite, like };
 }
 
 function mergeOP(a, b) {
   const args = x => (x === undefined ? [] : x.args);
 
   const t = args(a).concat(args(b));
+
+  return {
+    op: "&&",
+    args: t.filter((item, pos) => t.indexOf(item) === pos)
+  };
+}
+
+function mergeLIKE(a, b) {
+  const args = x => (x === undefined ? [] : x.args);
+
+  //const t = args(a).concat(args(b));
+  const t="";
+  console.log(args(b))
 
   return {
     op: "&&",
@@ -78,6 +100,15 @@ export function mergeDecodedExpressions(dest, source) {
 
   if (dest.overwrite) {
     return dest;
+  }
+
+  if (source.like) {
+    //dest = mergeLIKE(dest, source );
+    return dest;
+  }
+
+  if (dest.like) {
+    return source;
   }
 
   switch (source.op) {

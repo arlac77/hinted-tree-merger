@@ -30,9 +30,45 @@ test(
 );
 
 test(mset, "a", "--delete-- a", {}, "");
-test("keepHints single", mset, "a", "--delete-- a", { "*": { keepHints: true } }, "a && --delete-- a");
-test("keepHints several", mset, "a", "--delete-- a && --delete-- b", { "*": { keepHints: true } }, "--delete-- a && --delete-- b && a");
-test("keepHints without value", mset, "a", "--delete--", { "*": { keepHints: true } }, "a && --delete--");
+test(
+  "keepHints single",
+  mset,
+  "a",
+  "--delete-- a",
+  { "*": { keepHints: true } },
+  "a && --delete-- a"
+);
+test(
+  "keepHints several",
+  mset,
+  "a",
+  "--delete-- a && --delete-- b",
+  { "*": { keepHints: true } },
+  "--delete-- a && --delete-- b && a"
+);
+test(
+  "keepHints without value",
+  mset,
+  "a",
+  "--delete--",
+  { "*": { keepHints: true } },
+  "a && --delete--"
+);
+
+test(
+  mset,
+  "oracle-util create --publish --ebsbld && npm publish",
+  "--like-- oracle-util create --publish && npm publish",
+  {},
+  "oracle-util create --publish --ebsbld && npm publish"
+);
+test.skip(
+  mset,
+  "oracle-util create --publish --ebsbld && npm publish",
+  "--like-- oracle-util create --publish --newparam && npm publish",
+  {},
+  "oracle-util create --publish --ebsbld --newparam && npm publish"
+);
 
 test(mset, "a && b", "--delete-- a", {}, "b");
 test(mset, "a && b", "--delete-- b", {}, "a");
@@ -40,7 +76,13 @@ test(mset, "a && b", "--delete-- c", {}, "a && b");
 test.skip(mset, "a && b", "--delete-- a && --delete-- b", {}, "");
 
 test(mset, "ava", "--overwrite-- ava --timeout 2m", {}, "ava --timeout 2m");
-test(mset, "ava --timeout 2m", "--overwrite-- ava --timeout 2m", {}, "ava --timeout 2m");
+test(
+  mset,
+  "ava --timeout 2m",
+  "--overwrite-- ava --timeout 2m",
+  {},
+  "ava --timeout 2m"
+);
 
 /*
 test("package scripts decode/encode scripts &&", t => {
