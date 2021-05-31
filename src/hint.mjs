@@ -1,5 +1,6 @@
+
 /**
- * construct hint for a given path
+ * Construct hint for a given path.
  * @param {Object} hints
  * @param {string} path
  */
@@ -34,3 +35,7 @@ export function hintFor(hints, path) {
 
   return hint;
 }
+
+export const DELETE_HINT_REGEX = /^--delete--\s*(.*)/;
+export const SHORT_DELETE_HINT_REGEX = /^-([\.\w]+)/;
+export const OVERWRITE_HINT_REGEX = /^--overwrite--\s*(.*)/;

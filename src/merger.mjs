@@ -22,7 +22,7 @@ function appendPath(path, suffix, separator = "") {
 }
 
 /**
- * Skip merging use left side
+ * Skip merging use left side always.
  */
 export function mergeSkip(a, b, path, actions, hints) {
   return a;
@@ -113,7 +113,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
 }
 
 /**
- * Merge to values
+ * Merge to values.
  * @param {any} a
  * @param {any} b
  * @param {Object[]} actions

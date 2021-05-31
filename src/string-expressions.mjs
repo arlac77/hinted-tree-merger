@@ -1,5 +1,5 @@
 import { nullAction } from "./util.mjs";
-import { hintFor } from "./hint.mjs";
+import { hintFor, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX } from "./hint.mjs";
 
 export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   if (a === undefined && b === undefined) {
@@ -34,15 +34,17 @@ export function decodeExpressions(script, hint) {
   let overwrite = false;
   let like = false;
 
-  const m = script.match(/^--delete--\s*(.*)/);
+  const m = script.match(DELETE_HINT_REGEX);
 
   if (m && !hint.keepHints) {
     return { op: "-", args: m[1] };
   }
 
-  if (script.match(/^--overwrite--/)) {
+  const m2 = script.match(OVERWRITE_HINT_REGEX);
+
+  if (m2) {
     if (!hint.keepHints) {
-      script = script.replace(/^--overwrite--\s+/, "");
+      script = m2[1];
     }
     overwrite = true;
   }
