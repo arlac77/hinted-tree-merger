@@ -36,6 +36,7 @@ export function hintFor(hints, path) {
   return hint;
 }
 
-export const DELETE_HINT_REGEX = /^--delete--\s*(.*)/;
 export const SHORT_DELETE_HINT_REGEX = /^-([\.\w]+)/;
+export const DELETE_HINT_REGEX = /^--delete--\s*(.*)/;
 export const OVERWRITE_HINT_REGEX = /^--overwrite--\s*(.*)/;
+export const LIKE_HINT_REGEX = /^--like--\s*(.*)/;
