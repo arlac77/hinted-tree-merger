@@ -1,5 +1,5 @@
 import { nullAction } from "./util.mjs";
-import { hintFor, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX } from "./hint.mjs";
+import { hintFor, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX, LIKE_HINT_REGEX } from "./hint.mjs";
 
 export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   if (a === undefined && b === undefined) {
@@ -49,9 +49,11 @@ export function decodeExpressions(script, hint) {
     overwrite = true;
   }
 
-  if (script.match(/^--like--/)) {
+  const m3 = script.match(LIKE_HINT_REGEX);
+
+  if (m3) {
     if (!hint.keepHints) {
-      script = script.replace(/^--like--\s+/, "");
+      script = m3[1];
     }
     like = true;
   }

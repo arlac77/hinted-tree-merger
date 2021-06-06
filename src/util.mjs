@@ -75,7 +75,7 @@ export function isToBeRemoved(value, fromTemplate) {
  */
 export function hintFreeValue(value) {
   if (typeof value === "string") {
-    for (const r of [DELETE_HINT_REGEX, SHORT_DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX]) {
+    for (const r of [SHORT_DELETE_HINT_REGEX, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX]) {
       const m = value.match(r);
       if (m) {
         return m[1];
