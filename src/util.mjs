@@ -270,7 +270,7 @@ export function isScalar(a) {
 }
 
 /**
- * Find best insertion point for b[i] in a
+ * Find best insertion point for b[i] in a.
  * @param {any[]} b
  * @param {number} i
  * @param {any[]} a
@@ -282,7 +282,7 @@ export function indexFor(b, i, a) {
 }
 
 /**
- * Deliver key value to identify object
+ * Deliver key value to identify object.
  * @param {any} object
  * @param {Object} hint
  * @return {string}
@@ -306,7 +306,7 @@ export function keyFor(object, hint) {
 }
 
 /**
- * Sort keys in source
+ * Sort keys in source.
  * @param {Object} source
  * @param compare
  * @return {Object} source with keys orderd by compare function
