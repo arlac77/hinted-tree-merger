@@ -281,6 +281,13 @@ export function indexFor(b, i, a) {
   return f >= 0 ? f : a.length;
 }
 
+function normalizeValue(value, hint) {
+  if (value !== undefined && hint.normalizeValue) {
+    return value.replace(new RegExp(hint.normalizeValue), '');
+  }
+  return value;
+}
+
 /**
  * Deliver key value to identify object.
  * @param {any} object
@@ -292,14 +299,14 @@ export function keyFor(object, hint) {
     const andKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\&/);
 
     if (andKeys.length > 1) {
-      const keyValues = andKeys.map(k => object[k]);
+      const keyValues = andKeys.map(k => normalizeValue(object[k], hint));
       return keyValues.every(v => v === undefined)
         ? undefined
         : keyValues.join(":");
     }
 
     const orKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\|/);
-    return orKeys.map(k => object[k]).find(v => v !== undefined);
+    return orKeys.map(k => normalizeValue(object[k], hint)).find(v => v !== undefined);
   }
 
   return undefined;

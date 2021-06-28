@@ -33,14 +33,24 @@ test(
   kft,
   {
     uses: "gr2m/create-or-update-pull-request-action@v1.x",
-    env: "GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}",
     with: {
       path: "README.md",
-      title: "Sync API into README",
-      branch: "readme-api",
-      "commit-message": "docs(README): sync API"
+      title: "Sync API into README"
     }
   },
   { key: "id|name|uses|run" },
   "gr2m/create-or-update-pull-request-action@v1.x"
+);
+
+test(
+  kft,
+  {
+    uses: "gr2m/create-or-update-pull-request-action@v1.x",
+    with: {
+      path: "README.md",
+      title: "Sync API into README"
+    }
+  },
+  { key: "id|name|uses|run", normalizeValue: "@.*" },
+  "gr2m/create-or-update-pull-request-action"
 );
