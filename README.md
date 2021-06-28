@@ -160,7 +160,7 @@ Returns **any** value without hint
 
 ## indexFor
 
-Find best insertion point for b\[i] in a
+Find best insertion point for b\[i] in a.
 
 ### Parameters
 
@@ -170,7 +170,7 @@ Find best insertion point for b\[i] in a
 
 ## keyFor
 
-Deliver key value to identify object
+Deliver key value to identify object.
 
 ### Parameters
 
@@ -181,7 +181,7 @@ Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 ## sortObjectsByKeys
 
-Sort keys in source
+Sort keys in source.
 
 ### Parameters
 
