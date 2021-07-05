@@ -223,3 +223,26 @@ test(
   { a: {} },
   undefined
 );
+
+test(
+  "remove key",
+  mt,
+  {
+    "{{nginx.config_dir}}/${name}.conf": "pacman/nginx.conf",
+    "/etc/nginx/config.d/${name}.conf": "pacman/nginx.conf"
+  },
+  {
+    "{{nginx.config_dir}}/${name}.conf": "pacman/nginx.conf",
+    "/etc/nginx/config.d/${name}.conf": "--delete--"
+  },
+  {
+    "{{nginx.config_dir}}/${name}.conf": "pacman/nginx.conf"
+  },
+  "",
+  [
+    {
+      path: "/etc/nginx/config.d/${name}.conf",
+      remove: "pacman/nginx.conf"
+    }
+  ]
+);
