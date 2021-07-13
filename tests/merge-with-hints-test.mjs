@@ -246,3 +246,31 @@ test(
     }
   ]
 );
+
+test.skip(
+  "remove from value hint",
+  mt,
+  {
+    steps: [
+      { name: 'Cache node modules' },
+      { name: 'Coveralls Parallel' }
+    ]
+  },
+  {
+    steps: [
+      { name: '--delete-- Cache node modules', a: 1 }
+    ]
+  },
+  {
+    steps: [
+      { name: 'Coveralls Parallel' }
+    ]
+  },
+  {
+    "*.steps": {
+      "key": "id|name|uses|run"
+    }
+  }
+  ,
+  []
+);
