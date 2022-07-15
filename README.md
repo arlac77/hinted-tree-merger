@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/v/hinted-tree-merger.svg)](https://www.npmjs.com/package/hinted-tree-merger)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![minified size](https://badgen.net/bundlephobia/min/hinted-tree-merger)](https://bundlephobia.com/result?p=hinted-tree-merger)
+[![Open Bundle](https://bundlejs.com/badge-light.svg)](https://bundlejs.com/?q=hinted-tree-merger)
 [![downloads](http://img.shields.io/npm/dm/hinted-tree-merger.svg?style=flat-square)](https://npmjs.org/package/hinted-tree-merger)
 [![GitHub Issues](https://img.shields.io/github/issues/arlac77/hinted-tree-merger.svg?style=flat-square)](https://github.com/arlac77/hinted-tree-merger/issues)
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Farlac77%2Fhinted-tree-merger%2Fbadge\&style=flat)](https://actions-badge.atrox.dev/arlac77/hinted-tree-merger/goto)
