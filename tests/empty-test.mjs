@@ -6,7 +6,7 @@ function em(t, a) {
 }
 
 em.title = (providedTitle = "", a) =>
-  `isEmpty ${providedTitle} ${a && a.description ? "Symbol" : a}`.trim();
+  `isEmpty ${providedTitle} ${a?.description ? "Symbol" : a}`.trim();
 
 test(em, undefined);
 test(em, null);
@@ -17,13 +17,12 @@ test(em, []);
 test(em, new Set());
 test(em, new Map());
 
-
 function nem(t, a) {
   t.false(isEmpty(a));
 }
 
 nem.title = (providedTitle = "", a) =>
-  `not isEmpty ${providedTitle} ${a && a.description ? "Symbol" : a}`.trim();
+  `not isEmpty ${providedTitle} ${a?.description ? "Symbol" : a}`.trim();
 
 test(nem, 1);
 test(nem, 2n);

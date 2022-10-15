@@ -6,13 +6,14 @@ function sc(t, a) {
 }
 
 sc.title = (providedTitle = "", a) =>
-  `isScalar ${providedTitle} ${a && a.description ? "Symbol" : a}`.trim();
+  `isScalar ${providedTitle} ${a?.description ? "Symbol" : a}`.trim();
 
 function nsc(t, a) {
   t.false(isScalar(a));
 }
 
-nsc.title = (providedTitle = "", a) => `not isScalar ${providedTitle} ${a}`.trim();
+nsc.title = (providedTitle = "", a) =>
+  `not isScalar ${providedTitle} ${a}`.trim();
 
 test(sc, 1);
 test(sc, 2n);

@@ -7,11 +7,7 @@ function dct(t, a) {
 
 dct.title = (providedTitle = "", a) =>
   `deepCopy ${providedTitle} ${
-    a && a.description
-      ? "Symbol"
-      : typeof a === "bigint"
-      ? a
-      : JSON.stringify(a)
+    a?.description ? "Symbol" : typeof a === "bigint" ? a : JSON.stringify(a)
   }`.trim();
 
 test(dct, 1);

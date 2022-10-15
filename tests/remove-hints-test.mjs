@@ -7,9 +7,7 @@ function rhv(t, a, b) {
 }
 
 rhv.title = (providedTitle = "", a) =>
-  `removeHintedValues ${providedTitle} ${
-    a && a.description ? "Symbol" : a
-  }`.trim();
+  `removeHintedValues ${providedTitle} ${a?.description ? "Symbol" : a}`.trim();
 
 test(rhv, 1, 1);
 test(rhv, 2n, 2n);

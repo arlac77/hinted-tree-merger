@@ -7,7 +7,7 @@ function wt(t, a, b) {
 }
 
 wt.title = (providedTitle = "", a) =>
-  `walk ${providedTitle} ${a && a.description ? "Symbol" : a}`.trim();
+  `walk ${providedTitle} ${a?.description ? "Symbol" : a}`.trim();
 
 test(wt, 1, [{ value: 1, path: [], parents: [] }]);
 test(wt, 2n, [{ value: 2n, path: [], parents: [] }]);
