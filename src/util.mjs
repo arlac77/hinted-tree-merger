@@ -295,7 +295,7 @@ function normalizeValue(value, hint) {
  * @return {string}
  */
 export function keyFor(object, hint) {
-  if (hint && hint.key) {
+  if (hint?.key) {
     const andKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\&/);
 
     if (andKeys.length > 1) {
