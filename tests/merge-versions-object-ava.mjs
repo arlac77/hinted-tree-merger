@@ -9,7 +9,7 @@ function mv(t, a, b, c, ea, hints) {
       b,
       undefined,
       (action, hint) => {
-        if (hint && hint.type) {
+        if (hint?.type) {
           action.type = hint.type;
         }
         actions.push(action);
