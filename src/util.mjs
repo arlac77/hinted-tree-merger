@@ -1,6 +1,10 @@
-import { DELETE_HINT_REGEX, SHORT_DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX } from "./hint.mjs";
+import {
+  DELETE_HINT_REGEX,
+  SHORT_DELETE_HINT_REGEX,
+  OVERWRITE_HINT_REGEX
+} from "./hint.mjs";
 
-export function nullAction() { }
+export function nullAction() {}
 
 export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
@@ -45,7 +49,6 @@ export function hasDeleteHint(value, expected) {
   return false;
 }
 
-
 /**
  * Should value be removed.
  * @param {string} value
@@ -75,7 +78,11 @@ export function isToBeRemoved(value, fromTemplate) {
  */
 export function hintFreeValue(value) {
   if (typeof value === "string") {
-    for (const r of [SHORT_DELETE_HINT_REGEX, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX]) {
+    for (const r of [
+      SHORT_DELETE_HINT_REGEX,
+      DELETE_HINT_REGEX,
+      OVERWRITE_HINT_REGEX
+    ]) {
       const m = value.match(r);
       if (m) {
         return m[1];
@@ -97,7 +104,7 @@ export function removeHintedValues(object, removeEmpty = false) {
   if (Array.isArray(object)) {
     return object.filter(o =>
       typeof o === "string" &&
-        (o.match(DELETE_HINT_REGEX) || o.match(SHORT_DELETE_HINT_REGEX))
+      (o.match(DELETE_HINT_REGEX) || o.match(SHORT_DELETE_HINT_REGEX))
         ? false
         : true
     );
@@ -144,8 +151,11 @@ export function deepCopy(object) {
 
     return result;
   }
+  if (object instanceof Set) {
+    return new Set(...object);
+  }
 
-  if (object instanceof Set || object instanceof Date) {
+  if (object instanceof Date) {
     return object;
   }
 
@@ -159,16 +169,15 @@ export function deepCopy(object) {
 }
 
 export function isEmpty(a) {
-  if (a === undefined || a === null || a === "") {
-    return true;
+  if (isScalar(a)) {
+    if (a === undefined || a === null || a === "") {
+      return true;
+    }
+    return false;
   }
 
   if (Array.isArray(a) && a.length === 0) {
     return true;
-  }
-
-  if (isScalar(a)) {
-    return false;
   }
 
   if (a instanceof Map || a instanceof Set) {
@@ -283,7 +292,7 @@ export function indexFor(b, i, a) {
 
 function normalizeValue(value, hint) {
   if (value !== undefined && hint.normalizeValue) {
-    return value.replace(new RegExp(hint.normalizeValue), '');
+    return value.replace(new RegExp(hint.normalizeValue), "");
   }
   return value;
 }
@@ -306,7 +315,9 @@ export function keyFor(object, hint) {
     }
 
     const orKeys = Array.isArray(hint.key) ? hint.key : hint.key.split(/\|/);
-    return orKeys.map(k => normalizeValue(object[k], hint)).find(v => v !== undefined);
+    return orKeys
+      .map(k => normalizeValue(object[k], hint))
+      .find(v => v !== undefined);
   }
 
   return undefined;
@@ -332,7 +343,7 @@ export function compareWithDefinedOrder(a, b, definedOrder) {
   function matchingIndex(value) {
     for (const i in definedOrder) {
       const o = definedOrder[i];
-      if (o instanceof RegExp && value.match(o) || o === value) {
+      if ((o instanceof RegExp && value.match(o)) || o === value) {
         return i;
       }
     }
