@@ -181,7 +181,7 @@ function toSet(a) {
   if (isScalar(a)) {
     return a === undefined ? new Set() : new Set([a]);
   }
-  return new Set([...a.map(s => String(s))]);
+  return new Set(a.map(s => String(s)));
 }
 
 /**
