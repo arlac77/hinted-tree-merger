@@ -41,7 +41,7 @@
     "semantic-release": "^23.0.0"
   },
   "engines": {
-    "node": ">=18.18.2"
+    "node": ">=20.11.0"
   },
   "repository": {
     "type": "git",
@@ -55,7 +55,8 @@
     "inheritFrom": [
       "arlac77/template-arlac77-github",
       "arlac77/template-browser-ava",
-      "arlac77/template-esm-only"
+      "arlac77/template-esm-only",
+      "arlac77/template-node-component"
     ]
   }
 }
