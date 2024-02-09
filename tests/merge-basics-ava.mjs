@@ -75,6 +75,7 @@ test(
 
 test(mt, {}, {}, {}, []);
 test(mt, {}, undefined, {}, []);
+test(mt, {}, null, {}, []);
 test(mt, undefined, { a: 1 }, { a: 1 }, [{ add: { a: 1 }, path: undefined }]);
 test("object both sides", mt, { a: 1 }, { b: 2 }, { a: 1, b: 2 }, [
   { add: 2, path: "b" }

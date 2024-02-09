@@ -139,7 +139,7 @@ export function merge(a, b, path, actions = nullAction, hints) {
     return new Set(mergeArrays([...a], [...b], path, actions, hints));
   }
 
-  if (b === undefined) {
+  if (b === undefined || b === null) {
     b = {};
   }
 
