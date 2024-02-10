@@ -42,6 +42,11 @@ test(neq, 1, undefined);
 test(neq, "a", "b");
 test(neq, 123n, 124n);
 test(neq, 123n, undefined);
+test(neq, null, undefined);
+test(neq, null, 1);
+test(neq, null, "b");
+test(neq, undefined, null);
+
 test("set filled", neq, new Set(["a"]), new Set(["b"]));
 test("Set<>Map", neq, new Set(), new Map());
 test("Map<>Set", neq, new Map(), new Set());
