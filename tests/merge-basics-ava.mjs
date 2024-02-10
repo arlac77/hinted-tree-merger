@@ -21,6 +21,7 @@ test("empty string", mt, "a", "", "", [{ add: "", path: undefined }]);
 
 test(mt, 1, 2, 2, [{ add: 2, path: undefined }]);
 test(mt, 1, undefined, 1, []);
+test(mt, 1, null, 1, []);
 test(mt, undefined, 2, 2, [{ add: 2, path: undefined }]);
 test(mt, null, 2, 2, [{ add: 2, path: undefined }]);
 
@@ -32,6 +33,7 @@ test(mt, x1, x2, x2, [{ add: x2, path: undefined }]);
 
 test(mt, 11n, 22n, 22n, [{ add: 22n, path: undefined }]);
 test(mt, 11n, undefined, 11n, []);
+test(mt, 11n, null, 11n, []);
 test(mt, undefined, 22n, 22n, [{ add: 22n, path: undefined }]);
 
 test(mt, "a", "b", "b", [{ add: "b", path: undefined }]);
@@ -56,7 +58,7 @@ test(
 
 test(mt, undefined, undefined, undefined, []);
 test(mt, null, null, null, []);
-test(mt, undefined, null, null, [{ add: null, path: undefined }]);
+test(mt, undefined, null, undefined, []);
 test(mt, null, undefined, null, []);
 
 test(mt, [], undefined, [], []);

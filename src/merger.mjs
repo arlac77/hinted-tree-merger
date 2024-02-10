@@ -122,7 +122,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
  */
 export function merge(a, b, path, actions = nullAction, hints) {
   if (isScalar(a)) {
-    if (b !== undefined && !isEqual(a, b)) {
+    if (b !== undefined && b !== null && !isEqual(a, b)) {
       const hint = hintFor(hints, path);
       b = hint.keepHints ? deepCopy(b) : removeHintedValues(b);
       actions({ add: b, path }, hint);
