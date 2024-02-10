@@ -22,6 +22,7 @@ test("empty string", mt, "a", "", "", [{ add: "", path: undefined }]);
 test(mt, 1, 2, 2, [{ add: 2, path: undefined }]);
 test(mt, 1, undefined, 1, []);
 test(mt, undefined, 2, 2, [{ add: 2, path: undefined }]);
+test(mt, null, 2, 2, [{ add: 2, path: undefined }]);
 
 test(mt, console.log, console.log, console.log, []);
 
