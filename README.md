@@ -51,38 +51,42 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
 
 *   [hintFor](#hintfor)
     *   [Parameters](#parameters)
-*   [mergeSkip](#mergeskip)
+*   [Actions](#actions)
     *   [Parameters](#parameters-1)
-*   [mergeArrays](#mergearrays)
+*   [mergeSkip](#mergeskip)
     *   [Parameters](#parameters-2)
-*   [merge](#merge)
+*   [mergeArrays](#mergearrays)
     *   [Parameters](#parameters-3)
-*   [hasDeleteHint](#hasdeletehint)
+*   [merge](#merge)
     *   [Parameters](#parameters-4)
-*   [isToBeRemoved](#istoberemoved)
+*   [hasDeleteHint](#hasdeletehint)
     *   [Parameters](#parameters-5)
-*   [hintFreeValue](#hintfreevalue)
+*   [isToBeRemoved](#istoberemoved)
     *   [Parameters](#parameters-6)
-*   [indexFor](#indexfor)
+*   [hintFreeValue](#hintfreevalue)
     *   [Parameters](#parameters-7)
-*   [keyFor](#keyfor)
+*   [indexFor](#indexfor)
     *   [Parameters](#parameters-8)
-*   [sortObjectsByKeys](#sortobjectsbykeys)
+*   [keyFor](#keyfor)
     *   [Parameters](#parameters-9)
+*   [sortObjectsByKeys](#sortobjectsbykeys)
+    *   [Parameters](#parameters-10)
+*   [compareWithDefinedOrder](#comparewithdefinedorder)
+    *   [Parameters](#parameters-11)
 *   [match](#match)
 *   [compareVersion](#compareversion)
-    *   [Parameters](#parameters-10)
+    *   [Parameters](#parameters-12)
 *   [unionVersion](#unionversion)
-    *   [Parameters](#parameters-11)
+    *   [Parameters](#parameters-13)
 *   [VersionMapper](#versionmapper)
 *   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    *   [Parameters](#parameters-12)
-*   [mergeVersions](#mergeversions)
-    *   [Parameters](#parameters-13)
-*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     *   [Parameters](#parameters-14)
-*   [walk](#walk)
+*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-15)
+*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+    *   [Parameters](#parameters-16)
+*   [walk](#walk)
+    *   [Parameters](#parameters-17)
 
 ## hintFor
 
@@ -92,6 +96,15 @@ Construct hint for a given path.
 
 *   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 *   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+
+## Actions
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+### Parameters
+
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
+*   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ## mergeSkip
 
@@ -112,7 +125,7 @@ Skip merging use left side always.
 *   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**&#x20;
 *   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**&#x20;
 *   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
-*   `actions` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)**  (optional, default `nullAction`)
+*   `actions` **[Actions](#actions)**  (optional, default `nullAction`)
 *   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
 ## merge
@@ -124,7 +137,7 @@ Merge to values.
 *   `a` **any**&#x20;
 *   `b` **any**&#x20;
 *   `path` &#x20;
-*   `actions` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)>**  (optional, default `nullAction`)
+*   `actions` **[Actions](#actions)**  (optional, default `nullAction`)
 *   `hints` **any**&#x20;
 
 Returns **any** merged value
@@ -147,7 +160,7 @@ Should value be removed.
 *   `value` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `fromTemplate` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 
-Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** true if fromTemplate tells is to delete value
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** true if fromTemplate tells is to delete value
 
 ## hintFreeValue
 
@@ -178,7 +191,7 @@ Deliver key value to identify object.
 *   `object` **any**&#x20;
 *   `hint` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
 
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+Returns **([string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String) | [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined))**&#x20;
 
 ## sortObjectsByKeys
 
@@ -190,6 +203,14 @@ Sort keys in source.
 *   `compare` &#x20;
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** source with keys orderd by compare function
+
+## compareWithDefinedOrder
+
+### Parameters
+
+*   `a` **any**&#x20;
+*   `b` **any**&#x20;
+*   `definedOrder` &#x20;
 
 ## match
 
