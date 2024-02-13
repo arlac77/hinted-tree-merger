@@ -8,8 +8,8 @@
   "types": "./types/index.d.mts",
   "exports": {
     ".": {
-      "types": "./types/index.d.mts",
-      "default": "./src/index.mjs"
+      "default": "./src/index.mjs",
+      "types": "./types/index.d.mts"
     }
   },
   "description": "merges two trees guided with hints",
