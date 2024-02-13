@@ -12,8 +12,15 @@ import {
   compareWithDefinedOrder,
   sortObjectsByKeys
 } from "./util.mjs";
-
 import { hintFor } from "./hint.mjs";
+
+
+/**
+ * @callback Actions
+ * @param {Object} options
+ * @param {Object} hints
+ */
+
 
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0
@@ -33,7 +40,7 @@ export function mergeSkip(a, b, path, actions, hints) {
  * @param {Array} a
  * @param {Array} b
  * @param {string} path
- * @param {Function} actions
+ * @param {Actions} actions
  * @param {Object} hints
  */
 export function mergeArrays(a, b, path, actions = nullAction, hints) {
@@ -116,7 +123,7 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
  * Merge to values.
  * @param {any} a
  * @param {any} b
- * @param {Object[]} actions
+ * @param {Actions} actions
  * @param {any} hints
  * @return {any} merged value
  */
