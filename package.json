@@ -5,8 +5,12 @@
     "access": "public",
     "provenance": true
   },
+  "types": "./types/index.d.mts",
   "exports": {
-    ".": "./src/index.mjs"
+    ".": {
+      "types": "./types/index.d.mts",
+      "default": "./src/index.mjs"
+    }
   },
   "description": "merges two trees guided with hints",
   "keywords": [
@@ -24,7 +28,7 @@
   ],
   "license": "BSD-2-Clause",
   "scripts": {
-    "prepare": "npx playwright install",
+    "prepare": "tsc --allowJs --declaration --emitDeclarationOnly --declarationDir types -t esnext -m esnext --module nodenext --moduleResolution nodenext ./src**/*.mjs",
     "test": "npm run test:browser-ava && npm run test:ava",
     "test:ava": "ava --timeout 4m tests/*-ava.mjs tests/*-ava-node.mjs",
     "test:browser-ava": "browser-ava --headless --no-keep-open tests/*-ava.mjs tests/*-ava-browser.mjs",
