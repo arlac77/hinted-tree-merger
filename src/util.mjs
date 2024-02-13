@@ -53,7 +53,7 @@ export function hasDeleteHint(value, expected) {
  * Should value be removed.
  * @param {string} value
  * @param {string} fromTemplate
- * @return {number} true if fromTemplate tells is to delete value
+ * @return {Object} true if fromTemplate tells is to delete value
  */
 export function isToBeRemoved(value, fromTemplate) {
   if (fromTemplate === undefined) {
@@ -301,7 +301,7 @@ function normalizeValue(value, hint) {
  * Deliver key value to identify object.
  * @param {any} object
  * @param {Object} hint
- * @return {string}
+ * @return {string|undefined}
  */
 export function keyFor(object, hint) {
   if (hint?.key) {
@@ -319,8 +319,6 @@ export function keyFor(object, hint) {
       .map(k => normalizeValue(object[k], hint))
       .find(v => v !== undefined);
   }
-
-  return undefined;
 }
 
 /**
@@ -339,6 +337,11 @@ export function sortObjectsByKeys(source, compare) {
   return sorted;
 }
 
+  /**
+   * 
+   * @param {any} a 
+   * @param {any} b
+   */
 export function compareWithDefinedOrder(a, b, definedOrder) {
   function matchingIndex(value) {
     for (const i in definedOrder) {
