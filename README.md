@@ -73,20 +73,24 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
     *   [Parameters](#parameters-10)
 *   [compareWithDefinedOrder](#comparewithdefinedorder)
     *   [Parameters](#parameters-11)
-*   [match](#match)
-*   [compareVersion](#compareversion)
+*   [matchingIndex](#matchingindex)
     *   [Parameters](#parameters-12)
-*   [unionVersion](#unionversion)
+*   [match](#match)
+*   [cmp](#cmp)
     *   [Parameters](#parameters-13)
+*   [compareVersion](#compareversion)
+    *   [Parameters](#parameters-14)
+*   [unionVersion](#unionversion)
+    *   [Parameters](#parameters-15)
 *   [VersionMapper](#versionmapper)
 *   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    *   [Parameters](#parameters-14)
-*   [mergeVersions](#mergeversions)
-    *   [Parameters](#parameters-15)
-*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     *   [Parameters](#parameters-16)
-*   [walk](#walk)
+*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-17)
+*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+    *   [Parameters](#parameters-18)
+*   [walk](#walk)
+    *   [Parameters](#parameters-19)
 
 ## hintFor
 
@@ -212,9 +216,26 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 *   `b` **any**&#x20;
 *   `definedOrder` &#x20;
 
+## matchingIndex
+
+### Parameters
+
+*   `value` **any**&#x20;
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**&#x20;
+
 ## match
 
 url means highest version
+
+## cmp
+
+### Parameters
+
+*   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>**&#x20;
+*   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)>**&#x20;
+
+Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**&#x20;
 
 ## compareVersion
 
