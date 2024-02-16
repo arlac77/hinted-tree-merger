@@ -14,7 +14,6 @@ import {
 } from "./util.mjs";
 import { hintFor } from "./hint.mjs";
 
-
 /**
  * @callback Actions
  * @param {Object} options

@@ -4,7 +4,7 @@ import {
   OVERWRITE_HINT_REGEX
 } from "./hint.mjs";
 
-export function nullAction() {}
+export function nullAction(options,hint) {}
 
 export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
@@ -42,6 +42,7 @@ export function hasDeleteHint(value, expected) {
     }
 
     if (value === `-${expected}`) {
+      // @ts-ignore
       return expected;
     }
   }
@@ -343,10 +344,16 @@ export function sortObjectsByKeys(source, compare) {
    * @param {any} b
    */
 export function compareWithDefinedOrder(a, b, definedOrder) {
+  /**
+   * 
+   * @param {any} value 
+   * @returns {number}
+   */
   function matchingIndex(value) {
     for (const i in definedOrder) {
       const o = definedOrder[i];
       if ((o instanceof RegExp && value.match(o)) || o === value) {
+        // @ts-ignore
         return i;
       }
     }

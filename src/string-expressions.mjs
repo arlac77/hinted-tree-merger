@@ -1,5 +1,10 @@
 import { nullAction } from "./util.mjs";
-import { hintFor, DELETE_HINT_REGEX, OVERWRITE_HINT_REGEX, LIKE_HINT_REGEX } from "./hint.mjs";
+import {
+  hintFor,
+  DELETE_HINT_REGEX,
+  OVERWRITE_HINT_REGEX,
+  LIKE_HINT_REGEX
+} from "./hint.mjs";
 
 export function mergeExpressions(a, b, path, actions = nullAction, hints) {
   if (a === undefined && b === undefined) {
@@ -63,7 +68,7 @@ export function decodeExpressions(script, hint) {
       like,
       overwrite,
       op: "&&",
-      args: script.split(/\s*&&\s*/).map(v=>v.trim())
+      args: script.split(/\s*&&\s*/).map(v => v.trim())
     };
   }
   return { op: "", args: [script.trim()], overwrite, like };
@@ -84,11 +89,12 @@ function mergeLIKE(a, b) {
   const args = x => (x === undefined ? [] : x.args);
 
   //const t = args(a).concat(args(b));
-  const t="";
-  console.log(args(b))
+  const t = "";
+  console.log(args(b));
 
   return {
     op: "&&",
+    // @ts-ignore
     args: t.filter((item, pos) => t.indexOf(item) === pos)
   };
 }
