@@ -112,6 +112,12 @@ export function composeVersion(decomposed) {
   return joinSlots(decomposed.lower);
 }
 
+/**
+ * 
+ * @param {number[]} a 
+ * @param {number[]} b 
+ * @returns {number}
+ */
 function cmp(a, b) {
   for (const i in a) {
     if (i >= a.length) {
@@ -139,9 +145,6 @@ function cmp(a, b) {
 export function compareVersion(a, b) {
   const da = decomposeVersion(a);
   const db = decomposeVersion(b);
-
-  //console.log(a, da);
-  //console.log(b, db);
 
   const r = cmp(da.lower, db.lower);
   return r === 0 ? cmp(da.upper, db.upper) : r;
