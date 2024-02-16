@@ -119,7 +119,6 @@ test(mv, mergeVersions, ">=1.2.3", ">=1.2.3", ">=1.2.3");
 
 test(mv, mergeVersions, "1.2.3", "1.2.4", ["1.2.3", "1.2.4"]);
 
-
 test.skip(mv, mergeVersions, ">=1.2.3", ">=1.2.4", ">=1.2.3");
 test.skip(mv, mergeVersions, ">=1.2.3", ">=1.3.0", ">=1.3.0");
 test.skip(mv, mergeVersions, ">=1.2.3", ">=2.0.0", ">=2.0.0");
@@ -145,6 +144,7 @@ test(mv, mergeVersionsSmallest, undefined, "1", "1", [
 ]);
 test(mv, mergeVersionsSmallest, ["2"], ["1", "3"], "1");
 test(mv, mergeVersionsSmallest, ["2.1"], [1, "3"], "1");
+test(mv, mergeVersionsSmallest, new Set(["2.1"]), new Set([1, "3"]), "1");
 
 test(mv, mergeVersionsPreferNumeric, undefined, undefined, undefined);
 test(mv, mergeVersionsPreferNumeric, "1", undefined, 1);
