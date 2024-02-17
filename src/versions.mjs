@@ -113,9 +113,9 @@ export function composeVersion(decomposed) {
 }
 
 /**
- * 
- * @param {number[]} a 
- * @param {number[]} b 
+ *
+ * @param {number[]} a
+ * @param {number[]} b
  * @returns {number}
  */
 function cmp(a, b) {
@@ -185,7 +185,12 @@ function toSet(a) {
   if (isScalar(a)) {
     return a === undefined ? new Set() : new Set([a]);
   }
-  return new Set([...a].map(s => String(s)));
+
+  if (a[Symbol.iterator]) {
+    return new Set([...a].map(s => String(s)));
+  }
+
+  return new Set(Object.values(a));
 }
 
 /**
