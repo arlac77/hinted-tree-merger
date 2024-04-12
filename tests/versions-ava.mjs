@@ -9,8 +9,13 @@ function cvt(t, a, b, c) {
 cvt.title = (providedTitle = "", a, b) =>
   `equal ${providedTitle} ${a} ${b}`.trim();
 
+test(cvt, "", "", 0);
+test(cvt, undefined, undefined, 0);
+
 test(cvt, 1.0, 1, 0);
 test(cvt, "1.0", 1, 0);
+test(cvt, "1", "1.0.0.0", 0);
+test(cvt, "1.0.0.0", "1", 0);
 
 test(cvt, "1", "2", -1);
 test(cvt, "2", "1", 1);
@@ -68,8 +73,6 @@ test(cvt, "1.0.2-beta", "1.0.2-rc", -1);
 test(cvt, "1.0.0-rc", "1.0.0-beta", 1);
 test(cvt, "1.0.0-beta.8", "1.0.0-rc.1", -1);
 test(cvt, "1.0.0-rc.1", "1.0.0-beta.8", 1);
-
-
 
 test("sort versions", t => {
   t.deepEqual(
