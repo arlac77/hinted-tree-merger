@@ -12,6 +12,8 @@ cvt.title = (providedTitle = "", a, b) =>
 test(cvt, "", "", 0);
 test(cvt, undefined, undefined, 0);
 
+test(cvt, "1.0", "--delete-- 2.0", 1);
+
 test(cvt, 1.0, 1, 0);
 test(cvt, "1.0", 1, 0);
 test(cvt, "1", "1.0.0.0", 0);

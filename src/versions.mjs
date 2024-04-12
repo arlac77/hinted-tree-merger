@@ -119,6 +119,8 @@ export function composeVersion(decomposed) {
  * @returns {number}
  */
 function cmp(a, b) {
+  if(b === undefined) { return 1; }
+
   for (const i in a) {
     // @ts-ignore
     if (i >= b.length) {
