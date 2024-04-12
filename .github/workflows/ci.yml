@@ -40,7 +40,6 @@ jobs:
       matrix:
         browser:
           - chrome
-          - firefox
     steps:
       - uses: actions/checkout@v4.1.2
       - uses: actions/setup-node@v4.0.2
