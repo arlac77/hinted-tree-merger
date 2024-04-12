@@ -121,7 +121,7 @@ export function composeVersion(decomposed) {
 function cmp(a, b) {
   for (const i in a) {
     // @ts-ignore
-    if (i >= a.length) {
+    if (i >= b.length) {
       break;
     }
 
