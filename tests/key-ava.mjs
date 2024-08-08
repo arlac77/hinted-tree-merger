@@ -11,6 +11,7 @@ kft.title = (providedTitle = "", object, hint, expected) =>
   )}`.trim();
 
 test(kft, {}, undefined, undefined);
+test(kft, {}, null, undefined);
 test(kft, { x: "v" }, { key: "k" }, undefined);
 test(kft, { k: "v" }, { key: "k" }, "v");
 

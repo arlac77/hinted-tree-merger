@@ -292,7 +292,7 @@ export function indexFor(b, i, a) {
 }
 
 function normalizeValue(value, hint) {
-  if (value !== undefined && value !== null && hint.normalizeValue) {
+  if(typeof(value) === "string" && hint.normalizeValue) {
     return value.replace(new RegExp(hint.normalizeValue), "");
   }
   return value;
