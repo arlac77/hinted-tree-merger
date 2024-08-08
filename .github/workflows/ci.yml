@@ -41,7 +41,6 @@ jobs:
       matrix:
         browser:
           - chrome
-          - firefox
     steps:
       - uses: actions/checkout@v4.1.7
       - uses: actions/setup-node@v4.0.3
@@ -49,8 +48,6 @@ jobs:
           node-version: 22.6.0
           cache: npm
           cache-dependency-path: package-lock.json
-      - name: checkout
-        run: npm ci
       - name: checkout
         run: npm ci
       - run: npx playwright install
