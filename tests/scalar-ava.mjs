@@ -16,8 +16,11 @@ nsc.title = (providedTitle = "", a) =>
   `not isScalar ${providedTitle} ${a}`.trim();
 
 test(sc, 1);
+test("Number",sc, Number(1));
 test(sc, 2n);
+test("BigInt",sc, BigInt(2n));
 test(sc, "a");
+test("String",sc, String("a"));
 test(sc, true);
 test(sc, false);
 test(sc, undefined);
