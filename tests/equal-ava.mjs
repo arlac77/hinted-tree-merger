@@ -31,6 +31,12 @@ test(eq, new Set(), new Set());
 test("set filled", eq, new Set(["a"]), new Set(["a"]));
 test(eq, new Map(), new Map());
 test("Map<>Map", eq, new Map([["a", 1]]), new Map([["a", 1]]));
+test(
+  "Uint8Array<>Uint8Array",
+  eq,
+  new Uint8Array([1, 2, 3]),
+  new Uint8Array([1, 2, 3])
+);
 test(eq, new Date(), new Date());
 test(eq, console.log, console.log);
 
@@ -46,6 +52,9 @@ test(neq, null, undefined);
 test(neq, null, 1);
 test(neq, null, "b");
 test(neq, undefined, null);
+test(neq, undefined, 1);
+test(neq, undefined, 2n);
+test(neq, undefined, "a");
 
 test("set filled", neq, new Set(["a"]), new Set(["b"]));
 test("Set<>Map", neq, new Set(), new Map());
