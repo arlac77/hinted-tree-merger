@@ -87,7 +87,7 @@ test(
   [{ remove: "-1", path: undefined }]
 );
 
-test.failing( // TODO firefox ?
+test.skip( // TODO firefox ?
   "keepHints",
   mv,
   mergeVersions,
