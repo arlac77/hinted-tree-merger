@@ -4,7 +4,7 @@ import {
   OVERWRITE_HINT_REGEX
 } from "./hint.mjs";
 
-export function nullAction(options,hint) {}
+export function nullAction(options, hint) {}
 
 export function asArray(a) {
   return Array.isArray(a) ? a : a === undefined ? [] : [a];
@@ -293,7 +293,7 @@ export function indexFor(b, i, a) {
 }
 
 function normalizeValue(value, hint) {
-  if(typeof(value) === "string" && hint.normalizeValue) {
+  if (typeof value === "string" && hint.normalizeValue) {
     return value.replace(new RegExp(hint.normalizeValue), "");
   }
   return value;
@@ -339,15 +339,16 @@ export function sortObjectsByKeys(source, compare) {
   return sorted;
 }
 
-  /**
-   * 
-   * @param {any} a 
-   * @param {any} b
-   */
+/**
+ *
+ * @param {any} a
+ * @param {any} b
+ * @param {Array<RegExp|string>} definedOrder
+ */
 export function compareWithDefinedOrder(a, b, definedOrder) {
   /**
-   * 
-   * @param {any} value 
+   *
+   * @param {any} value
    * @returns {number}
    */
   function matchingIndex(value) {
