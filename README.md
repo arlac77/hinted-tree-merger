@@ -213,7 +213,7 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 
 *   `a` **any**&#x20;
 *   `b` **any**&#x20;
-*   `definedOrder` &#x20;
+*   `definedOrder` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<([RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))>**&#x20;
 
 ## matchingIndex
 
