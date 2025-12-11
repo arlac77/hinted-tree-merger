@@ -379,3 +379,18 @@ export function compareWithDefinedOrder(a, b, definedOrder) {
 
   return ai - bi;
 }
+
+/**
+ * try to from a regexp from str.
+ * Str must start with '/' and end with '/<flags>'
+ * @param {string} str 
+ * @returns {RegExp|string}
+ */
+export function toRegexp(str) {
+  if (typeof str === "string" && str[0] === "/" && str.match(/\/[a-z]*$/)) {
+    const m = str.match(/\/([a-z]*)$/);
+    const inner = str.substring(1, str.length - m[0].length);
+    return new RegExp(inner, m[1]);
+  }
+  return str;
+}

@@ -95,6 +95,8 @@ test(mat, ["a", "b"], ["-b"], ["a"]);
 
 test(mat, ["a", "b"], "-b", ["a"]);
 test(mat, ["a", "b"], "--delete-- b", ["a"]);
+test(mat, ["a", "b1"], "--delete-- b", ["a", "b1"]);
+test(mat, ["a", "b1", "c", "b2"], "--delete-- /b.*/", ["a", "c"]);
 test(mat, ["a", "b"], "--delete--b", ["a"]);
 test(mat, ["a", "b"], "--delete--c", ["a", "b"]);
 

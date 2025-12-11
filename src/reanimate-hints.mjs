@@ -7,6 +7,7 @@ import {
 } from "./versions.mjs";
 import { mergeExpressions } from "./string-expressions.mjs";
 import { mergeSkip } from "./merger.mjs";
+import { toRegexp } from "./util.mjs";
 
 const mergeFunctions = [
   mergeVersions,
@@ -29,17 +30,11 @@ export function reanimateHints(hints) {
         }
         break;
       case "orderBy":
-        parents[parents.length - 1].orderBy = value.map(v => {
-          if (typeof v === "string" && v[0] === "/" && v.match(/\/[img]?$/)) {
-            const m = v.match(/\/([a-z]*)$/)
-            const inner = v.substring(1,v.length - m[0].length)
-            return new RegExp(inner,m[1]);
-          }
-          return v;
-        });
+        parents[parents.length - 1].orderBy = value.map(v => toRegexp(v));
         break;
     }
   }
 
   return hints;
 }
+

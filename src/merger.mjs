@@ -10,7 +10,8 @@ import {
   keyFor,
   hasDeleteHint,
   compareWithDefinedOrder,
-  sortObjectsByKeys
+  sortObjectsByKeys,
+  toRegexp
 } from "./util.mjs";
 import { hintFor } from "./hint.mjs";
 
@@ -19,7 +20,6 @@ import { hintFor } from "./hint.mjs";
  * @param {Object} options
  * @param {Object} hints
  */
-
 
 function appendPath(path, suffix, separator = "") {
   return path === undefined || path.length === 0
@@ -54,6 +54,16 @@ export function mergeArrays(a, b, path, actions = nullAction, hints) {
       !hasDeleteHint(s, value => {
         if (h.keepHints) {
           return false;
+        }
+
+        value = toRegexp(value);
+        if(value instanceof RegExp) {
+          for(let i = 0; i < a.length; i++) {
+            if(typeof a[i] === 'string' && a[i].match(value)) {
+              a.splice(i, 1);
+              actions({ remove: value, path: appendPath(path, `[${i}]`) }, h);
+            }
+          }
         }
 
         const i = a.indexOf(value);
