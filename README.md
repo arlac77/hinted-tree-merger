@@ -74,22 +74,24 @@ const r = merge( undefined, [ { k:1, e:2}, { k:3 }]);
     *   [Parameters](#parameters-11)
 *   [matchingIndex](#matchingindex)
     *   [Parameters](#parameters-12)
+*   [toRegexp](#toregexp)
+    *   [Parameters](#parameters-13)
 *   [match](#match)
 *   [cmp](#cmp)
-    *   [Parameters](#parameters-13)
-*   [compareVersion](#compareversion)
     *   [Parameters](#parameters-14)
-*   [unionVersion](#unionversion)
+*   [compareVersion](#compareversion)
     *   [Parameters](#parameters-15)
+*   [unionVersion](#unionversion)
+    *   [Parameters](#parameters-16)
 *   [VersionMapper](#versionmapper)
 *   [mergeVersionsWithFilter](#mergeversionswithfilter)
-    *   [Parameters](#parameters-16)
-*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-17)
-*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
+*   [mergeVersions](#mergeversions)
     *   [Parameters](#parameters-18)
-*   [walk](#walk)
+*   [mergeVersionsPreferNumeric](#mergeversionsprefernumeric)
     *   [Parameters](#parameters-19)
+*   [walk](#walk)
+    *   [Parameters](#parameters-20)
 
 ## hintFor
 
@@ -125,8 +127,8 @@ Skip merging use left side always.
 
 ### Parameters
 
-*   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**&#x20;
-*   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)**&#x20;
+*   `a` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<any>**&#x20;
+*   `b` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)\<any>**&#x20;
 *   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
 *   `actions` **[Actions](#actions)**  (optional, default `nullAction`)
 *   `hints` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**&#x20;
@@ -222,6 +224,17 @@ Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/G
 *   `value` **any**&#x20;
 
 Returns **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)**&#x20;
+
+## toRegexp
+
+try to from a regexp from str.
+Str must start with '/' and end with '/<flags>'
+
+### Parameters
+
+*   `str` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**&#x20;
+
+Returns **([RegExp](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/RegExp) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))**&#x20;
 
 ## match
 
