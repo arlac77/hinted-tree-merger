@@ -36,8 +36,8 @@ export function mergeSkip(a, b, path, actions, hints) {
 
 /**
  *
- * @param {Array} a
- * @param {Array} b
+ * @param {Array<any>} a
+ * @param {Array<any>} b
  * @param {string} path
  * @param {Actions} actions
  * @param {Object} hints
